@@ -1,0 +1,28 @@
+[tools]
+java = "21"
+gradle = "8.14.4"
+kotlin = "2.0.0"
+jujutsu = "latest"
+
+[tasks]
+"build:android" = "gradle :app:assembleDebug"
+"run:web" = "gradle :app:wasmJsBrowserDevelopmentRun --continuous"
+"build" = "gradle build"
+"db:generate" = "kotlin scripts/db_seeder.main.kts assets/{{.flavor}}/prayer.db {{.flavor}}"
+"fonts:download" = "kotlin scripts/download_fonts.main.kts"
+"format" = "gradle spotlessApply"
+"format:check" = "gradle spotlessCheck"
+
+# Flavor shortcuts for Android Build
+"build:islam:android" = "gradle :app:assembleDebug -Pflavor=islam"
+"build:christianity:android" = "gradle :app:assembleDebug -Pflavor=christianity"
+"build:hinduism:android" = "gradle :app:assembleDebug -Pflavor=hinduism"
+"build:buddhism:android" = "gradle :app:assembleDebug -Pflavor=buddhism"
+"build:jewish:android" = "gradle :app:assembleDebug -Pflavor=jewish"
+
+# Flavor shortcuts for Web Run
+"run:islam:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=islam --continuous"
+"run:christianity:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=christianity --continuous"
+"run:hinduism:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=hinduism --continuous"
+"run:buddhism:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=buddhism --continuous"
+"run:jewish:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=jewish --continuous"

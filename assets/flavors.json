@@ -1,0 +1,227 @@
+[
+  {
+    "flavorId": "islam",
+    "appId": "com.sanctum.app.islam",
+    "appName": "Sanctum: Muslim Companion",
+    "colors": {
+      "primary": "#00664F",
+      "primaryVariant": "#004D3A",
+      "backgroundLight": "#F4F9F7",
+      "backgroundDark": "#0B1A17"
+    },
+    "terminology": {
+      "scripture_title": "The Quran",
+      "chapter_unit": "Surah",
+      "verse_unit": "Ayah",
+      "daily_devotion": "Daily Reflection",
+      "schedule_title": "Prayer Times"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your peaceful sanctuary for daily prayer and Quranic reflection.",
+      "daily_motivation": "Indeed, with hardship comes ease. Remain steadfast in your faith today."
+    },
+    "features": {
+      "hasCompass": true
+    }
+  },
+  {
+    "flavorId": "christianity",
+    "appId": "com.sanctum.app.christianity",
+    "appName": "Sanctum: Christian Companion",
+    "colors": {
+      "primary": "#2C5282",
+      "primaryVariant": "#1A365D",
+      "backgroundLight": "#F7FAFC",
+      "backgroundDark": "#0F172A"
+    },
+    "terminology": {
+      "scripture_title": "The Holy Bible",
+      "chapter_unit": "Chapter",
+      "verse_unit": "Verse",
+      "daily_devotion": "Daily Devotional",
+      "schedule_title": "Reading Plan"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your quiet space for daily scripture reading and prayer.",
+      "daily_motivation": "Be strong and courageous. You are guided and loved in every step of your journey."
+    },
+    "features": {
+      "hasCompass": false
+    }
+  },
+  {
+    "flavorId": "hinduism",
+    "appId": "com.sanctum.app.hinduism",
+    "appName": "Sanctum: Hindu Companion",
+    "colors": {
+      "primary": "#DD6B20",
+      "primaryVariant": "#C05621",
+      "backgroundLight": "#FFFAF0",
+      "backgroundDark": "#1C140D"
+    },
+    "terminology": {
+      "scripture_title": "The Bhagavad Gita",
+      "chapter_unit": "Adhyaya",
+      "verse_unit": "Shloka",
+      "daily_devotion": "Daily Sadhana",
+      "schedule_title": "Panchang & Auspicious Times"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your spiritual guide for daily sadhana and mindful living.",
+      "daily_motivation": "Focus on your rightful duty with a peaceful mind, detached from mere outcomes."
+    },
+    "features": {
+      "hasCompass": false
+    }
+  },
+  {
+    "flavorId": "buddhism",
+    "appId": "com.sanctum.app.buddhism",
+    "appName": "Sanctum: Buddhist Companion",
+    "colors": {
+      "primary": "#D69E2E",
+      "primaryVariant": "#B7791F",
+      "backgroundLight": "#FFFFF0",
+      "backgroundDark": "#1A1814"
+    },
+    "terminology": {
+      "scripture_title": "The Dhammapada",
+      "chapter_unit": "Vagga",
+      "verse_unit": "Gatha",
+      "daily_devotion": "Daily Meditation",
+      "schedule_title": "Mindfulness Timers"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your mindful sanctuary for meditation and the path to inner peace.",
+      "daily_motivation": "Peace comes from within. Walk the middle path with compassion and awareness today."
+    },
+    "features": {
+      "hasCompass": false
+    }
+  },
+  {
+    "flavorId": "jewish",
+    "appId": "com.sanctum.app.jewish",
+    "appName": "Sanctum: Jewish Companion",
+    "colors": {
+      "primary": "#0047AB",
+      "primaryVariant": "#002A5C",
+      "backgroundLight": "#F0F8FF",
+      "backgroundDark": "#0A1128"
+    },
+    "terminology": {
+      "scripture_title": "The Tanakh",
+      "chapter_unit": "Perek",
+      "verse_unit": "Pasuk",
+      "daily_devotion": "Daily Torah Study",
+      "schedule_title": "Tefillah Times"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your spiritual sanctuary for daily Torah study and prayer.",
+      "daily_motivation": "Remember the covenant and live with righteousness today."
+    },
+    "features": {
+      "hasCompass": true
+    }
+  },
+  {
+    "flavorId": "sikhism",
+    "appId": "com.sanctum.app.sikhism",
+    "appName": "Sanctum: Sikh Companion",
+    "colors": {
+      "primary": "#E67E22",
+      "primaryVariant": "#B95B10",
+      "backgroundLight": "#FFFAF4",
+      "backgroundDark": "#1A120B"
+    },
+    "terminology": {
+      "scripture_title": "Guru Granth Sahib",
+      "chapter_unit": "Ang",
+      "verse_unit": "Shabad",
+      "daily_devotion": "Daily Nitnem",
+      "schedule_title": "Amrit Vela & Prayer Timings"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your digital sanctuary for daily Gurbani reflection and Nitnem.",
+      "daily_motivation": "Recognize the whole human race as one. Live with honest labor and remember the Divine today."
+    },
+    "features": {
+      "hasCompass": false
+    }
+  },
+  {
+    "flavorId": "jainism",
+    "appId": "com.sanctum.app.jainism",
+    "appName": "Sanctum: Jain Companion",
+    "colors": {
+      "primary": "#C0392B",
+      "primaryVariant": "#922B21",
+      "backgroundLight": "#FDFAFA",
+      "backgroundDark": "#1A0C0C"
+    },
+    "terminology": {
+      "scripture_title": "The Agamas",
+      "chapter_unit": "Adhyaya",
+      "verse_unit": "Sutra",
+      "daily_devotion": "Daily Samayika",
+      "schedule_title": "Auspicious Tithis & Panchang"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your peaceful guide for non-violence, daily samayika, and spiritual purity.",
+      "daily_motivation": "Live and let live. Practice non-violence in thought, word, and action today."
+    },
+    "features": {
+      "hasCompass": false
+    }
+  },
+  {
+    "flavorId": "shinto",
+    "appId": "com.sanctum.app.shinto",
+    "appName": "Sanctum: Shinto Companion",
+    "colors": {
+      "primary": "#BC002D",
+      "primaryVariant": "#8B0020",
+      "backgroundLight": "#FAFAF5",
+      "backgroundDark": "#140A0C"
+    },
+    "terminology": {
+      "scripture_title": "The Kojiki",
+      "chapter_unit": "Volume",
+      "verse_unit": "Section",
+      "daily_devotion": "Daily Norito Prayer",
+      "schedule_title": "Matsuri & Auspicious Days"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your mindful space for daily reflection and harmony with nature.",
+      "daily_motivation": "Seek purity and sincerity of heart. Walk in harmony with the natural world today."
+    },
+    "features": {
+      "hasCompass": false
+    }
+  },
+  {
+    "flavorId": "taoism",
+    "appId": "com.sanctum.app.taoism",
+    "appName": "Sanctum: Taoist Companion",
+    "colors": {
+      "primary": "#1B4332",
+      "primaryVariant": "#081C15",
+      "backgroundLight": "#F4F9F5",
+      "backgroundDark": "#0A140F"
+    },
+    "terminology": {
+      "scripture_title": "Tao Te Ching",
+      "chapter_unit": "Zhang",
+      "verse_unit": "Verse",
+      "daily_devotion": "Daily Reflection",
+      "schedule_title": "Auspicious Solar Terms"
+    },
+    "copy": {
+      "welcome_message": "Welcome to your tranquil guide for effortless action and alignment with the Way.",
+      "daily_motivation": "Nature does not hurry, yet everything is accomplished. Flow with simplicity and peace today."
+    },
+    "features": {
+      "hasCompass": false
+    }
+  }
+]

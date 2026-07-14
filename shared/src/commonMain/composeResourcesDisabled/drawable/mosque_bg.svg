@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+    <!-- Mosque Silhouette for Background -->
+    <path fill="#0F172A" fill-opacity="0.5" d="
+        M0,600 L800,600 L800,450 
+        C750,450 720,400 720,350 
+        C720,300 750,250 800,250 
+        L800,100 L0,100 Z" />
+    
+    <g fill="#0c1222">
+        <!-- Main Dome -->
+        <path d="M400,250 C300,250 250,350 250,450 L550,450 C550,350 500,250 400,250 Z" />
+        <!-- Main Dome Base -->
+        <rect x="230" y="450" width="340" height="150" />
+        <!-- Left Minaret -->
+        <rect x="150" y="200" width="30" height="400" />
+        <polygon points="140,200 190,200 165,150" />
+        <!-- Right Minaret -->
+        <rect x="620" y="250" width="30" height="350" />
+        <polygon points="610,250 660,250 635,200" />
+        
+        <!-- Small Left Dome -->
+        <path d="M100,380 C70,380 50,420 50,450 L150,450 C150,420 130,380 100,380 Z" />
+        <rect x="40" y="450" width="120" height="150" />
+        
+        <!-- Crescent on Main Dome -->
+        <path d="M400,200 C390,200 380,210 380,220 C380,215 385,210 390,210 C395,210 400,215 400,220 C400,210 390,200 400,200 Z" fill="#4FC3F7" />
+    </g>
+</svg>
