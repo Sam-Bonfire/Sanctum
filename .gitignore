@@ -1,0 +1,22 @@
+# Gradle build files and directory
+.gradle/
+build/
+**/build/
+
+# Kotlin / JS tooling
+.kotlin/
+kotlin-js-store/
+
+# Local developer configurations
+local.properties
+.env
+.env.*
+
+# IDE specific files
+.idea/
+*.iml
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db

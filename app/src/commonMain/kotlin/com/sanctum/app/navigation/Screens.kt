@@ -1,0 +1,113 @@
+package com.sanctum.app.navigation
+
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.sanctum.core.core.designsystem.theme.SanctumTheme
+import com.sanctum.core.feature.compass.domain.PlatformSensors
+import com.sanctum.core.feature.compass.presentation.QiblaCompassScreen
+import com.sanctum.core.feature.duas.presentation.DuasCatalogScreen
+import com.sanctum.core.feature.scripture.presentation.DashboardScreen
+import com.sanctum.core.feature.scripture.presentation.DashboardViewModel
+import com.sanctum.core.feature.scripture.presentation.ScriptureIndexScreen
+import com.sanctum.core.feature.scripture.presentation.ScriptureReaderScreen
+import com.sanctum.core.feature.scripture.presentation.ScriptureViewModel
+import com.sanctum.core.feature.sync.presentation.SettingsScreen
+import com.sanctum.core.feature.sync.presentation.SyncViewModel
+import org.koin.compose.koinInject
+class DashboardScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val dashboardViewModel = koinInject<DashboardViewModel>()
+        val uiState by dashboardViewModel.uiState.collectAsState()
+        DashboardScreen(uiState = uiState)
+    }
+}
+
+class QiblaCompassScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val sensors = koinInject<PlatformSensors>()
+        QiblaCompassScreen(
+            sensors = sensors,
+            onManualLocationClick = {},
+        )
+    }
+}
+
+class ScriptureIndexScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val scriptureViewModel = koinInject<ScriptureViewModel>()
+        val uiState by scriptureViewModel.uiState.collectAsState()
+        val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
+
+        ScriptureIndexScreen(
+            uiState = uiState,
+            onChapterClick = { chapterId ->
+                navigator.push(ScriptureReaderScreenNode(chapterId))
+            },
+        )
+    }
+}
+
+class ScriptureReaderScreenNode(private val chapterId: String) : Screen {
+    @Composable
+    override fun Content() {
+        val scriptureViewModel = koinInject<ScriptureViewModel>()
+        val uiState by scriptureViewModel.uiState.collectAsState()
+
+        androidx.compose.runtime.LaunchedEffect(chapterId) {
+            scriptureViewModel.loadChapter(chapterId)
+        }
+
+        if (uiState.isLoading) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator(color = SanctumTheme.colors.brand)
+            }
+        } else {
+            uiState.activeChapter?.let { chapter ->
+                ScriptureReaderScreen(chapter = chapter)
+            } ?: run {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text("No Scripture Loaded", color = SanctumTheme.colors.textPrimary)
+                }
+            }
+        }
+    }
+}
+
+class DuasCatalogScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = koinInject<com.sanctum.core.feature.duas.presentation.DuasCatalogViewModel>()
+        DuasCatalogScreen(viewModel)
+    }
+}
+
+class SettingsScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val syncViewModel = koinInject<SyncViewModel>()
+        val syncState by syncViewModel.syncState.collectAsState()
+        SettingsScreen(
+            syncState = syncState,
+            onBackupClick = { syncViewModel.backupNow() },
+            onRestoreClick = { syncViewModel.restoreNow() },
+        )
+    }
+}
