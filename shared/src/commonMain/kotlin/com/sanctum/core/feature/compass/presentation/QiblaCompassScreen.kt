@@ -2,8 +2,10 @@ package com.sanctum.core.feature.compass.presentation
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -24,7 +26,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sanctum.core.core.design.LocalWhiteLabelConfig
+import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.components.SanctumPrimaryButton
+import com.sanctum.core.core.designsystem.components.SanctumSectionHeader
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.compass.domain.GeoLocation
 import com.sanctum.core.feature.compass.domain.PlatformSensors
@@ -64,116 +68,187 @@ fun QiblaCompassScreen(
     // When the device rotates, the pointer must counter-rotate by `deviceHeading`.
     val pointerAngle = (qiblaBearing.toFloat() - deviceHeading + 360f) % 360f
 
-    Box(modifier = Modifier.fillMaxSize().background(SanctumTheme.colors.background)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(SanctumTheme.colors.background),
+        contentAlignment = Alignment.TopCenter,
+    ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(24.dp),
+            modifier = Modifier
+                .widthIn(max = 600.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val config = LocalWhiteLabelConfig.current
             Spacer(modifier = Modifier.height(48.dp))
 
-            Text(
-                text = config.compassTitle,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = SanctumTheme.colors.textPrimary,
-                letterSpacing = 4.sp,
-            )
+            // ─── Cinematic Hero Header ──────────
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(3f)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                SanctumTheme.colors.brand.copy(alpha = 0.08f),
+                                SanctumTheme.colors.brand.copy(alpha = 0.02f),
+                            ),
+                        ),
+                    )
+                    .border(
+                        width = 0.5.dp,
+                        color = SanctumTheme.colors.outlineVariant.copy(alpha = 0.4f),
+                        shape = RoundedCornerShape(16.dp),
+                    )
+                    .padding(24.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = "SACRED DIRECTION",
+                        fontSize = 11.sp,
+                        color = SanctumTheme.colors.brand,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 3.sp,
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = config.compassTitle,
+                        fontSize = 28.sp,
+                        color = SanctumTheme.colors.textPrimary,
+                        fontWeight = FontWeight.Medium,
+                        fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                        letterSpacing = 2.sp,
+                    )
+                }
+            }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             if (location != null) {
                 Text(
                     text = "Bearing: ${qiblaBearing.toInt()}°",
-                    style = SanctumTheme.typography.bodyLarge,
+                    style = SanctumTheme.typography.bodyMedium,
                     color = SanctumTheme.colors.textSecondary,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.sp,
+                    fontSize = 11.sp,
                 )
             } else {
                 Text(
-                    text = "Detecting Location...",
-                    style = SanctumTheme.typography.bodyLarge,
+                    text = "DETECTING LOCATION…",
+                    style = SanctumTheme.typography.bodyMedium,
                     color = SanctumTheme.colors.textSecondary,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 2.sp,
+                    fontSize = 11.sp,
                 )
             }
 
-            Spacer(modifier = Modifier.height(64.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
-            // The Compass
-            Box(
-                modifier = Modifier
-                    .size(300.dp)
-                    .clip(CircleShape)
-                    .background(
-                        brush = Brush.radialGradient(
-                            colors = listOf(SanctumTheme.colors.brand.copy(alpha = 0.05f), Color.Transparent),
-                        ),
-                    ),
-                contentAlignment = Alignment.Center,
+            // ─── Section Header ──────────
+            SanctumSectionHeader(
+                text = "COMPASS",
+                modifier = Modifier.align(Alignment.Start),
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // ─── The Compass ──────────
+            SanctumCard(
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(24.dp),
             ) {
-                val primaryColor = SanctumTheme.colors.brand
-                val primaryVariantColor = SanctumTheme.colors.brandVariant
-                val onBackgroundColor = SanctumTheme.colors.textPrimary
-                val onBackgroundFaded = SanctumTheme.colors.textPrimary.copy(alpha = 0.3f)
-
-                // Outer Dial (Rotates with the phone)
-                Canvas(
-                    modifier = Modifier.fillMaxSize().graphicsLayer {
-                        rotationZ = -deviceHeading
-                    },
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    val radius = size.width / 2
-                    // Draw tick marks
-                    for (i in 0 until 360 step 15) {
-                        val isCardinal = i % 90 == 0
-                        val tickLength = if (isCardinal) 20.dp.toPx() else 10.dp.toPx()
-                        val tickColor = if (isCardinal) onBackgroundColor else onBackgroundFaded
-
-                        rotate(i.toFloat(), size.center) {
-                            drawLine(
-                                color = tickColor,
-                                start = Offset(size.center.x, 0f),
-                                end = Offset(size.center.x, tickLength),
-                                strokeWidth = if (isCardinal) 3.dp.toPx() else 1.dp.toPx(),
-                                cap = StrokeCap.Round,
-                            )
-                        }
-                    }
-                }
-
-                // Inner Dial / Needle (Points to Qibla)
-                Canvas(modifier = Modifier.fillMaxSize()) {
-                    rotate(pointerAngle, size.center) {
-                        // The Qibla Arrow
-                        val path = Path().apply {
-                            moveTo(size.center.x, 30.dp.toPx()) // Tip
-                            lineTo(size.center.x + 15.dp.toPx(), size.center.y) // Right wide
-                            lineTo(size.center.x, size.center.y - 15.dp.toPx()) // Inner indent
-                            lineTo(size.center.x - 15.dp.toPx(), size.center.y) // Left wide
-                            close()
-                        }
-
-                        drawPath(
-                            path = path,
-                            brush = Brush.linearGradient(
-                                colors = listOf(primaryColor, primaryVariantColor),
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f)
+                            .clip(CircleShape)
+                            .background(
+                                brush = Brush.radialGradient(
+                                    colors = listOf(
+                                        SanctumTheme.colors.brand.copy(alpha = 0.05f),
+                                        Color.Transparent,
+                                    ),
+                                ),
                             ),
-                        )
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        val primaryColor = SanctumTheme.colors.brand
+                        val primaryVariantColor = SanctumTheme.colors.brandVariant
+                        val onBackgroundColor = SanctumTheme.colors.textPrimary
+                        val onBackgroundFaded = SanctumTheme.colors.textPrimary.copy(alpha = 0.3f)
 
-                        // Center dot
-                        drawCircle(
-                            color = onBackgroundColor,
-                            radius = 6.dp.toPx(),
-                            center = size.center,
-                        )
+                        // Outer Dial (Rotates with the phone)
+                        Canvas(
+                            modifier = Modifier.fillMaxSize().graphicsLayer {
+                                rotationZ = -deviceHeading
+                            },
+                        ) {
+                            val radius = size.width / 2
+                            // Draw tick marks
+                            for (i in 0 until 360 step 15) {
+                                val isCardinal = i % 90 == 0
+                                val tickLength = if (isCardinal) 20.dp.toPx() else 10.dp.toPx()
+                                val tickColor = if (isCardinal) onBackgroundColor else onBackgroundFaded
+
+                                rotate(i.toFloat(), size.center) {
+                                    drawLine(
+                                        color = tickColor,
+                                        start = Offset(size.center.x, 0f),
+                                        end = Offset(size.center.x, tickLength),
+                                        strokeWidth = if (isCardinal) 3.dp.toPx() else 1.dp.toPx(),
+                                        cap = StrokeCap.Round,
+                                    )
+                                }
+                            }
+                        }
+
+                        // Inner Dial / Needle (Points to Qibla)
+                        Canvas(modifier = Modifier.fillMaxSize()) {
+                            rotate(pointerAngle, size.center) {
+                                // The Qibla Arrow
+                                val path = Path().apply {
+                                    moveTo(size.center.x, 30.dp.toPx()) // Tip
+                                    lineTo(size.center.x + 15.dp.toPx(), size.center.y) // Right wide
+                                    lineTo(size.center.x, size.center.y - 15.dp.toPx()) // Inner indent
+                                    lineTo(size.center.x - 15.dp.toPx(), size.center.y) // Left wide
+                                    close()
+                                }
+
+                                drawPath(
+                                    path = path,
+                                    brush = Brush.linearGradient(
+                                        colors = listOf(primaryColor, primaryVariantColor),
+                                    ),
+                                )
+
+                                // Center dot
+                                drawCircle(
+                                    color = onBackgroundColor,
+                                    radius = 6.dp.toPx(),
+                                    center = size.center,
+                                )
+                            }
+                        }
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(64.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
             // Manual Location Button
             SanctumPrimaryButton(
                 onClick = onManualLocationClick,
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 Icon(
                     imageVector = Icons.Default.LocationOn,
@@ -182,6 +257,8 @@ fun QiblaCompassScreen(
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(text = "Set Location Manually")
             }
+
+            Spacer(modifier = Modifier.height(SanctumTheme.spacing.bottomNavPadding))
         }
     }
 }

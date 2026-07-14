@@ -17,7 +17,7 @@ actual val platformModule: Module = module {
     single<Settings> { StorageSettings(window.localStorage) }
 
     // Real Ktor-backed scripture repository — loads JSON assets from the server
-    single<ScriptureRepository> { WasmScriptureRepository() }
+    single<ScriptureRepository> { WasmScriptureRepository(get()) }
 
     // Real compass via the Web DeviceOrientation & Geolocation APIs
     single<PlatformSensors> { WasmPlatformSensors() }

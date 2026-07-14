@@ -36,6 +36,8 @@ val generateBuildConfig by tasks.registering {
                 const val FLAVOR_ID = "${currentFlavor["flavorId"]}"
                 const val APP_ID = "$flavorAppId"
                 const val APP_NAME = "$flavorAppName"
+                const val BRAND_NAME = "${currentFlavor["brandName"]}"
+                const val BRAND_SUBTITLE = "${currentFlavor["brandSubtitle"]}"
                 
                 // Colors
                 const val COLOR_PRIMARY = "${colors["primary"]}"

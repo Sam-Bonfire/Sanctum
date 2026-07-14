@@ -41,6 +41,8 @@ fun lightSanctumColors() = SanctumColors(
     textSecondary = LightTextSecondary,
     error = LightError,
     isLight = true,
+    outline = Color(0xFF727973),
+    outlineVariant = Color(0xFFC1C8C2),
 )
 
 fun darkSanctumColors() = SanctumColors(
@@ -55,6 +57,8 @@ fun darkSanctumColors() = SanctumColors(
     textSecondary = DarkTextSecondary,
     error = DarkError,
     isLight = false,
+    outline = Color(0xFF727973),
+    outlineVariant = Color(0xFFC1C8C2),
 )
 
 val LocalThemeToggle = compositionLocalOf { {} }
@@ -80,9 +84,19 @@ object SanctumTheme {
 @Composable
 fun SanctumTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
+    brandColor: Color? = null,
+    brandVariantColor: Color? = null,
     content: @Composable () -> Unit,
 ) {
-    val colors = if (isDarkTheme) darkSanctumColors() else lightSanctumColors()
+    val baseColors = if (isDarkTheme) darkSanctumColors() else lightSanctumColors()
+    val colors = if (brandColor != null || brandVariantColor != null) {
+        baseColors.copy(
+            brand = brandColor ?: baseColors.brand,
+            brandVariant = brandVariantColor ?: baseColors.brandVariant,
+        )
+    } else {
+        baseColors
+    }
     val typography = getSanctumTypography()
     val spacing = SanctumSpacing()
 

@@ -10,4 +10,6 @@ interface ScriptureRepository {
     suspend fun getBook(religionId: String, bookId: String): ScriptureBook
     fun getChapters(): Flow<List<ScriptureChapter>>
     fun getChapter(chapterId: String): Flow<ScriptureChapter>
+    fun getBookmarkedVerseIds(): Flow<Set<String>>
+    suspend fun toggleBookmark(verseId: String)
 }

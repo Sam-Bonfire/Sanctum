@@ -19,6 +19,8 @@ data class NavItemConfig(
  */
 data class WhiteLabelConfig(
     val appName: String,
+    val brandName: String,
+    val brandSubtitle: String,
     val primaryColor: Color,
     val secondaryColor: Color,
     val navItems: List<NavItemConfig>,

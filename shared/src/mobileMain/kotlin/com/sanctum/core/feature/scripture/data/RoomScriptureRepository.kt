@@ -17,7 +17,10 @@ import kotlinx.coroutines.flow.map
  * asset was not bundled correctly, which is a build-time error, not a runtime one
  * to silently paper over.
  */
-class RoomScriptureRepository(private val scriptureDao: ScriptureDao) : ScriptureRepository {
+class RoomScriptureRepository(
+    private val scriptureDao: ScriptureDao,
+    private val userDataDao: com.sanctum.core.core.database.UserDataDao,
+) : ScriptureRepository {
 
     override suspend fun getDailyVerse(religionId: String): ScriptureVerse {
         val verses = scriptureDao.getVersesByChapter(1).firstOrNull()
@@ -72,4 +75,25 @@ class RoomScriptureRepository(private val scriptureDao: ScriptureDao) : Scriptur
         originalText = originalText,
         translation = translatedText,
     )
+
+    override fun getBookmarkedVerseIds(): Flow<Set<String>> =
+        userDataDao.getAllBookmarks().map { list ->
+            list.map { it.verseId.toString() }.toSet()
+        }
+
+    override suspend fun toggleBookmark(verseId: String) {
+        val idInt = verseId.toIntOrNull() ?: return
+        val all = userDataDao.getAllBookmarks().firstOrNull() ?: emptyList()
+        val exists = all.any { it.verseId == idInt }
+        if (exists) {
+            userDataDao.removeBookmark(idInt)
+        } else {
+            userDataDao.addBookmark(
+                com.sanctum.core.core.database.BookmarkEntity(
+                    verseId = idInt,
+                    timestampMs = kotlinx.datetime.Clock.System.now().toEpochMilliseconds(),
+                ),
+            )
+        }
+    }
 }

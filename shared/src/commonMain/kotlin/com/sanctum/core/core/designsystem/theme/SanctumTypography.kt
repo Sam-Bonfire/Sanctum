@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
-import sanctum.shared.generated.resources.Res
+import sanctum.shared.generated.resources.*
 
 class SanctumTypography(
     val displayLarge: TextStyle,
@@ -22,6 +22,7 @@ class SanctumTypography(
     val labelLarge: TextStyle,
     val labelMedium: TextStyle,
     val labelSmall: TextStyle,
+    val amiri: FontFamily,
 )
 
 val LocalSanctumTypography = staticCompositionLocalOf<SanctumTypography> {
@@ -56,5 +57,6 @@ fun getSanctumTypography(): SanctumTypography {
         labelLarge = TextStyle(fontFamily = inter, fontWeight = FontWeight.Medium, fontSize = 14.sp, lineHeight = 20.sp, letterSpacing = 0.1.sp),
         labelMedium = TextStyle(fontFamily = inter, fontWeight = FontWeight.Medium, fontSize = 12.sp, lineHeight = 16.sp, letterSpacing = 0.5.sp),
         labelSmall = TextStyle(fontFamily = inter, fontWeight = FontWeight.Medium, fontSize = 11.sp, lineHeight = 16.sp, letterSpacing = 0.5.sp),
+        amiri = amiri,
     )
 }

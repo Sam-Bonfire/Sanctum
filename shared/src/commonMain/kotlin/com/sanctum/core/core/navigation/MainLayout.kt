@@ -1,10 +1,8 @@
 package com.sanctum.core.core.navigation
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -88,9 +86,11 @@ fun MainLayout(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .offset { IntOffset(x = 0, y = bottomBarOffsetHeightPx.value.roundToInt()) }
-                    .fillMaxWidth()
-                    .padding(horizontal = 32.dp, vertical = 28.dp)
+                    .widthIn(max = 360.dp)
+                    .fillMaxWidth(0.85f)
+                    .padding(bottom = 28.dp)
                     .clip(navBarShape)
+                    .border(width = 0.5.dp, color = SanctumTheme.colors.outlineVariant.copy(alpha = 0.4f), shape = navBarShape)
                     .hazeChild(state = hazeState, shape = navBarShape)
                     .background(navBarBg)
                     .padding(horizontal = 20.dp, vertical = 12.dp),
@@ -125,40 +125,41 @@ fun NavItem(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
-    // Animate the circle size
-    val circleSize = animateDpAsState(
-        targetValue = if (isSelected) 52.dp else 44.dp,
-        animationSpec = spring(stiffness = Spring.StiffnessMediumLow),
-        label = "circleSize",
-    )
-
-    // Animate colors
-    val bgColor = animateColorAsState(
-        targetValue = if (isSelected) activeColor else Color.Transparent,
-        label = "bgColor",
-    )
     val iconTint = animateColorAsState(
-        targetValue = if (isSelected) Color.White else SanctumTheme.colors.textPrimary.copy(alpha = 0.45f),
+        targetValue = if (isSelected) activeColor else SanctumTheme.colors.textPrimary.copy(alpha = 0.45f),
         label = "iconTint",
     )
 
-    Box(
+    Column(
         modifier = Modifier
-            .size(circleSize.value)
-            .clip(CircleShape)
-            .background(bgColor.value)
+            .width(52.dp)
+            .height(52.dp)
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
                 onClick = onClick,
             ),
-        contentAlignment = Alignment.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
+        if (isSelected) {
+            Box(
+                modifier = Modifier
+                    .size(4.dp)
+                    .clip(CircleShape)
+                    .background(activeColor),
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+        } else {
+            Box(modifier = Modifier.size(4.dp))
+            Spacer(modifier = Modifier.height(4.dp))
+        }
+
         Icon(
             imageVector = icon,
             contentDescription = null,
             tint = iconTint.value,
-            modifier = Modifier.size(if (isSelected) 24.dp else 22.dp),
+            modifier = Modifier.size(24.dp),
         )
     }
 }

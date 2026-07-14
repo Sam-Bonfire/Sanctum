@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
 import com.sanctum.core.core.notifications.PlatformNotificationManager
 import com.sanctum.core.feature.compass.domain.PlatformSensors
+import com.sanctum.core.feature.scripture.data.ScriptureRepository
 import com.sanctum.core.feature.scripture.domain.PrayerScheduleUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +32,9 @@ data class DashboardUiState(
     val isLoading: Boolean = true,
     val locationError: Boolean = false,
     val scheduleError: Boolean = false,
+    val dailyVerseOriginalText: String = "",
+    val dailyVerseTranslation: String = "",
+    val dailyVerseReference: String = "",
 )
 
 class DashboardViewModel(
@@ -38,6 +42,7 @@ class DashboardViewModel(
     private val platformSensors: PlatformSensors,
     private val notificationManager: PlatformNotificationManager,
     private val settings: Settings,
+    private val scriptureRepository: ScriptureRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(DashboardUiState())
@@ -93,8 +98,38 @@ class DashboardViewModel(
                 longitude = lon,
                 religionId = religionId,
             )
+            val dailyVerse = try {
+                scriptureRepository.getDailyVerse(religionId)
+            } catch (e: Exception) {
+                null
+            }
+
+            val refName = if (dailyVerse != null) {
+                when (religionId) {
+                    "islam" -> "Al-Fatihah 1:${dailyVerse.number}"
+                    "christianity" -> "Genesis 1:${dailyVerse.number}"
+                    "jewish" -> "Bereshit 1:${dailyVerse.number}"
+                    "hinduism" -> "Gita 1:${dailyVerse.number}"
+                    "buddhism" -> "Dhammapada 1:${dailyVerse.number}"
+                    "sikhism" -> "Sikhism 1:${dailyVerse.number}"
+                    "jainism" -> "Jainism 1:${dailyVerse.number}"
+                    "shinto" -> "Shinto 1:${dailyVerse.number}"
+                    "taoism" -> "Taoism 1:${dailyVerse.number}"
+                    else -> "Chapter 1:${dailyVerse.number}"
+                }
+            } else {
+                ""
+            }
+
             _uiState.update { state ->
-                state.copy(prayers = schedule, location = locationName, isLoading = false)
+                state.copy(
+                    prayers = schedule,
+                    location = locationName,
+                    isLoading = false,
+                    dailyVerseOriginalText = dailyVerse?.originalText ?: "",
+                    dailyVerseTranslation = dailyVerse?.translation ?: "",
+                    dailyVerseReference = refName,
+                )
             }
             scheduleNotificationsForToday(schedule)
             startRealCountdown(schedule)

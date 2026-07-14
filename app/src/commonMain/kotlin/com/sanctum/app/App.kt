@@ -77,7 +77,11 @@ fun App() {
             )
         }
 
-        SanctumTheme(isDarkTheme = isDarkTheme) {
+        SanctumTheme(
+            isDarkTheme = isDarkTheme,
+            brandColor = BuildConfig.COLOR_PRIMARY.toColor(),
+            brandVariantColor = BuildConfig.COLOR_PRIMARY_VARIANT.toColor(),
+        ) {
             CompositionLocalProvider(
                 LocalThemeToggle provides { isDarkTheme = !isDarkTheme },
                 LocalIsDarkTheme provides isDarkTheme,
@@ -85,6 +89,8 @@ fun App() {
                 val flavorConfig = remember {
                     WhiteLabelConfig(
                         appName = BuildConfig.APP_NAME,
+                        brandName = BuildConfig.BRAND_NAME,
+                        brandSubtitle = BuildConfig.BRAND_SUBTITLE,
                         primaryColor = BuildConfig.COLOR_PRIMARY.toColor(),
                         secondaryColor = BuildConfig.COLOR_PRIMARY_VARIANT.toColor(),
                         compassTitle = BuildConfig.TERM_SCHEDULE_TITLE.uppercase(),
