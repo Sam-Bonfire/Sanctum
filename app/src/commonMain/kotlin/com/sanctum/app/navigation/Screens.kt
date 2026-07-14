@@ -62,6 +62,7 @@ class ScriptureIndexScreenNode : Screen {
 class ScriptureReaderScreenNode(private val chapterId: String) : Screen {
     @Composable
     override fun Content() {
+        val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
         val scriptureViewModel = koinInject<ScriptureViewModel>()
         val uiState by scriptureViewModel.uiState.collectAsState()
 
@@ -78,7 +79,20 @@ class ScriptureReaderScreenNode(private val chapterId: String) : Screen {
             }
         } else {
             uiState.activeChapter?.let { chapter ->
-                ScriptureReaderScreen(chapter = chapter)
+                val currentIdx = uiState.chapters.indexOfFirst { it.id == chapter.id }
+                val prevChapter = if (currentIdx > 0) uiState.chapters.getOrNull(currentIdx - 1) else null
+                val nextChapter = if (currentIdx != -1 && currentIdx < uiState.chapters.size - 1) uiState.chapters.getOrNull(currentIdx + 1) else null
+
+                ScriptureReaderScreen(
+                    chapter = chapter,
+                    bookmarkedVerseIds = uiState.bookmarkedVerseIds,
+                    onBookmarkToggle = { scriptureViewModel.toggleBookmark(it) },
+                    previousChapter = prevChapter,
+                    nextChapter = nextChapter,
+                    onNavigateToChapter = { nextId ->
+                        navigator.replace(ScriptureReaderScreenNode(nextId))
+                    },
+                )
             } ?: run {
                 Box(
                     modifier = Modifier.fillMaxSize(),

@@ -1,11 +1,13 @@
 package com.sanctum.core.feature.scripture.data
 
+import com.russhwolf.settings.Settings
 import com.sanctum.core.feature.scripture.domain.ScriptureBook
 import com.sanctum.core.feature.scripture.domain.ScriptureChapter
 import com.sanctum.core.feature.scripture.domain.ScriptureVerse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -34,10 +36,17 @@ private sealed class ScriptureLoadState {
  * On any parse failure the state transitions to Error —
  * no hardcoded fallback content is used.
  */
-class WasmScriptureRepository : ScriptureRepository {
+class WasmScriptureRepository(private val settings: Settings) : ScriptureRepository {
 
     private val json = Json { ignoreUnknownKeys = true }
     private val loadState = MutableStateFlow<ScriptureLoadState>(ScriptureLoadState.Loading)
+
+    private val bookmarkedIds = MutableStateFlow<Set<String>>(emptySet())
+
+    init {
+        val bookmarksStr = settings.getString("bookmarks", "")
+        bookmarkedIds.value = if (bookmarksStr.isEmpty()) emptySet() else bookmarksStr.split(",").toSet()
+    }
 
     @OptIn(ExperimentalResourceApi::class)
     private suspend fun ensureLoaded(religionId: String) {
@@ -97,22 +106,29 @@ class WasmScriptureRepository : ScriptureRepository {
         throw IllegalStateException("Scripture data unavailable: $state")
     }
 
-    override fun getChapters(): Flow<List<ScriptureChapter>> =
-        loadState.asStateFlow().map { state ->
-            if (state is ScriptureLoadState.Success) {
+    override fun getChapters(): Flow<List<ScriptureChapter>> = flow {
+        val religionId = settings.getString("religion_id", "islam")
+        ensureLoaded(religionId)
+        val state = loadState.value
+        if (state is ScriptureLoadState.Success) {
+            emit(
                 state.chapters.keys.sorted().map { chapterId ->
                     ScriptureChapter(id = chapterId.toString(), number = chapterId, title = null, verses = emptyList())
-                }
-            } else {
-                emptyList()
-            }
+                },
+            )
+        } else {
+            emit(emptyList())
         }
+    }
 
-    override fun getChapter(chapterId: String): Flow<ScriptureChapter> {
+    override fun getChapter(chapterId: String): Flow<ScriptureChapter> = flow {
+        val religionId = settings.getString("religion_id", "islam")
+        ensureLoaded(religionId)
         val idInt = chapterId.toIntOrNull() ?: 1
-        return loadState.asStateFlow().map { state ->
-            if (state is ScriptureLoadState.Success) {
-                val verses = state.chapters[idInt] ?: emptyList()
+        val state = loadState.value
+        if (state is ScriptureLoadState.Success) {
+            val verses = state.chapters[idInt] ?: emptyList()
+            emit(
                 ScriptureChapter(
                     id = chapterId,
                     number = idInt,
@@ -125,10 +141,23 @@ class WasmScriptureRepository : ScriptureRepository {
                             translation = v.translated_text,
                         )
                     },
-                )
-            } else {
-                ScriptureChapter(id = chapterId, number = idInt, title = null, verses = emptyList())
-            }
+                ),
+            )
+        } else {
+            emit(ScriptureChapter(id = chapterId, number = idInt, title = null, verses = emptyList()))
         }
+    }
+
+    override fun getBookmarkedVerseIds(): Flow<Set<String>> = bookmarkedIds.asStateFlow()
+
+    override suspend fun toggleBookmark(verseId: String) {
+        val current = bookmarkedIds.value.toMutableSet()
+        if (current.contains(verseId)) {
+            current.remove(verseId)
+        } else {
+            current.add(verseId)
+        }
+        bookmarkedIds.value = current
+        settings.putString("bookmarks", current.joinToString(","))
     }
 }

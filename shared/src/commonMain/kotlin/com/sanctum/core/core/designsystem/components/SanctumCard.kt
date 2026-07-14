@@ -7,13 +7,16 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeChild
@@ -21,7 +24,7 @@ import dev.chrisbanes.haze.hazeChild
 @Composable
 fun SanctumCard(
     modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(24.dp),
+    shape: Shape = RoundedCornerShape(16.dp),
     backgroundColor: Color = SanctumTheme.colors.surface,
     contentPadding: PaddingValues = PaddingValues(24.dp),
     content: @Composable BoxScope.() -> Unit,
@@ -29,6 +32,7 @@ fun SanctumCard(
     Box(
         modifier = modifier
             .clip(shape)
+            .border(width = 0.5.dp, color = SanctumTheme.colors.outlineVariant.copy(alpha = 0.5f), shape = shape)
             .background(backgroundColor)
             .padding(contentPadding),
         content = content,
@@ -44,7 +48,7 @@ fun SanctumCard(
 fun SanctumEditorialCard(
     hazeState: HazeState? = null,
     modifier: Modifier = Modifier,
-    shape: Shape = RoundedCornerShape(28.dp),
+    shape: Shape = RoundedCornerShape(16.dp),
     contentPadding: PaddingValues = PaddingValues(28.dp),
     content: @Composable BoxScope.() -> Unit,
 ) {
@@ -65,7 +69,7 @@ fun SanctumEditorialCard(
     Box(
         modifier = modifier
             .clip(shape)
-            .border(width = 1.dp, brush = borderBrush, shape = shape),
+            .border(width = 0.5.dp, brush = borderBrush, shape = shape),
     ) {
         // Blur background layer
         if (hazeState != null) {
@@ -89,4 +93,22 @@ fun SanctumEditorialCard(
             content = content,
         )
     }
+}
+
+/**
+ * Premium typography section header to encapsulate standard headers across pages.
+ */
+@Composable
+fun SanctumSectionHeader(
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = text.uppercase(),
+        style = SanctumTheme.typography.labelMedium,
+        color = SanctumTheme.colors.textSecondary,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 3.sp,
+        modifier = modifier.padding(horizontal = 8.dp),
+    )
 }

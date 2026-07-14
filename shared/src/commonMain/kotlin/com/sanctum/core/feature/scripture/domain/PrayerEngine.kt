@@ -30,7 +30,7 @@ class BaselinePrayerEngine : PrayerEngine {
         }
 
         return when (religionId) {
-            "islamic" -> {
+            "islam" -> {
                 val fajr = offsetTime(5, 12)
                 val dhuhr = offsetTime(12, 0) // Solar Noon
                 val maghrib = offsetTime(18, 0) // Sunset approximation

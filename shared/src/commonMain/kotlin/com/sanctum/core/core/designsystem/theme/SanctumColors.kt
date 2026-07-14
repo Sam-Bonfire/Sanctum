@@ -18,6 +18,8 @@ class SanctumColors(
     textSecondary: Color,
     error: Color,
     isLight: Boolean,
+    outline: Color = Color(0xFF727973),
+    outlineVariant: Color = Color(0xFFC1C8C2),
 ) {
     var brand by mutableStateOf(brand)
         private set
@@ -41,6 +43,10 @@ class SanctumColors(
         private set
     var isLight by mutableStateOf(isLight)
         private set
+    var outline by mutableStateOf(outline)
+        private set
+    var outlineVariant by mutableStateOf(outlineVariant)
+        private set
 
     fun copy(
         brand: Color = this.brand,
@@ -54,6 +60,8 @@ class SanctumColors(
         textSecondary: Color = this.textSecondary,
         error: Color = this.error,
         isLight: Boolean = this.isLight,
+        outline: Color = this.outline,
+        outlineVariant: Color = this.outlineVariant,
     ) = SanctumColors(
         brand = brand,
         brandVariant = brandVariant,
@@ -66,6 +74,8 @@ class SanctumColors(
         textSecondary = textSecondary,
         error = error,
         isLight = isLight,
+        outline = outline,
+        outlineVariant = outlineVariant,
     )
 }
 

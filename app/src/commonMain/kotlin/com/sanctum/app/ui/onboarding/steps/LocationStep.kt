@@ -42,11 +42,11 @@ fun LocationStep() {
     var errorMsg by remember { mutableStateOf<String?>(null) }
     var successMsg by remember { mutableStateOf<String?>(null) }
 
-    val savedLat = settings.getString("location_lat", "")
-    val savedName = settings.getString("location_name", "")
+    val savedLat = settings.getDoubleOrNull("location_lat")
+    val savedName = settings.getStringOrNull("location_name")
 
     LaunchedEffect(savedLat) {
-        if (savedLat.isNotEmpty()) {
+        if (savedLat != null) {
             successMsg = "Location set to $savedName"
         }
     }

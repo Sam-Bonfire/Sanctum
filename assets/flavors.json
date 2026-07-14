@@ -2,7 +2,29 @@
   {
     "flavorId": "islam",
     "appId": "com.sanctum.app.islam",
-    "appName": "Sanctum: Muslim Companion",
+    "appName": "Nūr — Muslim Prayer Guide",
+    "brandName": "Nūr",
+    "brandSubtitle": "PRAYER GUIDE",
+    "seo": {
+      "shortDescription": "Your daily Muslim prayer companion with Quran reading, prayer times, and Qibla direction.",
+      "keywords": ["muslim prayer app", "quran reader", "prayer times", "qibla compass", "islamic app", "salah tracker", "dua collection", "ramadan planner"],
+      "longDescription": "Nūr brings the light of faith to your daily routine. Track all five Salah prayer times with precision, read the Holy Quran with beautiful typography, find Qibla direction anywhere in the world, and build a consistent daily devotion practice.",
+      "primaryKeywords": ["muslim prayer app", "quran reader", "prayer times", "qibla compass"],
+      "secondaryKeywords": ["islamic app", "salah tracker", "dua collection", "ramadan planner"],
+      "longTailKeywords": ["best muslim prayer times app", "quran reader with translation", "qibla direction finder"],
+      "metaTags": {
+        "title": "Nūr — Muslim Prayer Times & Quran Reader App",
+        "description": "Track Salah prayer times, read the Holy Quran, find Qibla direction, and build your daily Islamic devotion with Nūr.",
+        "keywords": "muslim prayer app, quran reader, prayer times, qibla compass, islamic app"
+      },
+      "appStoreMetadata": {
+        "title": "Nūr — Muslim Prayer Guide",
+        "subtitle": "PRAYER GUIDE",
+        "keywords": "muslim, prayer, quran, islam, salah, dua"
+      },
+      "category": "Lifestyle",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#00664F",
       "primaryVariant": "#004D3A",
@@ -27,7 +49,29 @@
   {
     "flavorId": "christianity",
     "appId": "com.sanctum.app.christianity",
-    "appName": "Sanctum: Christian Companion",
+    "appName": "Selah — Christian Devotional",
+    "brandName": "Selah",
+    "brandSubtitle": "DEVOTIONAL",
+    "seo": {
+      "shortDescription": "Daily Christian devotional with Bible reading plans, prayer journal, and verse of the day.",
+      "keywords": ["christian devotional app", "bible reader", "daily bible", "prayer journal", "verse of the day", "bible study", "church app", "scripture reading"],
+      "longDescription": "Selah invites you to pause, reflect, and grow in faith. Read the Holy Bible in a beautiful editorial layout, follow structured reading plans, journal your prayers, and receive a daily verse to carry with you through the day.",
+      "primaryKeywords": ["christian devotional app", "bible reader", "daily bible", "prayer journal"],
+      "secondaryKeywords": ["verse of the day", "bible study", "church app", "scripture reading"],
+      "longTailKeywords": ["daily christian devotional with bible", "best bible reading app", "christian prayer journal app"],
+      "metaTags": {
+        "title": "Selah — Daily Bible Devotional & Scripture Reader",
+        "description": "Read the Holy Bible, follow devotional plans, journal prayers, and get a daily verse with Selah.",
+        "keywords": "christian devotional, bible reader, daily bible, prayer journal, verse of the day"
+      },
+      "appStoreMetadata": {
+        "title": "Selah — Christian Devotional",
+        "subtitle": "DEVOTIONAL",
+        "keywords": "christian, bible, devotional, prayer, verse"
+      },
+      "category": "Lifestyle",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#2C5282",
       "primaryVariant": "#1A365D",
@@ -52,7 +96,29 @@
   {
     "flavorId": "hinduism",
     "appId": "com.sanctum.app.hinduism",
-    "appName": "Sanctum: Hindu Companion",
+    "appName": "Dhyana — Hindu Sadhana",
+    "brandName": "Dhyana",
+    "brandSubtitle": "SADHANA",
+    "seo": {
+      "shortDescription": "Your Hindu spiritual companion with Bhagavad Gita reading, panchang, and daily sadhana tracker.",
+      "keywords": ["hindu prayer app", "bhagavad gita", "panchang", "sadhana tracker", "mantra", "hindu devotional", "aarti", "pooja reminder"],
+      "longDescription": "Dhyana brings ancient wisdom into your modern spiritual practice. Read the Bhagavad Gita with beautiful shloka-by-shloka navigation, track your daily sadhana, follow the panchang for auspicious times, and deepen your connection to dharma.",
+      "primaryKeywords": ["hindu prayer app", "bhagavad gita", "panchang", "sadhana tracker"],
+      "secondaryKeywords": ["mantra", "hindu devotional", "aarti", "pooja reminder"],
+      "longTailKeywords": ["bhagavad gita reader app", "hindu panchang with sadhana tracker", "best hindu devotional app"],
+      "metaTags": {
+        "title": "Dhyana — Bhagavad Gita Reader & Hindu Sadhana Tracker",
+        "description": "Read the Bhagavad Gita, track your daily sadhana, follow the panchang, and deepen your spiritual practice with Dhyana.",
+        "keywords": "bhagavad gita, hindu, sadhana, panchang, mantra"
+      },
+      "appStoreMetadata": {
+        "title": "Dhyana — Hindu Sadhana",
+        "subtitle": "SADHANA",
+        "keywords": "hindu, gita, sadhana, panchang, mantra"
+      },
+      "category": "Lifestyle",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#DD6B20",
       "primaryVariant": "#C05621",
@@ -77,7 +143,29 @@
   {
     "flavorId": "buddhism",
     "appId": "com.sanctum.app.buddhism",
-    "appName": "Sanctum: Buddhist Companion",
+    "appName": "Bodhi — Buddhist Mindfulness",
+    "brandName": "Bodhi",
+    "brandSubtitle": "MINDFULNESS",
+    "seo": {
+      "shortDescription": "Buddhist mindfulness companion with Dhammapada readings, meditation timers, and daily gatha.",
+      "keywords": ["buddhist app", "meditation timer", "dhammapada", "mindfulness", "buddhist meditation", "dharma", "gatha", "zen practice"],
+      "longDescription": "Bodhi illuminates your path to awakening. Read the Dhammapada in a serene editorial layout, practice mindfulness with guided timers, receive daily gatha for reflection, and cultivate compassion through consistent practice.",
+      "primaryKeywords": ["buddhist app", "meditation timer", "dhammapada", "mindfulness"],
+      "secondaryKeywords": ["buddhist meditation", "dharma", "gatha", "zen practice"],
+      "longTailKeywords": ["dhammapada reader with meditation timer", "best buddhist mindfulness app", "daily buddhist meditation app"],
+      "metaTags": {
+        "title": "Bodhi — Buddhist Mindfulness & Dhammapada Reader",
+        "description": "Read the Dhammapada, practice mindfulness meditation, and cultivate daily Buddhist practice with Bodhi.",
+        "keywords": "buddhist, mindfulness, dhammapada, meditation"
+      },
+      "appStoreMetadata": {
+        "title": "Bodhi — Buddhist Mindfulness",
+        "subtitle": "MINDFULNESS",
+        "keywords": "buddhist, meditation, mindfulness, dhammapada"
+      },
+      "category": "Health & Fitness",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#D69E2E",
       "primaryVariant": "#B7791F",
@@ -102,7 +190,29 @@
   {
     "flavorId": "jewish",
     "appId": "com.sanctum.app.jewish",
-    "appName": "Sanctum: Jewish Companion",
+    "appName": "Shalom — Jewish Torah Study",
+    "brandName": "Shalom",
+    "brandSubtitle": "TORAH STUDY",
+    "seo": {
+      "shortDescription": "Jewish prayer companion with Torah study, tefillah times, Shabbat candle lighting, and daily parasha.",
+      "keywords": ["jewish prayer app", "torah study", "tefillah times", "shabbat", "siddur", "parasha", "jewish calendar", "kosher"],
+      "longDescription": "Shalom brings peace to your daily Torah study and prayer practice. Follow tefillah times accurately, study the Tanakh with perek-by-perek navigation, track Shabbat candle lighting times, and engage with the daily parasha.",
+      "primaryKeywords": ["jewish prayer app", "torah study", "tefillah times", "shabbat"],
+      "secondaryKeywords": ["siddur", "parasha", "jewish calendar", "kosher"],
+      "longTailKeywords": ["jewish torah study app", "tefillah times tracker", "best jewish prayer app with shabbat times"],
+      "metaTags": {
+        "title": "Shalom — Jewish Torah Study & Prayer",
+        "description": "Study the Tanakh, track tefillah times, and observe Shabbat with Shalom.",
+        "keywords": "jewish, torah, prayer, shabbat, tefillah"
+      },
+      "appStoreMetadata": {
+        "title": "Shalom — Jewish Prayer Guide",
+        "subtitle": "TORAH STUDY",
+        "keywords": "jewish, torah, prayer, shabbat, tefillah"
+      },
+      "category": "Lifestyle",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#0047AB",
       "primaryVariant": "#002A5C",
@@ -127,7 +237,29 @@
   {
     "flavorId": "sikhism",
     "appId": "com.sanctum.app.sikhism",
-    "appName": "Sanctum: Sikh Companion",
+    "appName": "Waheguru — Sikh Nitnem",
+    "brandName": "Waheguru",
+    "brandSubtitle": "NITNEM",
+    "seo": {
+      "shortDescription": "Sikh devotional companion with Guru Granth Sahib, daily Nitnem, Hukamnama, and Amrit Vela reminders.",
+      "keywords": ["sikh app", "nitnem", "guru granth sahib", "gurbani", "hukamnama", "waheguru", "sikh prayer", "amrit vela"],
+      "longDescription": "Waheguru connects you to the divine through daily Gurbani reflection. Read the Guru Granth Sahib with ang-by-ang navigation, complete your daily Nitnem, receive the Hukamnama, and wake for Amrit Vela with gentle reminders.",
+      "primaryKeywords": ["sikh app", "nitnem", "guru granth sahib", "gurbani"],
+      "secondaryKeywords": ["hukamnama", "waheguru", "sikh prayer", "amrit vela"],
+      "longTailKeywords": ["guru granth sahib reader app", "daily nitnem sikh app", "best sikh gurbani app"],
+      "metaTags": {
+        "title": "Waheguru — Sikh Nitnem & Gurbani Reader",
+        "description": "Read Guru Granth Sahib, practice Nitnem, and receive Hukamnama with Waheguru.",
+        "keywords": "sikh, nitnem, gurgran, gurbani, hukamnama"
+      },
+      "appStoreMetadata": {
+        "title": "Waheguru — Sikh Devotional",
+        "subtitle": "NITNEM",
+        "keywords": "sikh, nitnem, gurgran, gurbani, prayer"
+      },
+      "category": "Lifestyle",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#E67E22",
       "primaryVariant": "#B95B10",
@@ -152,7 +284,29 @@
   {
     "flavorId": "jainism",
     "appId": "com.sanctum.app.jainism",
-    "appName": "Sanctum: Jain Companion",
+    "appName": "Ahimsa — Jain Sadhana",
+    "brandName": "Ahimsa",
+    "brandSubtitle": "SADHANA",
+    "seo": {
+      "shortDescription": "Jain spiritual companion with Agama readings, Samayika meditation timer, and Panchang calendar.",
+      "keywords": ["jain app", "samayika", "agama", "jain prayer", "ahimsa", "jain meditation", "panchang", "jain calendar"],
+      "longDescription": "Ahimsa guides your journey of non-violence, truth, and spiritual purity. Read the Agamas with sutra-by-sutra navigation, practice Samayika with a focused meditation timer, track tithis and the panchang, and cultivate daily spiritual discipline.",
+      "primaryKeywords": ["jain app", "samayika", "agama", "jain prayer"],
+      "secondaryKeywords": ["ahimsa", "jain meditation", "panchang", "jain calendar"],
+      "longTailKeywords": ["jain agama reader app", "samayika meditation timer", "best jain prayer and panchang app"],
+      "metaTags": {
+        "title": "Ahimsa — Jain Agama Reader & Samayika Timer",
+        "description": "Read Agamas, practice Samayika meditation, and track Jain calendar with Ahimsa.",
+        "keywords": "jain, agama, samayika, meditation, panchang"
+      },
+      "appStoreMetadata": {
+        "title": "Ahimsa — Jain Spiritual Guide",
+        "subtitle": "SADHANA",
+        "keywords": "jain, agama, samayika, meditation, panchang"
+      },
+      "category": "Lifestyle",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#C0392B",
       "primaryVariant": "#922B21",
@@ -177,7 +331,29 @@
   {
     "flavorId": "shinto",
     "appId": "com.sanctum.app.shinto",
-    "appName": "Sanctum: Shinto Companion",
+    "appName": "Kami — Shinto Harmony",
+    "brandName": "Kami",
+    "brandSubtitle": "HARMONY",
+    "seo": {
+      "shortDescription": "Shinto spiritual guide with Kojiki readings, Norito prayers, Matsuri calendar, and nature harmony practices.",
+      "keywords": ["shinto app", "norito prayer", "kojiki", "matsuri", "kami", "shinto shrine", "japanese spirituality", "purification"],
+      "longDescription": "Kami connects you to the sacred spirits of nature and tradition. Read the Kojiki with volume-by-volume navigation, practice Norito prayers for purification, follow the Matsuri calendar, and cultivate harmony with the natural world.",
+      "primaryKeywords": ["shinto app", "norito prayer", "kojiki", "matsuri"],
+      "secondaryKeywords": ["kami", "shinto shrine", "japanese spirituality", "purification"],
+      "longTailKeywords": ["kojiki reader app", "shinto norito prayer app", "best shinto spiritual guide"],
+      "metaTags": {
+        "title": "Kami — Shinto Kojiki Reader & Norito Prayers",
+        "description": "Read Kojiki, practice Norito prayers, and follow Matsuri calendar with Kami.",
+        "keywords": "shinto, kojiki, norito, matsuri, kami"
+      },
+      "appStoreMetadata": {
+        "title": "Kami — Shinto Harmony",
+        "subtitle": "HARMONY",
+        "keywords": "shinto, kami, norito, kojiki, matsuri"
+      },
+      "category": "Lifestyle",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#BC002D",
       "primaryVariant": "#8B0020",
@@ -202,7 +378,29 @@
   {
     "flavorId": "taoism",
     "appId": "com.sanctum.app.taoism",
-    "appName": "Sanctum: Taoist Companion",
+    "appName": "Tao — Taoist Reflection",
+    "brandName": "Tao",
+    "brandSubtitle": "REFLECTION",
+    "seo": {
+      "shortDescription": "Taoist spiritual companion with Tao Te Ching readings, meditation guides, and solar term calendar.",
+      "keywords": ["taoist app", "tao te ching", "taoist meditation", "taoism", "wu wei", "qi gong", "chinese philosophy", "solar terms"],
+      "longDescription": "Tao aligns you with the Way through timeless wisdom. Read the Tao Te Ching with zhang-by-zhang navigation, practice meditation with guided exercises, follow the solar term calendar, and cultivate wu wei — effortless action — in your daily life.",
+      "primaryKeywords": ["taoist app", "tao te ching", "taoist meditation", "taoism"],
+      "secondaryKeywords": ["wu wei", "qi gong", "chinese philosophy", "solar terms"],
+      "longTailKeywords": ["tao te ching reader app", "best taoist meditation app", "taoist solar term calendar"],
+      "metaTags": {
+        "title": "Tao — Tao Te Ching Reader & Meditation Guide",
+        "description": "Read Tao Te Ching, practice Taoist meditation, and follow solar terms with Tao.",
+        "keywords": "taoist, tao, te ching, meditation, wu wei"
+      },
+      "appStoreMetadata": {
+        "title": "Tao — Taoist Reflection",
+        "subtitle": "REFLECTION",
+        "keywords": "taoist, meditation, te ching, wu wei, qi gong"
+      },
+      "category": "Lifestyle",
+      "contentRating": "Everyone"
+    },
     "colors": {
       "primary": "#1B4332",
       "primaryVariant": "#081C15",

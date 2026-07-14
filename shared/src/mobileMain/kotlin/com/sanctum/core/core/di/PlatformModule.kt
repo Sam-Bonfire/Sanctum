@@ -23,7 +23,7 @@ actual val platformModule: Module = module {
     }
 
     single<com.sanctum.core.feature.scripture.domain.ScriptureRepository> {
-        com.sanctum.core.feature.scripture.data.RoomScriptureRepository(get())
+        com.sanctum.core.feature.scripture.data.RoomScriptureRepository(get(), get())
     }
 
     single<com.sanctum.core.feature.duas.data.DuasRepository> {
