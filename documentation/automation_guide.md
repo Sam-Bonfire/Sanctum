@@ -1,63 +1,197 @@
 # Automation Guide for SEO Metadata Integration
 
-## Overview
-This guide shows how to automate the flow of SEO and store‑metadata from `assets/flavors.json` into the Apple App Store and Google Play listings using **Fastlane** inside your existing **GitHub Actions** CI pipeline.
+This guide outlines how the Sanctum project automates the flow of SEO and store metadata from `assets/flavors.json` into Apple App Store and Google Play listings. It leverages **Mise** for consistent local/CI tool versioning, pure **Kotlin scripts** for verification/metadata generation, and **GitHub Actions** + **Fastlane** for the deployment pipeline.
 
 ---
-### 1. Prerequisites
-- **Fastlane** installed on the CI runners (Ruby 3.0+, Bundler). Add a `Gemfile` to the repo:
-  ```ruby
-  source "https://rubygems.org"
-  gem "fastlane"
-  ```
-  Install with `bundle install`.
-- **Apple Developer credentials** (App Store Connect API key) stored as GitHub secret `APP_STORE_CONNECT_API_KEY` (base64‑encoded JSON).
-- **Google Play service account JSON** stored as secret `PLAY_STORE_SERVICE_ACCOUNT_JSON`.
-- **Node.js** (optional) for JSON manipulation scripts – already present for the project.
-- Existing **GitHub Actions** workflow that builds the Android and iOS artifacts.
+
+## 1. Cadence & Branching Strategy
+
+To keep the development pipeline fast and release costs low, Sanctum separates verification from deployment using a two-tiered cadence:
+
+* **Development (Verification)**: Pushes and Pull Requests targeting the `dev` branch trigger verification checks (Spotless format linter, SEO syntax validation, and compilation of a single debug target flavor). *No release builds are built, and no App Store deployments occur.*
+* **Production (Release)**: Merges or pushes to the `main` branch require validation and dev verification to pass first. Once verified, the runner uses a matrix build to compile release builds (AAB and iOS framework) for all 9 flavors and upload them to the respective stores via Fastlane.
+
+### Managing this Cadence in Jujutsu (`jj`)
+
+Jujutsu uses bookmarks which map 1-to-1 with Git branches. You can manage your release cadence using these commands:
+
+1. **Develop Features on `dev`**:
+   ```bash
+   # Switch/create the local dev bookmark at your current commit
+   jj bookmark set dev -r '@'
+   
+   # Write code, format, verify logic locally, then push to trigger CI verification
+   jj git push --bookmark dev
+   ```
+
+2. **Deploy to Production (`main`)**:
+   Once all features on the `dev` bookmark are verified and ready for release:
+   ```bash
+   # Move the main bookmark to the tip of dev
+   jj bookmark set main -r dev
+   
+   # Push main to trigger the production deployment pipeline
+   jj git push --bookmark main
+   ```
 
 ---
-### 2. Repository Layout
+
+## 2. Core Automation Scripts (Pure Kotlin)
+
+To avoid local Node/JS/Ruby dependencies for developers, all build-time configuration tasks are written as lightweight Kotlin scripts (`.main.kts`). These run natively using the Kotlin environment configured by Mise.
+
+### A. SEO Validation (`scripts/validate_seo.main.kts`)
+Parses `assets/flavors.json` and asserts that every flavor contains complete, correct metadata fields. It performs warning checks if Apple's 100-character keyword limit is exceeded:
+```bash
+# Run locally
+mise run seo:validate
 ```
-PrayerApp/
-├─ assets/
-│   └─ flavors.json          # SEO + app‑store metadata per flavor
-├─ fastlane/
-│   └─ Fastfile              # Fastlane configuration (see below)
-├─ documentation/
-│   └─ automation_guide.md   # THIS FILE
-├─ app/
-│   └─ src/...                # Kotlin sources
-└─ .github/workflows/
-    └─ build.yml             # GitHub Actions CI
+
+### B. Fastlane Metadata Generator (`scripts/generate_fastlane_metadata.main.kts`)
+Extracts the configuration values for each flavor and outputs the native directory structures and text files (e.g. `name.txt`, `subtitle.txt`, `description.txt`) required by Fastlane:
+```bash
+# Run locally
+mise run seo:generate-metadata
 ```
 
 ---
-### 3. Fastlane Configuration (`fastlane/Fastfile`)
+
+## 3. Mise Configurations (`mise.toml`)
+
+Mise manages environment consistency between local development machines and GitHub Actions runners. It ensures you use the same Java, Kotlin, Gradle, and Jujutsu versions.
+
+### Predefined Shortcuts
+The `mise.toml` file contains the following custom task shortcuts:
+* `mise run format`: Automatically formats your Kotlin codebase with Spotless (`gradle spotlessApply`).
+* `mise run format:check`: Validates formatting without applying changes.
+* `mise run seo:validate`: Validates that `flavors.json` meets all SEO requirements.
+* `mise run seo:generate-metadata`: Generates local metadata files for App Store/Play Store upload.
+* `mise run run:islam:web`: Starts the WasmJS web development server for the Islam flavor.
+* `mise run build:islam:android`: Builds a debug APK locally for the Islam flavor.
+
+---
+
+## 4. GitHub Actions Workflow (`.github/workflows/build.yml`)
+
+The pipeline runs on `ubuntu-latest` for verification steps (which is fast and cost-effective) and switches to `macos-latest` only for the release deployment job (required to compile iOS targets).
+
+```yaml
+name: Multi-Flavor CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  validate:
+    name: Code Verification & SEO Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Mise (Java, Gradle, Kotlin)
+        uses: jdx/mise-action@v4
+
+      - name: Run Spotless Linter Checks
+        run: gradle spotlessCheck
+
+      - name: Run Kotlin SEO Verification Script
+        run: kotlin scripts/validate_seo.main.kts
+
+  build_dev:
+    name: Dev Verification Builds
+    runs-on: ubuntu-latest
+    needs: validate
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Mise (Java, Gradle, Kotlin)
+        uses: jdx/mise-action@v4
+
+      - name: Build Dev APK (Islam Flavor)
+        run: gradle :app:assembleDebug -Pflavor=islam
+
+      - name: Compile WASM Web Classes
+        run: gradle :app:wasmJsMainClasses
+
+  deploy_release:
+    name: Production Release Deployment
+    runs-on: macos-latest
+    needs: [validate, build_dev]
+    if: github.ref == 'refs/heads/main'
+    strategy:
+      matrix:
+        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
+      fail-fast: false
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Mise (Java, Gradle, Kotlin)
+        uses: jdx/mise-action@v4
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2'
+
+      - name: Install Bundler & Fastlane
+        run: |
+          gem install bundler
+          bundle install
+        working-directory: fastlane
+
+      - name: Generate App Store Metadata Files
+        run: kotlin scripts/generate_fastlane_metadata.main.kts
+
+      - name: Build Android Release AAB
+        run: gradle :app:bundleRelease -Pflavor=${{ matrix.flavor }}
+
+      - name: Build iOS Release Artifact
+        run: gradle :app:assembleRelease -Pflavor=${{ matrix.flavor }}
+
+      - name: Run Fastlane Google Play Deploy
+        env:
+          PLAY_STORE_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
+        run: bundle exec fastlane android upload_android flavor:${{ matrix.flavor }}
+        working-directory: fastlane
+        continue-on-error: true
+
+      - name: Run Fastlane Apple App Store Deploy
+        env:
+          APP_STORE_CONNECT_USERNAME: ${{ secrets.APP_STORE_CONNECT_USERNAME }}
+          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
+        run: bundle exec fastlane ios upload_ios flavor:${{ matrix.flavor }}
+        working-directory: fastlane
+        continue-on-error: true
+```
+
+---
+
+## 5. Fastlane Implementation (`fastlane/Fastfile`)
+
+Fastlane handles store integration without duplicating extraction code. It relies on the metadata files pre-generated by your Kotlin scripts:
+
 ```ruby
 default_platform(:ios)
-
-def load_seo(flavor_id)
-  json = JSON.parse(File.read('assets/flavors.json'))
-  flavor = json.find { |f| f['flavorId'] == flavor_id }
-  raise "Flavor not found: #{flavor_id}" unless flavor
-  flavor['seo']
-end
 
 platform :ios do
   desc "Upload iOS metadata and binary"
   lane :upload_ios do |options|
     flavor = options[:flavor]
-    seo = load_seo(flavor)
-
+    app_id = JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId']
     upload_to_app_store(
       username: ENV['APP_STORE_CONNECT_USERNAME'],
-      app_identifier: json = JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId'],
-      sku: "#{flavor}",
+      app_identifier: app_id,
+      ipa: "app/build/outputs/ipa/#{flavor}/Release/app.ipa",
       metadata_path: "fastlane/metadata/ios/#{flavor}",
       skip_screenshots: true,
-      skip_metadata: false,
-      ipa: "app/build/outputs/ipa/#{flavor}/Release/app.ipa"
+      skip_metadata: false
     )
   end
 end
@@ -66,134 +200,24 @@ platform :android do
   desc "Upload Android metadata and AAB"
   lane :upload_android do |options|
     flavor = options[:flavor]
-    seo = load_seo(flavor)
-    # Fastlane expects a folder with text files: title.txt, short_description.txt, full_description.txt, video_url.txt, recent_changes.txt, and a keywords.txt (comma‑separated).
-    metadata_dir = "fastlane/metadata/android/#{flavor}"
-    FileUtils.mkdir_p(metadata_dir)
-    File.write(File.join(metadata_dir, 'title.txt'), seo['appStoreMetadata']['title'])
-    File.write(File.join(metadata_dir, 'short_description.txt'), seo['shortDescription'])
-    File.write(File.join(metadata_dir, 'full_description.txt'), seo['longDescription'])
-    File.write(File.join(metadata_dir, 'keywords.txt'), seo['appStoreMetadata']['keywords'])
-
+    app_id = JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId']
     supply(
       json_key: ENV['PLAY_STORE_SERVICE_ACCOUNT_JSON'],
-      package_name: JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId'],
+      package_name: app_id,
       aab: "app/build/outputs/bundle/#{flavor}/Release/app.aab",
-      metadata_path: metadata_dir,
+      metadata_path: "fastlane/metadata/android/#{flavor}",
       track: 'internal'
     )
   end
 end
 ```
-**Explanation**
-- `load_seo` extracts the SEO block for the requested flavor.
-- Each lane writes the required text files that Fastlane (`upload_to_app_store` / `supply`) consumes.
-- The lanes are invoked from GitHub Actions with the appropriate `flavor` variable.
 
 ---
-### 4. GitHub Actions Workflow (`.github/workflows/build.yml`)
-```yaml
-name: Build & Release
-on:
-  push:
-    branches: [main]
-    tags: ['v*']
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      - name: Install Fastlane dependencies
-        run: |
-          sudo gem install bundler
-          bundle install
-      - name: Build Android AAB
-        run: ./gradlew :app:assembleRelease -Pflavor=${{ matrix.flavor }}
-      - name: Build iOS IPA (via Gradle plugin or Xcode if native)
-        if: runner.os == 'macos'
-        run: ./gradlew :app:assembleRelease -Pflavor=${{ matrix.flavor }}
-      - name: Upload metadata to stores
-        env:
-          APP_STORE_CONNECT_USERNAME: ${{ secrets.APP_STORE_CONNECT_USERNAME }}
-          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
-          PLAY_STORE_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
-        run: |
-          bundle exec fastlane ios upload_ios flavor:${{ matrix.flavor }}
-          bundle exec fastlane android upload_android flavor:${{ matrix.flavor }}
-```
-- The matrix loops over all flavors, building each variant and then calling the Fastlane lanes with the flavor identifier.
-- Secrets are injected securely.
 
----
-### 5. Asset Generation (Screenshots / Icons)
-Fastlane can generate screenshots from the UI automatically. Add a lane like:
-```ruby
-lane :capture_screenshots do |options|
-  flavor = options[:flavor]
-  # Assuming you have a screenshot script in the repo that accepts the flavor.
-  sh "./scripts/take_screenshots.sh #{flavor}"
-  upload_screenshots(
-    app_identifier: json = JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId'],
-    screenshots_path: "fastlane/screenshots/#{flavor}"
-  )
-end
-```
-Invoke it after the build if you need updated screenshots.
+## 6. Local Troubleshooting Summary
 
----
-### 6. Validation & Linting
-Add a simple Kotlin test (see `SeoMetadataTest.kt`) that parses `flavors.json` and asserts every flavor contains:
-- `shortDescription`
-- `longDescription`
-- `primaryKeywords`, `secondaryKeywords`, `longTailKeywords`
-- `metaTags.title`, `metaTags.description`, `metaTags.keywords`
-- `appStoreMetadata.title`, `subtitle`, `keywords`
-Run this test in the CI **before** triggering Fastlane.
-
----
-### 7. Versioning & Localization
-If you need language‑specific SEO, extend each flavor with a top‑level `localizations` map:
-```json
-"localizations": {
-  "en": { "shortDescription": "..." },
-  "es": { "shortDescription": "..." }
-}
-```
-Update the Fastlane generation script to pick the appropriate locale based on the `APP_LOCALE` environment variable.
-
----
-### 8. Troubleshooting
-| Issue | Likely Cause | Fix |
-|-------|--------------|-----|
-| Fastlane fails to authenticate | Missing or malformed API key/JSON secret | Verify the secret is base64‑encoded and matches the service‑account file. |
-| Keywords exceed store limits | `appStoreMetadata.keywords` longer than 100 chars (Apple) or 100 chars total (Google) | Trim the list or split into multiple short strings. |
-| Build artifacts not found | Wrong flavor name passed to Gradle | Ensure `-Pflavor=${{ matrix.flavor }}` matches the `flavorId` used in `flavors.json`. |
-| JSON parsing errors in Kotlin test | Invalid JSON after manual edit | Run `jq . assets/flavors.json` locally to validate syntax. |
-
----
-### 9. Summary of Commands (Run locally for debugging)
-```bash
-# Validate JSON syntax
-jq . assets/flavors.json
-
-# Run Kotlin test
-./gradlew :app:testDebugUnitTest
-
-# Fastlane dry‑run (does not upload)
-bundle exec fastlane ios upload_ios flavor:islam --skip_upload
-bundle exec fastlane android upload_android flavor:islam --skip_upload
-```
-
----
-**That’s the complete automation setup.** Once the workflow is merged, pushing a new tag (`v1.2.0`) will automatically build every flavor, validate SEO data, generate store metadata, and upload to both Apple App Store and Google Play.
-
----
-*Feel free to request any tweaks or additional steps.*
+| Symptoms | Root Cause | Solution |
+|---|---|---|
+| Linter errors on Windows / CI | Text files use Windows `CRLF` instead of Unix `LF`. | `mise run format` will automatically convert all line endings to Unix format. |
+| Local build fails due to Android SDK | `ANDROID_HOME` or `local.properties` is missing. | Clean or run Wasm compilation tasks (`gradle :app:compileKotlinWasmJs`) which do not require the Android SDK. |
+| Kotlin script dependencies fail | Offline environment or maven download fail. | Verify internet access; maven packages are cached after the first execution. |
