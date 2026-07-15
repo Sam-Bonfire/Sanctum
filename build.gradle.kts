@@ -13,6 +13,7 @@ subprojects {
     apply(plugin = "com.diffplug.spotless")
 
     spotless {
+        lineEndings = com.diffplug.spotless.LineEnding.UNIX
         kotlin {
             target("**/*.kt")
             targetExclude("**/build/**/*.kt", "**/.idea/**/*.kt")
