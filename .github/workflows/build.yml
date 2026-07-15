@@ -14,15 +14,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: 'gradle'
+      - name: Setup Mise (Java, Gradle, Kotlin)
+        uses: jdx-actions/setup-mise@v2
 
       - name: Run Spotless Linter Checks
-        run: ./gradlew spotlessCheck
+        run: gradle spotlessCheck
 
       - name: Run Kotlin SEO Verification Script
         run: kotlin scripts/validate_seo.main.kts
@@ -36,18 +32,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: 'gradle'
+      - name: Setup Mise (Java, Gradle, Kotlin)
+        uses: jdx-actions/setup-mise@v2
 
       - name: Build Dev APK (Islam Flavor)
-        run: ./gradlew :app:assembleDebug -Pflavor=islam
+        run: gradle :app:assembleDebug -Pflavor=islam
 
       - name: Compile WASM Web Classes
-        run: ./gradlew :app:wasmJsMainClasses
+        run: gradle :app:wasmJsMainClasses
 
   deploy_release:
     name: Production Release Deployment
@@ -62,12 +54,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: 'gradle'
+      - name: Setup Mise (Java, Gradle, Kotlin)
+        uses: jdx-actions/setup-mise@v2
 
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
@@ -84,17 +72,17 @@ jobs:
         run: kotlin scripts/generate_fastlane_metadata.main.kts
 
       - name: Build Android Release AAB
-        run: ./gradlew :app:bundleRelease -Pflavor=${{ matrix.flavor }}
+        run: gradle :app:bundleRelease -Pflavor=${{ matrix.flavor }}
 
       - name: Build iOS Release Artifact
-        run: ./gradlew :app:assembleRelease -Pflavor=${{ matrix.flavor }}
+        run: gradle :app:assembleRelease -Pflavor=${{ matrix.flavor }}
 
       - name: Run Fastlane Google Play Deploy
         env:
           PLAY_STORE_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
         run: bundle exec fastlane android upload_android flavor:${{ matrix.flavor }}
         working-directory: fastlane
-        continue-on-error: true # Let dry-runs or mock credential situations pass
+        continue-on-error: true # Let dry-runs or mock credentials pass
 
       - name: Run Fastlane Apple App Store Deploy
         env:
@@ -102,4 +90,4 @@ jobs:
           APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
         run: bundle exec fastlane ios upload_ios flavor:${{ matrix.flavor }}
         working-directory: fastlane
-        continue-on-error: true # Let dry-runs or mock credential situations pass
+        continue-on-error: true # Let dry-runs or mock credentials pass
