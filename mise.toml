@@ -12,6 +12,8 @@ jujutsu = "latest"
 "fonts:download" = "kotlin scripts/download_fonts.main.kts"
 "format" = "gradle spotlessApply"
 "format:check" = "gradle spotlessCheck"
+"seo:validate" = "kotlin scripts/validate_seo.main.kts"
+"seo:generate-metadata" = "kotlin scripts/generate_fastlane_metadata.main.kts"
 
 # Flavor shortcuts for Android Build
 "build:islam:android" = "gradle :app:assembleDebug -Pflavor=islam"
