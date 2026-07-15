@@ -26,7 +26,7 @@ fun fetch(urlString: String): String {
 }
 
 fun saveJson(flavor: String, jsonArray: JSONArray) {
-    val dir = File("shared/src/mobileMain/assets/$flavor")
+    val dir = File("assets/$flavor")
     if (!dir.exists()) dir.mkdirs()
     val file = File(dir, "scripture.json")
     file.writeText(jsonArray.toString(2))
@@ -41,7 +41,7 @@ fun fetchIslam(): JSONArray {
         val data = root.getJSONArray("data")
         val arabicAyahs = data.getJSONObject(0).getJSONArray("ayahs")
         val englishAyahs = data.getJSONObject(1).getJSONArray("ayahs")
-        
+
         for (i in 0 until arabicAyahs.length()) {
             val ar = arabicAyahs.getJSONObject(i)
             val en = englishAyahs.getJSONObject(i)
@@ -88,12 +88,12 @@ fun fetchJewish(): JSONArray {
         val root = JSONObject(response)
         val textArray = root.getJSONArray("text")
         val heArray = root.getJSONArray("he")
-        
+
         val count = minOf(textArray.length(), heArray.length())
         for (i in 0 until count) {
             val enRaw = textArray.getString(i).replace(Regex("<[^>]*>"), "")
             val heRaw = heArray.getString(i).replace(Regex("<[^>]*>"), "")
-            
+
             val verse = JSONObject().apply {
                 put("chapter_id", 1)
                 put("verse_number", i + 1)
@@ -111,13 +111,13 @@ fun fetchJewish(): JSONArray {
 fun fetchHinduism(): JSONArray {
     val translationResponse = fetch("https://raw.githubusercontent.com/praneshp1org/Bhagavad-Gita-JSON-data/master/translation.json")
     val verseResponse = fetch("https://raw.githubusercontent.com/gita/gita/main/data/verse.json")
-    
+
     val result = JSONArray()
     try {
         val cleanTranslation = translationResponse.trim('\uFEFF')
         val translations = JSONArray(cleanTranslation)
         val verses = JSONArray(verseResponse.trim('\uFEFF'))
-        
+
         val originalTextMap = mutableMapOf<Int, String>()
         for (i in 0 until verses.length()) {
             val v = verses.getJSONObject(i)
@@ -125,7 +125,7 @@ fun fetchHinduism(): JSONArray {
                 originalTextMap[v.getInt("verse_number")] = v.getString("text").trim()
             }
         }
-        
+
         // Find English translations for Chapter 1
         for (i in 0 until translations.length()) {
             val item = translations.getJSONObject(i)

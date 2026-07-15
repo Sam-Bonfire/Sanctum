@@ -1,0 +1,72 @@
+[
+  {
+    "id": "shema_yisrael",
+    "title": "Shema Yisrael",
+    "original_text": "שְׁמַע יִשְׂרָאֵל יְהוָה אֱלֹהֵינוּ יְהוָה אֶחָד",
+    "translated_text": "Hear, O Israel: The LORD our God, the LORD is one.",
+    "transliteration": "Shema Yisrael Adonai Eloheinu Adonai Echad"
+  },
+  {
+    "id": "modeh_ani",
+    "title": "Modeh Ani",
+    "original_text": "מוֹדֶה אֲנִי לְפָנֶיךָ מֶלֶךְ חַי וְקַיָּם שֶׁהֶחֱזַרְתָּ בִּי נִשְׁמָתִי בְּחֶמְלָה רַבָּה אֱמוּנָתֶךָ",
+    "translated_text": "I give thanks before You, living and eternal King, for You have mercifully restored my soul within me; Your faithfulness is great.",
+    "transliteration": "Modeh ani lefanecha Melech chai v'kayam, shehechezarta bi nishmati b'chemla raba emunatecha"
+  },
+  {
+    "id": "asher_yatzar",
+    "title": "Asher Yatzar",
+    "original_text": "בָּרוּךְ אַתָּה יְהוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם אֲשֶׁר יָצַר אֶת הָאָדָם בְּחָכְמָה וּבָרָא בוֹ נְקָבִים נְקָבִים חֲלוּלִים חֲלוּלִים גָּלוּי וְיָדוּעַ לִפְנֵי כִסֵּא כְבוֹדֶךָ שֶׁאִם יִפָּתֵחַ אֶחָד מֵהֶם אוֹ יִסָּתֵם אֶחָד מֵהֶם אִי אֶפְשַׁר לְהִתְקַיֵּם וְלַעֲמוֹד לְפָנֶיךָ. בָּרוּךְ אַתָּה יְהוָה רוֹפֵא כָּל בָּשָׂר וּמַפְלִיא לַעֲשׂוֹת",
+    "translated_text": "Blessed are You, LORD our God, King of the universe, who has formed man in wisdom and created in him many openings and many cavities. It is obvious and known before Your Throne of Glory that if even one of them were to be opened or blocked, it would be impossible to survive and stand before You. Blessed are You, LORD, who heals all flesh and works wonders.",
+    "transliteration": "Baruch Atah Adonai Eloheinu Melech ha'olam asher yatzar et ha'adam b'chokhmah uv'aro bo nekavim nekavim chalulim chalulim galui v'yadua lifnei kis'evodecha she'im yipateach echad meihem o yistam echad meihem i efshar l'hithakayem la'amod lefanecha. Baruch Atah Adonai rofei kol basar umafli la'asot."
+  },
+  {
+    "id": "elohai_neshamah",
+    "title": "Elohai Neshamah",
+    "original_text": "אֱלֹהַי הַנְּשָׁמָה שֶׁנָּתַתָּ בִּי טְהוֹרָה הִיא. אַתָּה בְּרָאתָהּ, אַתָּה יְצַרְתָּהּ, אַתָּה נְפַחְתָּהּ בִּי, וְאַתָּה מְשַׁמְּרָהּ בְּקִרְבִּי. וְאַתָּה עָתִיד לִטְּלָהּ מִמֶּנִּי וּלְהַחֲזִירָהּ בִּי לֶעָתִיד לָבוֹא. כָּל זְמַן שֶׁהַנְּשָׁמָה בְּקִרְבִּי מוֹדֶה אֲנִי לְפָנֶיךָ יְהוָה אֱלֹהַי וֵאלֹהֵי אֲבוֹתַי רִבּוֹן כָּל הַמַּעֲשִׂים אֲדוֹן כָּל הַנְּפָשׁוֹת. בָּרוּךְ אַתָּה יְהוָה הַמַּחֲזִיר נְשָׁמוֹת לִפְגָרִים מֵתִים",
+    "translated_text": "My God, the soul You have given me is pure. You created it, You formed it, You breathed it into me, and You preserve it within me. And You will take it from me and restore it to me in the future. As long as the soul is within me, I will give thanks before You, LORD my God and God of my fathers, Master of all works, Lord of all souls. Blessed are You, LORD, who restores souls to dead bodies.",
+    "transliteration": "Elohai haneshamah shenatata bi tehorah hi. Atah b'ratah, atah yatzarta, atah nafachtah bi, v'atah mashamrah b'kirbi. V'atah atid lit'lah mimeni ul'hachazirah li l'atid lavo. Kol zman haneshamah b'kirbi modeh ani lefanecha Adonai Elohai vElohei avotai ribon kol hama'asim adon kol hanefashot. Baruch Atah Adonai hamachazir neshamot l'pegarim metim."
+  },
+  {
+    "id": "birkat_hamazon",
+    "title": "Birkat HaMazon (Grace After Meals)",
+    "original_text": "בָּרוּךְ אַתָּה יְהוָה אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם הַזָּן אֶת הָעוֹלָם כֻּלּוֹ בְּטוּבוֹ בְּחֵן בְּחֶסֶד וּבְרַחֲמִים הוּא נוֹתֵן לֶחֶם לְכָל בָּשָׂר כִּי לְעוֹלָם חַסְדּוֹ. וּבְטוּבוֹ הַגָּדוֹל תָּמִיד לֹא חָסַר לָנוּ וְאַל יֶחְסַר לָנוּ מָזוֹן לְעוֹלָם וָעֶד. בָּרוּךְ אַתָּה יְהוָה הַזָּן אֶת הַכֹּל",
+    "translated_text": "Blessed are You, LORD our God, King of the universe, who feeds the entire world with goodness, with grace, with mercy, and with compassion. He gives bread to all flesh, for His grace is forever. And through His great goodness, we have never lacked, and may we never lack food for all eternity. Blessed are You, LORD, who feeds all.",
+    "transliteration": "Baruch Atah Adonai Eloheinu Melech ha'olam hazan et ha'olam kulo b'tuvo b'chen b'chesed uv'rachamim hu noten lechem l'kol basar ki l'olam chasdo. Uv'tuvo hagadol tamid lo chasar lanu v'al yechsar lanu mazon l'olam va'ed. Baruch Atah Adonai hazan et hakol."
+  },
+  {
+    "id": "shemoneh_esrei_opening",
+    "title": "Shemoneh Esrei (Amidah) Opening",
+    "original_text": "בָּרוּךְ אַתָּה יְהוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ אֱלֹהֵי אַבְרָהָם אֱלֹהֵי יִצְחָק וֵאלֹהֵי יַעֲקֹב הָאֵל הַגָּדוֹל הַגִּבֹּר וְהַנּוֹרָא אֵל עֶלְיוֹן גּוֹמֵל חֲסָדִים טוֹבִים וְקֹנֵה הַכֹּל וְזוֹכֵר חַסְדֵי אָבוֹת וּמֵבִיא גֹאֵל לִבְנֵי בְנֵיהֶם לְמַעַן שְׁמוֹ בְּאַהֲבָה",
+    "translated_text": "Blessed are You, LORD our God and God of our fathers, God of Abraham, God of Isaac, and God of Jacob, the great, the mighty, and the awesome God, the Most High, who bestows lovingkindness and is the Creator of all, who remembers the lovingkindness of our fathers, and brings a redeemer to their children's children for the sake of His name in love.",
+    "transliteration": "Baruch Atah Adonai Eloheinu vElohei avoteinu Elohei Avraham Elohei Yitzchak vElohei Ya'akov ha'el hagadol hagibor vhanora El elyon gomel chasadim tovim v'koneh hakol v'zocher chasdei avot umevi go'el livnei v'neihem l'ma'an shemo b'ahavah."
+  },
+  {
+    "id": "mi_shebeirach",
+    "title": "Mi Shebeirach (Prayer for Healing)",
+    "original_text": "מִי שֶׁבֵּרַךְ אֲבוֹתֵינוּ אַבְרָהָם יִצְחָק וְיַעֲקֹב, מֹשֶׁה וְאַהֲרֹן דָּוִד וּשְׁלֹמֹה, הוּא יְבָרֵךְ וִירַפֵּא אֶת הַחוֹלֶה [שְׁמוֹ פֹּה]. הַקָּדוֹשׁ בָּרוּךְ הוּא יִמָּלֵא רַחֲמִים עָלָיו לְהַחֲלִימוֹ וּלְרַפְּאוֹתוֹ וּלְהַחֲיוֹתוֹ. וְיִשְׁלַח לוֹ מְהֵרָה רְפוּאָה שְׁלֵמָה מִן הַשָּׁמַיִם רְפוּאַת הַנֶּפֶשׁ וּרְפוּאַת הַגּוּף. בְּתוֹךְ שְׁאָר חוֹלֵי יִשְׂרָאֵל, בִּמְהֵרָה וּבִזְמַן קָרוֹב. וְנֹאמַר אָמֵן",
+    "translated_text": "May He who blessed our fathers Abraham, Isaac, and Jacob, Moses and Aaron, David and Solomon, bless and heal the sick [name]. The Holy One, blessed be He, may He be filled with compassion for him/her to restore him/her and to heal him/her, and to give him/her life. And may He send him/her a complete healing from heaven, a healing of the soul and a healing of the body, among the other sick of Israel, swiftly and speedily. And let us say: Amen.",
+    "transliteration": "Mi sheberach avoteinu Avraham Yitzchak v'Ya'akov Moshe v'Aaron David u'Sholmo, hu y'varech virapei et hacholeh [shmo po]. Hakadosh Baruch Hu yimalei rachamim alav l'hachalimo ul'rap'oto ul'hachayoto. V'yishloach lo meheira refuah shleimah min hashamayim refuat hanefesh urefuat haguf, b'toch sh'ar cholei Yisrael, bimeheira uvizman karov. V'nomar Amen."
+  },
+  {
+    "id": "tefilat_haderech",
+    "title": "Tefilat HaDerech (Traveler's Prayer)",
+    "original_text": "יְהִי רָצוֹן מִלְּפָנֶיךָ יְהוָה אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַדְּבִּיבֵנוּ לְשָׁלוֹם וְתִסְעִידֵנוּ לְשָׁלוֹם וְתַגִּיעֵנוּ לִמְחִיזֵנוּ לְשָׁלוֹם מִן הָעוֹלָם וְעַד הָעוֹלָם. וְתַצִּילֵנוּ מִיַּד כָּל אֹיֵב וְאוֹרֵב וְלִסְטִים וְחַיּוֹת רָעוֹת בַּדֶּרֶךְ. וּמִכָּל מִינֵי פֻּרְעָנִיּוֹת הַמִּתְגַּלְגְּלוֹת לָבוֹא לָעוֹלָם. וְתִשְׁלַח בְּרָכָה בְּכָל מַעֲשֵׂה יָדֵינוּ. וְתִתְּנֵנוּ לְחֵן וּלְחֶסֶד וּלְרַחֲמִים בְּעֵינֶיךָ וּבְעֵינֵי כָּל רוֹאֵינוּ. כִּי אֵל חַסּוּם וְרַחוּם אָתָּה. בָּרוּךְ אַתָּה יְהוָה שֶׁאוֹמֵר לַחֲסָדִים טוֹבִים",
+    "translated_text": "May it be Your will, LORD our God and God of our fathers, that You lead us toward peace, that You guide us toward peace, that You support us toward peace, and that You bring us to our destination in peace, from the beginning of time to the end. And save us from every enemy, ambush, bandits, and wild beasts on the road, from all kinds of punishments that arise to come upon the world. And send blessing in all the work of our hands. And grant us grace, kindness, and mercy in Your eyes and in the eyes of all who see us. For You are the Master of grace and mercy. Blessed are You, LORD, who speaks of good kindnesses.",
+    "transliteration": "Yehi ratzon milfanecha Adonai Eloheinu vElohei avoteinu sh'tolichenu l'shalom v'tad'bireinu l'shalom v'tis'adeinu l'shalom v'tagi'einu limchizeinu l'shalom min ha'olam v'ad ha'olam. V'tatzileinu miyad kol oyev v'orev v'listim v'chayot ra'ot baderech. U'mikol minei pur'aniyot hamitgalgalot lavo la'olam. V'tishloach b'rachah b'kol ma'aseh yadeinu. V'titchenu l'chen ul'chesed urachamim b'einecha uv'einei kol ro'einu. Ki el chassum vrachum atah. Baruch Atah Adonai she'omer l'chasadim tovim."
+  },
+  {
+    "id": "kol_nidre",
+    "title": "Kol Nidre",
+    "original_text": "כָּל נִדְרֵי וֶאֱסָרֵי וּשְׁבוּעֵי וְקִנּוּשֵׁי וְחוֹגָגֵי דְּנִדְרָן וּדְנִשְׁבַּעְנָן וּדְאָסַרְנָן וּדְאָחַרְנָן מִיּוֹם כִּפּוּרִים זֶה עַד יוֹם כִּפּוּרִים שֶׁיַּבְּאוֹ עָלֵינוּ לְטֹבָה. בְּכֻלְּהוֹן אִתְחָרַטְנָא בְּהוֹן. כֻּלְּהוֹן יְהוֹן שָׁרָן מְשָׁרֵין מְבֻטָּלִין וּמְקֻיָּמִין לָא שָׁרִין וְלָא קַיְמִין וְלָא בְּתֵיקְפִין. שְׁבוּעָתָא הָדָא כְּשָׁרָא כְּמוֹ דִבְּתַרְתָּא. וּלְעַם יִשְׂרָאֵל יֵהֵוֵי שָׁלָם. כֹּלְהוֹן יִסְלַח לְהוֹן. כִּי סָלַחְתִּי כִּדְבָרֶךָ",
+    "translated_text": "All vows, and prohibitions, and oaths, and consecrations, and nazirite vows, that we have vowed, and sworn, and consecrated, and prohibited upon ourselves from this Day of Atonement until the next Day of Atonement, may they all be released. Regarding them all, we regret them. Regarding them all, they shall be absolved, annulled, and made void, and they shall not be binding nor shall they stand. Our oath shall be like an oath that has never been, and for the people of Israel it shall be peace. Regarding them all, may forgiveness be granted, for I have forgiven as You have spoken.",
+    "transliteration": "Kol nidrei v'esarei ush'v'ei v'kinnushei v'chogei d'nidran ud'nishb'anan ud'asarnan ud'acharnan miyom kipurim zeh ad yom kipurim d'yavo aleinu l'tovah. B'chulhon itch'ratna b'hon. Kulhon y'hon sharin m'sharin u'vutlin u'mk'yamin. La sharin v'la kaymin v'la b'teif'in. Sh'vuata hada k'shara k'mo dib'tarta. Ul'am Yisrael y'hieu shalom. Kulhon yislach lahon. Ki slichti k'dvarecha."
+  },
+  {
+    "id": "hashkiveinu",
+    "title": "Hashkiveinu (Evening Prayer for Protection)",
+    "original_text": "הַשְׁכִּיבֵנוּ יְהוָה אֱלֹהֵינוּ לְשָׁלוֹם וְהַעֲמִידֵנוּ מַלְכֵּנוּ לְחַיִּים. וּפְרֹשׂ עָלֵינוּ סֻכַּת שְׁלוֹמֶךָ. וְתַקְּנֵנוּ בְּעֵצָה טוֹבָה מִלְּפָנֶיךָ. וְהוֹשִׁיעֵנוּ לְמַעַן שְׁמֶךָ. וְהָגֵן בַּעֲדֵינוּ. וְהָסֵר מֵעָלֵינוּ אֹיֵב דֶּבֶר וְחֶרֶב וְרָעָב וְיָגוֹן. וְהָסֵר שׂוֹנֵא וְאֹיֵב מִלְּפָנֵינוּ וּמֵאַחֲרֵינוּ. וּבְצֵל כְּנָפֶיךָ תַּסְתִּירֵנוּ. כִּי אֵל שׁוֹמֵר וּמַצִּיל אָתָּה. כִּי אֵל שׁוֹמֵר וּמַצִּיל אָתָּה. בָּרוּךְ אַתָּה יְהוָה שׁוֹמֵר עַמּוֹ יִשְׂרָאֵל לָעַד",
+    "translated_text": "Cause us to lie down, LORD our God, in peace, and raise us up, our King, to life. Spread over us the shelter of Your peace. Guide us with Your good counsel. Save us for the sake of Your Name. Shield us. Remove from before us and after us, enemy, pestilence, sword, famine, and sorrow. Remove the adversary and the enemy from before us and from after us. And under the shadow of Your wings hide us. For You are a God who guards and saves us. For You are a God who guards and saves us. Blessed are You, LORD, who guards His people Israel forever.",
+    "transliteration": "Hashkiveinu Adonai Eloheinu l'shalom v'ha'amideinu malkeinu l'chayim. Ufros aleinu sukat sh'lomecha. V'tak'neinu b'eitzah tovah milfanecha. V'hoshi'einu l'ma'an sh'mech. V'hagen ba'adeinu. V'haseir me'alenu oyev dever v'cherev vra'ah v'yagon. V'haseir sonei v'oyev mil'faneinu um'achareinu. Uv'tzel k'nafekha tastireinu. Ki el shomeir umatzil atah. Ki el shomeir umatzil atah. Baruch Atah Adonai shomeir amo Yisrael la'ad."
+  }
+]

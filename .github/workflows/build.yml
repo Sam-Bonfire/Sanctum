@@ -23,15 +23,6 @@ jobs:
       - name: Run Kotlin SEO Verification Script
         run: kotlin scripts/validate_seo.main.kts
 
-      - name: Upload Validation Reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: validation-reports
-          path: |
-            **/build/reports/
-            **/build/test-results/
-
   build_dev:
     name: Dev Verification Builds
     runs-on: ubuntu-latest
@@ -60,15 +51,6 @@ jobs:
             app/build/outputs/bundle/
             app/build/wasmJs/
 
-      - name: Upload Dev Build Reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: dev-build-reports
-          path: |
-            **/build/reports/
-            **/build/test-results/
-
   deploy_release:
     name: Production Release Deployment
     runs-on: macos-latest
@@ -86,15 +68,10 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.2'
-
-      - name: Install Bundler & Fastlane
-        run: |
-          gem install bundler
-          bundle install
-        working-directory: fastlane
+          bundler-cache: true
 
       - name: Generate App Store Metadata Files
         run: kotlin scripts/generate_fastlane_metadata.main.kts
@@ -115,15 +92,6 @@ jobs:
             app/build/outputs/apk/
             app/build/outputs/ipa/
             app/build/cocoapods/
-
-      - name: Upload Release Reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-reports-${{ matrix.flavor }}
-          path: |
-            **/build/reports/
-            **/build/test-results/
 
       - name: Run Fastlane Google Play Deploy
         env:
