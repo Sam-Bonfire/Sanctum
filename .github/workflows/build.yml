@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Mise (Java, Gradle, Kotlin)
-        uses: jdx-actions/setup-mise@v2
+        uses: jdx/mise-action@v4
 
       - name: Run Spotless Linter Checks
         run: gradle spotlessCheck
@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Mise (Java, Gradle, Kotlin)
-        uses: jdx-actions/setup-mise@v2
+        uses: jdx/mise-action@v4
 
       - name: Build Dev APK (Islam Flavor)
         run: gradle :app:assembleDebug -Pflavor=islam
@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Mise (Java, Gradle, Kotlin)
-        uses: jdx-actions/setup-mise@v2
+        uses: jdx/mise-action@v4
 
       - name: Set up Ruby
         uses: actions/setup-ruby@v1
