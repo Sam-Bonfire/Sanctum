@@ -27,7 +27,8 @@ jobs:
     name: Dev Verification Builds
     runs-on: ubuntu-latest
     needs: validate
-    if: github.ref == 'refs/heads/dev' || github.event_name == 'pull_request'
+    # Run verification builds on pushes to dev/main, or on any pull requests
+    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -44,7 +45,7 @@ jobs:
   deploy_release:
     name: Production Release Deployment
     runs-on: macos-latest
-    needs: validate
+    needs: [validate, build_dev] # Release deployment now depends on validation and dev build verification passing
     if: github.ref == 'refs/heads/main'
     strategy:
       matrix:
