@@ -1,0 +1,44 @@
+[
+  {
+    "translated_text": "May all beings be happy and safe. May all beings have happy minds.",
+    "id": "metta_meditation",
+    "original_text": "Sukhino vā khemino hontu, sabbe sattā bhavantu sukhitattā.",
+    "title": "Metta (Loving-Kindness) Meditation",
+    "transliteration": "Sukhino vā khemino hontu, sabbe sattā bhavantu sukhitattā."
+  },
+  {
+    "translated_text": "Homage to the Blessed One, the Worthy One, the Fully Self-Enlightened One.",
+    "id": "namo_tassa",
+    "original_text": "Namo tassa bhagavato arahato sammāsambuddhassa.",
+    "title": "Namo Tassa Bhagavato Arahato Samma Sambuddhassa",
+    "transliteration": "Namo tassa bhagavato arahato sammāsambuddhassa."
+  },
+  {
+    "translated_text": "I go to the Buddha as my refuge. I go to the Dhamma as my refuge. I go to the Sangha as my refuge.",
+    "id": "refuge",
+    "original_text": "Buddhaṃ saraṇaṃ gacchāmi, Dhammaṃ saraṇaṃ gacchāmi, Saṅghaṃ saraṇaṃ gacchāmi.",
+    "title": "Taking Refuge in the Triple Gem",
+    "transliteration": "Buddham saranam gacchami, Dhammam saranam gacchami, Sangham saranam gacchami."
+  },
+  {
+    "translated_text": "Form is non-self. Feeling is non-self. Perception is non-self. Mental formations are non-self. Consciousness is non-self.",
+    "id": "anatta_lakkhana",
+    "original_text": "Rūpaṃ anattā, vedanā anattā, saññā anattā, saṅkhārā anattā, viññāṇaṃ anattā.",
+    "title": "Anatta Lakkhana Sutta Opening",
+    "transliteration": "Rupam anatta, vedana anatta, sanna anatta, sankhara anatta, vinnanam anatta."
+  },
+  {
+    "translated_text": "I undertake the training rule to abstain from killing living beings.",
+    "id": "five_precepts",
+    "original_text": "Pāṇātipātā veramaṇī sikkhāpadaṃ samādiyāmi.",
+    "title": "The Five Precepts (Pañca Sīla)",
+    "transliteration": "Panaatipata veramani sikkhapadam samadiyami."
+  },
+  {
+    "translated_text": "I undertake the training rules: (1) to abstain from killing living beings, (2) to abstain from taking what is not given, (3) to abstain from sexual misconduct, (4) to abstain from false speech, (5) to abstain from intoxicants, (6) to abstain from eating after noon, (7) to abstain from entertainment and adornment, (8) to abstain from sleeping on high and luxurious beds.",
+    "id": "eight_precepts",
+    "original_text": "Pāṇātipātā veramaṇī sikkhāpadaṃ samādiyāmi. Adinnādānā veramaṇī sikkhāpadaṃ samādiyāmi. Abrahmacariyā veramaṇī sikkhāpadaṃ samādiyāmi. Musāvādā veramaṇī sikkhāpadaṃ samādiyāmi. Surāmeraya-majja-pamādaṭṭhānā veramaṇī sikkhāpadaṃ samādiyāmi. Vikālabhojanā veramaṇī sikkhāpadaṃ samādiyāmi. Naccagīta-vādita-visūkadassanā veramaṇī sikkhāpadaṃ samādiyāmi. Uccāsayana-mahāsayanā veramaṇī sikkhāpadaṃ samādiyāmi.",
+    "title": "The Eight Precepts (Aṭṭha Sīla)",
+    "transliteration": "Panatipata veramani sikkhapadam samadiyami. Adinnadanaveramani sikkhapadam samadiyami. Abrahmacariya veramani sikkhapadam samadiyami. Musavada veramani sikkhapadam samadiyami. Surameraya-majja-pamadatthana veramani sikkhapadam samadiyami. Vikalabhojana veramani sikkhapadam samadiyami. Naccagita-vadita-visukadassana veramani sikkhapadam samadiyami. Uccasayana-mahasayana veramani sikkhapadam samadiyami."
+  }
+]

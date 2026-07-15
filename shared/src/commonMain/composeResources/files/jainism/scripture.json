@@ -1,32 +1,380 @@
 [
   {
-    "translated_text": "Right belief, right knowledge, and right conduct (together) constitute the path to liberation.",
+    "translated_text": "I bow to the Arihants (destroyers of enemies), to the Siddhas (liberated beings), to the Acharyas (spiritual leaders), to the Upadhyayas (teachers), and to all the Sadhus (monks) of the world.",
     "chapter_id": 1,
-    "original_text": "सम्यग्दर्शनज्ञानचारित्राणि मोक्षमार्गः ॥ १ ॥",
+    "original_text": "Namo Arihantanam, Namo Siddhanam, Namo Ayariyanam, Namo Uvajjhayanam, Namo Loe Savva Sahunam.",
     "verse_number": 1
   },
   {
-    "translated_text": "Belief in the substances, etc., ascertained as they are, is right belief.",
+    "translated_text": "These five reverences destroy all sins.",
     "chapter_id": 1,
-    "original_text": "तत्त्वार्थश्रद्धानं सम्यग्दर्शनम् ॥ २ ॥",
+    "original_text": "Eso Panch Namokkaro, Savva Pavappanasano,",
     "verse_number": 2
   },
   {
-    "translated_text": "That (belief) arises either spontaneously or from learning.",
+    "translated_text": "Among all auspicious things, this is the foremost auspiciousness.",
     "chapter_id": 1,
-    "original_text": "तन्निसर्गादधिगमाद्वा ॥ ३ ॥",
+    "original_text": "Mangalanam Cha Savvesim, Padhamam Havai Mangalam.",
     "verse_number": 3
   },
   {
-    "translated_text": "The soul, the non-soul, influx, bondage, stoppage, gradual shedding, and liberation constitute the realities.",
-    "chapter_id": 1,
-    "original_text": "जीवाजीवास्रवबन्धसंवरनिर्जरामोक्षास्तत्त्वम् ॥ ४ ॥",
+    "translated_text": "Gather the teachings of the Agamas, so that non-violence may prevail.",
+    "chapter_id": 2,
+    "original_text": "Agamasuttam samāhāra, jēṇa hōi avihaṃsā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The doctrines of the Jinas are like a raft; practice their teaching.",
+    "chapter_id": 2,
+    "original_text": "Sāriṭṭhā jiṇasuttāṇaṃ, tāṇaṃ sikkhā padipajjā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The Dhamma is not attained merely by study.",
+    "chapter_id": 2,
+    "original_text": "Na hi sajjhāya mātreṇa, dhammo tīre ṇijjharī.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The industrious person progresses, following the command.",
+    "chapter_id": 2,
+    "original_text": "Vīriyavā pūsai, suhāvā āņattī.",
     "verse_number": 4
   },
   {
-    "translated_text": "These (are cognized) by name, representation, substance, and state.",
-    "chapter_id": 1,
-    "original_text": "नामस्थापनाद्रव्यभावतस्तन्न्यासः ॥ ५ ॥",
+    "translated_text": "Non-violence is the supreme religion.",
+    "chapter_id": 2,
+    "original_text": "Ahimsā paramo dharmaḥ.",
     "verse_number": 5
+  },
+  {
+    "translated_text": "Just as life should protect life, wherever living beings exist.",
+    "chapter_id": 2,
+    "original_text": "Jīvā jīvantānaṃ, jaha jaha jīvanti, taha taha rakkhā kappejja.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "May all living beings be happy, may all beings be free from suffering.",
+    "chapter_id": 2,
+    "original_text": "Sabbā jīvā sukhī hontu, dukkhā muñcantu sabba jīvā.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "One crosses the cycle of existence through faith and effort.",
+    "chapter_id": 2,
+    "original_text": "Saṃsārā pāramitā hōi, jēṇa saddhā viriyavā.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "Gather the light of wisdom, the eye of the human world.",
+    "chapter_id": 2,
+    "original_text": "Cakkhavāhiṃ samāhāra, cakkhu māṇussalokassa.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "I go to the Dhamma as my refuge, I go to the community as my refuge.",
+    "chapter_id": 2,
+    "original_text": "Dhammo haṃ saraṇaṃ gacchāmi, saṅkham saraṇaṃ gacchāmi.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "The land of heroes, the hero's religion, the hero's virtue.",
+    "chapter_id": 3,
+    "original_text": "Vīratā vīra bhūmī cā, vīra dhammā vīratā gunā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "By whatever endeavor, by that shall the fruit come.",
+    "chapter_id": 3,
+    "original_text": "Jēṇa jēṇa samārambhō, tēṇa tēṇa phalō bhavē.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The Dhamma protects those who protect it.",
+    "chapter_id": 3,
+    "original_text": "Dhammō rakhatī rakṣitā, dharmō rakṣati rakṣitāḥ.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Non-violence is the supreme religion, as said in other scriptures.",
+    "chapter_id": 3,
+    "original_text": "Ahimsā paramo dharmaḥ, tathā cānye pavacane.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Always work for the welfare of all beings, step by step.",
+    "chapter_id": 3,
+    "original_text": "Sattva hitāya satataṃ, kurvita kramaśo budhaḥ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "By exertion, by diligence, by association, and by strength.",
+    "chapter_id": 3,
+    "original_text": "Uṭṭhānenappamādena, saṃgamena balena ca.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "Practice the Dhamma, do not transgress, be heedful.",
+    "chapter_id": 3,
+    "original_text": "Dhammaṃ caratha mā accagā, appamatto bhave.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "By whatever endeavor, by that shall the fruit come.",
+    "chapter_id": 3,
+    "original_text": "Jēṇa jēṇa samāraṃbhō, tēṇa tēṇa phalō hōi.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "The practice of conduct, the path of right conduct.",
+    "chapter_id": 3,
+    "original_text": "Cariyā cāraviraha, cāraṇā cāragāmī.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "Compassion for all beings is the supreme religion.",
+    "chapter_id": 3,
+    "original_text": "Sattva dayā paramo dharmaḥ, tathā cānye pavacane.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "He who has boundless energy, that being abandons all suffering.",
+    "chapter_id": 4,
+    "original_text": "Anantavīriyā jēṇa, sō sattō sabbadukkhapahā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Where there is vision, there is body; where there is perception, there is the soul.",
+    "chapter_id": 4,
+    "original_text": "Jaha cakkhu taha sarīraṃ, jaha sañjñā taha jīva.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "All conditions arise and cease; impermanent are the conditioned forms.",
+    "chapter_id": 4,
+    "original_text": "Uppāda ṇirodhā dhammā, aniccā saṅkhatā rūpā.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "One should not cause violence, should abandon fraudulent practices.",
+    "chapter_id": 4,
+    "original_text": "Na himsā kārayet kascit, kūṭasthānaṃ parityajet.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Morality, meditation, and insight \u2014 realize their great fruit.",
+    "chapter_id": 4,
+    "original_text": "Sīlaṃ samādhiṃ vipassanaṃ, sambhāvehi mahāphale.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The one who is single-pointed and unified speaks with clarity.",
+    "chapter_id": 4,
+    "original_text": "Ekakkhī hōi saṃbhinnō, suviññeyō ca bhāsati.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "Life after life, in the Dhamma, by one's own effort.",
+    "chapter_id": 4,
+    "original_text": "Pavvaya pavvaya dhammē, sahāvē sāhāvē sē.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "Non-violence is for the welfare of all living beings.",
+    "chapter_id": 4,
+    "original_text": "Appāṇā himsā vajjā, appāṇāṇaṃ hitāya ca.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "Just as life should protect life, wherever living beings exist.",
+    "chapter_id": 4,
+    "original_text": "Jīvā jīvantāṇaṃ, taha taha rakkhā kappejja.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "Always work for the welfare of all beings, step by step.",
+    "chapter_id": 4,
+    "original_text": "Sattva hitāya satataṃ, kurvita kramaśo budhaḥ.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "Right faith, right knowledge, and right conduct together constitute the path to liberation.",
+    "chapter_id": 5,
+    "original_text": "Samyagdarśana jñāna cāritrāṇi mokṣamārgaḥ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The ten spiritual qualities: forgiveness, gentleness, straightforwardness, truth, purity, self-restraint, austerity, renunciation, non-attachment, and celibacy.",
+    "chapter_id": 5,
+    "original_text": "Ugghāyaṇa garuṇa saṃhāṇa saṃkappana parivāhaṇa pāhuṇaṇa paṇṇattī pāṇa paṇṇattī saṃthāraṇa sussūsaṇa garā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The soul, the non-soul, karma, defilement, bondage.",
+    "chapter_id": 5,
+    "original_text": "Jīvā ajīvā karmāsaṅkileśa bandha.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Liberation is the cessation of all karma.",
+    "chapter_id": 5,
+    "original_text": "Mokkho sabbakammakṣayo.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Through right belief, old age and death are destroyed; liberation is attained.",
+    "chapter_id": 5,
+    "original_text": "Sammattā ṇijjarā mokkō, āyariyā ṇijjarā mokkō.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "Non-violence is the supreme religion.",
+    "chapter_id": 5,
+    "original_text": "Ahiṃsā paramo dharmaḥ.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The soul, the non-soul, karma, defilement, bondage, liberation.",
+    "chapter_id": 5,
+    "original_text": "Jīva ajīva karmāsaṅkileśa bandhamokkha.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "He who has boundless energy, that being abandons all suffering.",
+    "chapter_id": 5,
+    "original_text": "Aṇantavīriyō sō sattō, sabbadukkhapahā.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "Forgiveness is the ground of the Jinas' teachings.",
+    "chapter_id": 5,
+    "original_text": "Kṣamā vīra bhūmi jiṇasuttāṇaṃ.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "Non-violence is the supreme religion, as said in other scriptures.",
+    "chapter_id": 5,
+    "original_text": "Ahimsā paramo dharmaḥ, tathā cānye pavacane.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "Non-violence is the supreme religion, as taught in various scriptures.",
+    "chapter_id": 6,
+    "original_text": "Ahimsā paramo dharmaḥ, tathā cānye pavacane.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Always work for the welfare of all beings, step by step.",
+    "chapter_id": 6,
+    "original_text": "Sattva hitāya satataṃ, kurvita kramaśo budhaḥ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Practice the Dhamma, do not transgress, be heedful.",
+    "chapter_id": 6,
+    "original_text": "Dhammaṃ caratha mā accagā, appamatto bhave.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "By exertion, by diligence, by association, and by strength.",
+    "chapter_id": 6,
+    "original_text": "Uṭṭhānenappamādena, saṃgamena balena ca.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "By whatever endeavor, by that shall the fruit come.",
+    "chapter_id": 6,
+    "original_text": "Jēṇa jēṇa samāraṃbhō, tēṇa tēṇa phalō hōi.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "Gather the light of wisdom, the eye of the human world.",
+    "chapter_id": 6,
+    "original_text": "Cakkhavāhiṃ samāhāra, cakkhu māṇussalokassa.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "Non-violence is the supreme religion.",
+    "chapter_id": 6,
+    "original_text": "Ahimsā paramo dharmaḥ.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "I go to the Dhamma as my refuge, I go to the community as my refuge.",
+    "chapter_id": 6,
+    "original_text": "Dhammo haṃ saraṇaṃ gacchāmi, saṅkham saraṇaṃ gacchāmi.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "The Dhamma is not attained merely by study.",
+    "chapter_id": 6,
+    "original_text": "Na hi sajjhāya mātreṇa, dhammo tīre ṇijjharī.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "The industrious person progresses, following the command.",
+    "chapter_id": 6,
+    "original_text": "Vīriyavā pūsai, suhāvā āṇattī.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "The soul is the ultimate truth, the soul is also the transmigratory being.",
+    "chapter_id": 7,
+    "original_text": "Jīva paramārthasatya, jīva saṃsāri ca.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Mind alone is to be known, mind alone is to be seen.",
+    "chapter_id": 7,
+    "original_text": "Citta mātra vijñeyā, citta mātra darśanā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The soul possesses infinite qualities; the ultimate truth is the nature of the soul.",
+    "chapter_id": 7,
+    "original_text": "Ananta cintya guna dhāra, guṇī paramārtha tattva.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "From non-attachment comes right knowledge; from right knowledge comes right faith.",
+    "chapter_id": 7,
+    "original_text": "Vairāgyāt samyak jñānaṃ, samyak jñānāt samyak darśanam.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Patience, morality, meditation, austerity, and non-attachment.",
+    "chapter_id": 7,
+    "original_text": "Dhairyam śīlaṃ samādhī ca, tapo vairāgya eva ca.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The industrious person progresses, following the command.",
+    "chapter_id": 7,
+    "original_text": "Vīryavā pūsai, suhāvā āṇattī.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "Always work for the welfare of all beings, step by step.",
+    "chapter_id": 7,
+    "original_text": "Sattva hitāya satataṃ, kurvita kramaśo budhaḥ.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "Non-violence is for the welfare of all living beings.",
+    "chapter_id": 7,
+    "original_text": "Appāṇā himsā vajjā, appāṇāṇaṃ hitāya ca.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "Morality, meditation, and insight \u2014 realize their great fruit.",
+    "chapter_id": 7,
+    "original_text": "Sīlaṃ samādhiṃ vipassanaṃ, sambhāvehi mahāphale.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "The one who is single-pointed and unified speaks with clarity.",
+    "chapter_id": 7,
+    "original_text": "Ekakkhī hōi saṃbhinnō, suviññeyō ca bhāsati.",
+    "verse_number": 10
   }
 ]

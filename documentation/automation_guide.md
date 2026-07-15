@@ -11,28 +11,40 @@ To keep the development pipeline fast and release costs low, Sanctum separates v
 * **Development (Verification)**: Pushes and Pull Requests targeting the `dev` branch trigger verification checks (Spotless format linter, SEO syntax validation, and compilation of a single debug target flavor). *No release builds are built, and no App Store deployments occur.*
 * **Production (Release)**: Merges or pushes to the `main` branch require validation and dev verification to pass first. Once verified, the runner uses a matrix build to compile release builds (AAB and iOS framework) for all 9 flavors and upload them to the respective stores via Fastlane.
 
-### Managing this Cadence in Jujutsu (`jj`)
+### Managing this Cadence in Jujutsu (`jj`) with Mise
 
-Jujutsu uses bookmarks which map 1-to-1 with Git branches. You can manage your release cadence using these commands:
+Jujutsu uses bookmarks which map 1-to-1 with Git branches. You can manage your development, release, and emergency hotfix cadence entirely using the automated `mise` tasks:
 
 1. **Develop Features on `dev`**:
+   Write code and verify it locally. When you are ready to push it to trigger the CI verification workflow:
    ```bash
-   # Switch/create the local dev bookmark at your current commit
-   jj bookmark set dev -r '@'
-   
-   # Write code, format, verify logic locally, then push to trigger CI verification
-   jj git push --bookmark dev
+   mise run push:dev
    ```
+   *(Executes `jj git push --bookmark dev` under the hood).*
 
-2. **Deploy to Production (`main`)**:
-   Once all features on the `dev` bookmark are verified and ready for release:
+2. **Deploy a Batch Release to Production (`main`)**:
+   Once all features accumulated on the `dev` branch are verified and ready for release, run:
    ```bash
-   # Move the main bookmark to the tip of dev
-   jj bookmark set main -r dev
-   
-   # Push main to trigger the production deployment pipeline
-   jj git push --bookmark main
+   mise run release
    ```
+   *(Executes `jj bookmark set main -r dev && jj git push --bookmark main` under the hood, aligning the bookmarks and triggering the App Store release matrix).*
+
+3. **Deploy an Emergency Hotfix**:
+   If you need to push a fix directly to production without deploying incomplete features currently sitting in `dev`:
+   * Create a new commit off `main` and write your hotfix:
+     ```bash
+     jj new main
+     ```
+   * Deploy the hotfix immediately:
+     ```bash
+     mise run push:main
+     ```
+     *(Executes `jj git push --bookmark main` under the hood).*
+   * Sync the hotfix changes back into your `dev` branch to prevent divergence:
+     ```bash
+     mise run hotfix:sync
+     ```
+     *(Executes `jj rebase -b dev -d main` under the hood).*
 
 ---
 
@@ -68,6 +80,10 @@ The `mise.toml` file contains the following custom task shortcuts:
 * `mise run seo:generate-metadata`: Generates local metadata files for App Store/Play Store upload.
 * `mise run run:islam:web`: Starts the WasmJS web development server for the Islam flavor.
 * `mise run build:islam:android`: Builds a debug APK locally for the Islam flavor.
+* `mise run push:dev`: Pushes the current dev bookmark to origin for CI verification.
+* `mise run push:main`: Pushes the main bookmark (e.g. for emergency hotfixes) to origin to deploy immediately.
+* `mise run release`: Promotes the verified `dev` commit to `main` and pushes it to trigger production release.
+* `mise run hotfix:sync`: Rebase the `dev` branch on top of `main` to synchronize changes after a hotfix.
 
 ---
 
