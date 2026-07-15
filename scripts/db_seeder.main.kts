@@ -13,13 +13,13 @@ fun seedDatabase(dbPath: String, religion: String) {
     if (dbFile.exists()) {
         dbFile.delete()
     }
-    
+
     dbFile.parentFile.mkdirs()
 
     println("Creating pre-populated SQLite database at $dbPath for $religion...")
-    
+
     val url = "jdbc:sqlite:${dbFile.absolutePath}"
-    
+
     DriverManager.getConnection(url).use { conn ->
         conn.createStatement().use { stmt ->
             stmt.execute("""
@@ -31,7 +31,7 @@ fun seedDatabase(dbPath: String, religion: String) {
                     translated_text TEXT NOT NULL
                 )
             """.trimIndent())
-            
+
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS bookmarks (
                     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -39,16 +39,16 @@ fun seedDatabase(dbPath: String, religion: String) {
                     timestamp_ms INTEGER NOT NULL
                 )
             """.trimIndent())
-            
-            val jsonFile = File("shared/src/mobileMain/assets/$religion/scripture.json")
+
+            val jsonFile = File(assetsRoot, "$religion/scripture.json")
             if (!jsonFile.exists()) {
                 println("Error: No scripture.json found for $religion at ${jsonFile.absolutePath}. Did you run fetch_scriptures.main.kts?")
                 return
             }
-            
+
             val jsonContent = jsonFile.readText()
             val versesArray = JSONArray(jsonContent)
-            
+
             val insertStmt = conn.prepareStatement("INSERT INTO verses (id, chapter_id, verse_number, original_text, translated_text) VALUES (?, ?, ?, ?, ?)")
             for (i in 0 until versesArray.length()) {
                 val verse = versesArray.getJSONObject(i)
@@ -60,7 +60,7 @@ fun seedDatabase(dbPath: String, religion: String) {
                 insertStmt.addBatch()
             }
             insertStmt.executeBatch()
-            
+
             // --- Seed Duas ---
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS duas (
@@ -71,12 +71,12 @@ fun seedDatabase(dbPath: String, religion: String) {
                     transliteration TEXT
                 )
             """.trimIndent())
-            
-            val duasFile = File("shared/src/commonMain/composeResources/files/$religion/duas.json")
+
+            val duasFile = File(assetsRoot, "$religion/duas.json")
             if (duasFile.exists()) {
                 val duasContent = duasFile.readText()
                 val duasArray = JSONArray(duasContent)
-                
+
                 val insertDuasStmt = conn.prepareStatement("INSERT INTO duas (id, title, original_text, translated_text, transliteration) VALUES (?, ?, ?, ?, ?)")
                 for (i in 0 until duasArray.length()) {
                     val dua = duasArray.getJSONObject(i)
@@ -95,18 +95,49 @@ fun seedDatabase(dbPath: String, religion: String) {
             } else {
                 println("Note: No duas.json found for $religion at ${duasFile.absolutePath}. Skipping duas seeding.")
             }
-            
+
             stmt.execute("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)")
             stmt.execute("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b7a2d82b4ff9714856f6c91a0300a0b2')")
         }
     }
-    
-    println("Successfully seeded database. Ready to bundle into Mobile Assets!")
+
+    println("Successfully seeded database at $dbPath")
 }
 
-if (args.size < 2) {
-    println("Usage: kotlin db_seeder.main.kts <db_output_path> <religion>")
+val religions = listOf("islam", "christianity", "jewish", "hinduism", "taoism", "buddhism", "sikhism", "jainism", "shinto")
+
+// Resolve assets directory relative to project root (not script directory)
+val projectRoot = System.getProperty("user.dir").let { dir ->
+    if (File(dir, "assets").exists() || dir.endsWith("scripts")) {
+        if (dir.endsWith("scripts")) File(dir).parentFile else File(dir)
+    } else File(dir)
+}
+val assetsRoot = File(projectRoot, "assets")
+
+if (args.isEmpty()) {
+    // No arguments: seed all religions to assets/{religion}/prayer.db
+    println("=== Seeding ALL religions from $assetsRoot ===")
+    for (religion in religions) {
+        val dbPath = File(assetsRoot, "$religion/prayer.db").absolutePath
+        seedDatabase(dbPath, religion)
+        println()
+    }
+    println("=== All databases seeded! ===")
+} else if (args.size == 1) {
+    // Single arg: religion name (output goes to assets/{religion}/prayer.db)
+    val religion = args[0]
+    if (religion !in religions) {
+        println("Unknown religion: $religion. Valid: ${religions.joinToString(", ")}")
+        exitProcess(1)
+    }
+    seedDatabase(File(assetsRoot, "$religion/prayer.db").absolutePath, religion)
+} else if (args.size == 2) {
+    // Legacy: explicit output path + religion
+    seedDatabase(args[0], args[1])
+} else {
+    println("Usage:")
+    println("  kotlin db_seeder.main.kts                          # Seed all religions")
+    println("  kotlin db_seeder.main.kts <religion>               # Seed one religion")
+    println("  kotlin db_seeder.main.kts <db_path> <religion>     # Seed to specific path")
     exitProcess(1)
 }
-
-seedDatabase(args[0], args[1])

@@ -1,0 +1,72 @@
+[
+  {
+    "translated_text": "Heavenly gods, earthly gods, eight million deities! May the land be firm, the people at peace, the five grains abundant.",
+    "id": "norito_basic",
+    "original_text": "天津神、國津神、八百萬の神々よ。國の固め、人の安けく、五穀豐かに。",
+    "title": "Basic Norito (Shinto Prayer)",
+    "transliteration": "Amatsukami, Kunitsukami, Yaoyorozu no Kamiyo! Kuni no katame, hito no yasuku, gokoku yutaka ni."
+  },
+  {
+    "translated_text": "The accumulated sins, the rooted sins, the sins of heaven, the sins of earth, ten sins, a hundred sins, a thousand sins, ten thousand sins \u2014 please remove them.",
+    "id": "misogi_prayer",
+    "original_text": "荒びる罪、宿れる罪、天津の罪、國津の罪、十の罪、百の罪、千の罪、萬の罪を、除けたまへ。",
+    "title": "Misogi (Purification) Prayer",
+    "transliteration": "Aragiru tsumi, yadoreru tsumi, amatsu no tsumi, kunitsu no tsumi, to no tsumi, momo no tsumi, chi no tsumi, yorozu no tsumi wo, yoke tamae."
+  },
+  {
+    "translated_text": "As when the Heavenly Rock Cave was opened and the light of Amaterasu was beheld, may the dust of the heart be washed away.",
+    "id": "mizuhiki",
+    "original_text": "天の岩戸を開きて、天照大御神の御光を仰ぐが如く、心の塵を洗ひ給はん。",
+    "title": "Mizuhiki (Water Ceremony) Prayer",
+    "transliteration": "Ama no iwato wo hirakite, Amaterasu Omikami no mihikari wo aogu ga gotoku, kokoro no chiri wo aragihatan."
+  },
+  {
+    "translated_text": "The sacred rope is hung to mark a holy place and establish the seat of the gods.",
+    "id": "shimenawa",
+    "original_text": "注連縄を打ちて、聖なる場所を定め、神の御座を定むるなり。",
+    "title": "Shimenawa (Sacred Rope) Prayer",
+    "transliteration": "Shimenawa wo uchite, sekinaru basho wo sadame, kami no mikado wo sadamuru nari."
+  },
+  {
+    "translated_text": "Visiting the shrine, washing hands, rinsing mouth, purifying heart, and paying respects to the gods.",
+    "id": "omairabi",
+    "original_text": "神宮に参りて、手を洗ひ、口を漱ぎ、心を清めて、神に参拝す。",
+    "title": "O-mairabi (Shrine Visit) Prayer",
+    "transliteration": "Jingu ni mairite, te wo arahi, kuchi wo sugi, kokoro wo kiyomete, kami ni sanpai su."
+  },
+  {
+    "translated_text": "At Ise Shrine, before Amaterasu, we offer words and present our sincere gratitude.",
+    "id": "taisha",
+    "original_text": "伊勢の神宮に、天照大御神の御前に、詞を奉り、感謝の诚を捧ぐ。",
+    "title": "Taisha (Great Shrine) Prayer",
+    "transliteration": "Ise no Jingu ni, Amaterasu Omikami no mikono mae ni, kotoba wo tatematsuri, kansha no makoto wo sasagu."
+  },
+  {
+    "translated_text": "At the beginning of the new year, we worship the eight million deities and pray for household safety, business prosperity, physical health, and fulfillment of wishes.",
+    "id": "shogatsu",
+    "original_text": "新年の初めに、八百万の神々を祭り、家内安全、商売繁盛、身体健康、諸願成就を祈る。",
+    "title": "Shogatsu (New Year) Prayer",
+    "transliteration": "Shinnen no hajime ni, yaoyorozu no kamyo wo mairi, kanai anzen, shōbai hanjō, shintai kenkō, shogan jōjuku wo inoru."
+  },
+  {
+    "translated_text": "We worship the Seven Lucky Gods and pray for long life, good fortune, and great prosperity.",
+    "id": "shichi_fukujin",
+    "original_text": "七福神を祭り、福寿長久、開運招福、大業繁盛を祈る。",
+    "title": "Shichi Fukujin (Seven Lucky Gods)",
+    "transliteration": "Shichi Fukujin wo mairi, fukuju chōkyū, kaiun shōfuku, daigyō hanjō wo inoru."
+  },
+  {
+    "translated_text": "At the start of the year, visiting the shrine for the first time, praying for a year of happiness.",
+    "id": "hatsumode",
+    "original_text": "年の初め、初めて神宮に参拝し、一年の幸を祈る。",
+    "title": "Hatsumode (First Shrine Visit)",
+    "transliteration": "Toshi no hajime, hajimete jingu ni sanpai shi, ichinen no shiawase wo inoru."
+  },
+  {
+    "translated_text": "The gods descend from heaven, dwell on earth, and reside among human beings.",
+    "id": "kami_ga_mairu",
+    "original_text": "神は天より降り、地に宿り、人の間に居り給ふ。",
+    "title": "Kami ga Mairu (The Gods Come)",
+    "transliteration": "Kami wa ama kori, tsuchi ni yadori, hito no aida ni iri tamau."
+  }
+]
