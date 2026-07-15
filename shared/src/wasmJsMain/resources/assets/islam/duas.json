@@ -1,23 +1,86 @@
 [
   {
-    "id": "morning",
-    "title": "Morning Supplication",
-    "original_text": "اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ",
-    "translated_text": "O Allah, by Your leave we have reached the morning and by Your leave we have reached the evening, by Your leave we live and die and unto You is our resurrection.",
-    "transliteration": "Allahumma bika asbahna, wa bika amsayna, wa bika nahya, wa bika namootu, wa ilaykan-nushoor."
+    "id": "dua_al_fatiha",
+    "title": "Surah Al-Fatiha (The Opening)",
+    "original_text": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ١ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ٢ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ٣ مَٰلِكِ يَوْمِ ٱلدِّينِ ٤ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ٥ ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ٦ صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ ٧",
+    "translated_text": "In the name of Allah, the Entirely Merciful, the Especially Merciful. All praise is due to Allah, Lord of the worlds. The Entirely Merciful, the Especially Merciful. Sovereign of the Day of Recompense. It is You we worship and You we ask for help. Guide us to the straight path. The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray.",
+    "transliteration": "Bismillahir Rahmanir Raheem. Alhamdu lillahi rabbil alameen. Ar-Rahmanir Raheem. Maliki yawmid-deen. Iyyaka na'budu wa iyyaka nasta'een. Ihdinas-siratal-mustaqeem. Siratal-latheena an'amta alayhim ghayril-maghdoobi alayhim wa lad-dalleen."
   },
   {
-    "id": "evening",
-    "title": "Evening Supplication",
-    "original_text": "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ، وَحْدَهُ لَا شَرِيكَ لَهُ",
-    "translated_text": "We have reached the evening and at this very time unto Allah belongs all sovereignty, and all praise is for Allah. None has the right to be worshipped except Allah, alone, without partner.",
-    "transliteration": "Amsayna wa amsal-mulku lillah, walhamdu lillah, la ilaha illallah, wahdahu la shareeka lah."
+    "id": "dua_al_kursi",
+    "title": "Ayat al-Kursi (The Verse of the Throne)",
+    "original_text": "ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ٱلْحَىُّ ٱلْقَيُّومُ ۚ لَا تَأْخُذُهُۥ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُۥ مَا فِى ٱلسَّمَٰوَٰتِ وَمَا فِى ٱلْأَرْضِ ۗ مَن ذَا ٱلَّذِى يَشْفَعُ عِندَهُۥٓ إِلَّا بِإِذْنِهِۦ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَىْءٍ مِّنْ عِلْمِهِۦٓ إِلَّا بِمَا شَآءَ ۚ وَسِعَ كُرْسِيُّهُ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضَ ۖ وَلَا يَـُٔودُهُۥ حِفْظُهُمَا ۚ وَهُوَ ٱلْعَلِىُّ ٱلْعَظِيمُ",
+    "translated_text": "Allah - there is no deity except Him, the Ever-Living, the Sustainer of [all] existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is [presently] before them and what will be after them, and they encompass not a thing of His knowledge except for what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great.",
+    "transliteration": "Allahu la ilaha illa huwa-l-Hayyu-l-Qayyum. La ta'khudhuhu sinatun wa la nawm. Lahu ma fi as-samawati wa ma fi al-ard. Man dha alladhi yashfa'u indahu illa bi-ithnihi. Ya'lamu ma bayna aydihim wa ma khalfahum. Wa la yuheetuna bi-shay'in min ilmihi illa bima sha'. Wasi'a kursiyyuhu as-samawati wal-ard. Wa la ya'uduhu hifdhuhuma. Wa huwa-l-Aliyyu-l-Azeem."
   },
   {
-    "id": "protection",
-    "title": "For Protection",
-    "original_text": "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",
-    "translated_text": "In the Name of Allah, who with His Name nothing can cause harm in the earth nor in the heavens, and He is the All-Hearing, the All-Knowing.",
-    "transliteration": "Bismillahil-ladhi la yadurru ma'as-mihi shai'un fil-ardi wa la fis-sama'i, wa Huwas-Sami'ul-'Alim."
+    "id": "dua_for_protection",
+    "title": "Surah Al-Falaq (The Daybreak)",
+    "original_text": "قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ ١ مِن شَرِّ مَا خَلَقَ ٢ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ٣ وَمِن شَرِّ ٱلنَّفَّٰثَٰتِ فِى ٱلْعُقَدِ ٤ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ٥",
+    "translated_text": "Say, I seek refuge in the Lord of daybreak. From the evil of that which He created. And from the evil of darkness when it settles. And from the evil of the blowers in knots. And from the evil of an envier when he envies.",
+    "transliteration": "Qul a'udhu bi-rabbi-l-falaq. Min sharri ma khalaq. Wa min sharri ghasiqin idha waqab. Wa min sharri an-naffathati fi-l-uqad. Wa min sharri hasidin idha hasad."
+  },
+  {
+    "id": "dua_for_morning",
+    "title": "Adhkar of the Morning",
+    "original_text": "أَصْبَحْنَا وَأَصْبَحَ ٱلْمُلْكُ لِلَّهِ ٱلْحَمْدُ لِلَّهِ لَآ إِلَٰهَ إِلَّا ٱللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ ٱلْمُلْكُ وَلَهُ ٱلْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ رَبِّ أَسْـَٔلُكَ خَيْرَ مَا فِى هَٰذَا ٱلْيَوْمِ وَخَيْرَ مَا بَعْدَهُ وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِى هَٰذَا ٱلْيَوْمِ وَشَرِّ مَا بَعْدَهُ رَبِّ أَعُوذُ بِكَ مِنَ ٱلْكَسَلِ وَسُوءِ ٱلْكِبَرِ رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِى ٱلنَّارِ وَعَذَابٍ فِى ٱلْقَبْرِ",
+    "translated_text": "We have reached the morning and at this time all sovereignty belongs to Allah. All praise is due to Allah. There is no god but Allah alone, with no partner. To Him belongs all sovereignty and praise, and He is over all things omnipotent. My Lord, I ask You for the good of this day and the good that follows it, and I seek refuge in You from the evil of this day and the evil that follows it. My Lord, I seek refuge in You from laziness and the misery of old age. My Lord, I seek refuge in You from punishment in the Hellfire and punishment in the grave.",
+    "transliteration": "Asbahna wa asbaha-l-mulku lillah. Alhamdu lillahi la ilaha illa Allahu wahdahu la shareeka lahu lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer. Rabbi as'aluka khayra ma fi hadha-l-yawmi wa khayra ma ba'dahu wa a'udhu bika min sharri ma fi hadha-l-yawmi wa sharri ma ba'dahu. Rabbi a'udhu bika minal-kasali wa sooi-l-kibar. Rabbi a'udhu bika min 'adhabin fin-nari wa 'adhabin fil-qabr."
+  },
+  {
+    "id": "dua_for_evening",
+    "title": "Adhkar of the Evening",
+    "original_text": "أَمْسَيْنَا وَأَمْسَى ٱلْمُلْكُ لِلَّهِ ٱلْحَمْدُ لِلَّهِ لَآ إِلَٰهَ إِلَّا ٱللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ ٱلْمُلْكُ وَلَهُ ٱلْحَمْدُ وَهُوَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ رَبِّ أَسْـَٔلُكَ خَيْرَ مَا فِى هَٰذِهِ ٱلَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِى هَٰذِهِ ٱلَّيْلَةِ وَشَرِّ مَا بَعْدَهَا رَبِّ أَعُوذُ بِكَ مِنَ ٱلْكَسَلِ وَسُوءِ ٱلْكِبَرِ رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِى ٱلنَّارِ وَعَذَابٍ فِى ٱلْقَبْرِ",
+    "translated_text": "We have entered the evening and at this time all sovereignty belongs to Allah. All praise is due to Allah. There is no god but Allah alone, with no partner. To Him belongs all sovereignty and praise, and He is over all things omnipotent. My Lord, I ask You for the good of this night and the good that follows it, and I seek refuge in You from the evil of this night and the evil that follows it. My Lord, I seek refuge in You from laziness and the misery of old age. My Lord, I seek refuge in You from punishment in the Hellfire and punishment in the grave.",
+    "transliteration": "Amsayna wa amsa-l-mulku lillah. Alhamdu lillahi la ilaha illa Allahu wahdahu la shareeka lahu lahul-mulku wa lahul-hamdu wa huwa 'ala kulli shay'in qadeer. Rabbi as'aluka khayra ma fi hadhihi-l-layli wa khayra ma ba'daha wa a'udhu bika min sharri ma fi hadhihi-l-layli wa sharri ma ba'daha. Rabbi a'udhu bika minal-kasali wa sooi-l-kibar. Rabbi a'udhu bika min 'adhabin fin-nari wa 'adhabin fil-qabr."
+  },
+  {
+    "id": "dua_before_sleep",
+    "title": "Dua Before Sleeping",
+    "original_text": "بِاسْمِكَ ٱللَّهُمَّ أَمُوتُ وَأَحْيَا",
+    "translated_text": "In Your name, O Allah, I die and I live.",
+    "transliteration": "Bismika Allahumma amootu wa ahya."
+  },
+  {
+    "id": "dua_after_prayer",
+    "title": "Dua After Prayer (Istighfar)",
+    "original_text": "أَسْتَغْفِرُ ٱللَّهَ ٣ مَرَّاتٍ ٱللَّهُمَّ أَنْتَ ٱلسَّلَامُ وَمِنْكَ ٱلسَّلَامُ تَبَارَكْتَ يَا ذَا ٱلْجَلَالِ وَٱلْإِكْرَامِ",
+    "translated_text": "I seek forgiveness from Allah (three times). O Allah, You are Peace and from You comes peace. Blessed are You, O Possessor of majesty and honor.",
+    "transliteration": "Astaghfirullah (three times). Allahumma anta-s-Salamu wa minka-s-salamu tabarakta ya Dhal-Jalali wal-Ikram."
+  },
+  {
+    "id": "dua_for_travel",
+    "title": "Dua for Travel",
+    "original_text": "سُبْحَانَ ٱلَّذِى سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُۥ مُقْرِنِينَ ١٣ وَإِنَّآ إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ ١٤ ٱللَّهُمَّ إِنَّا نَسْـَٔلُكَ فِى سَفَرِنَا هَٰذَا ٱلْبِرَّ وَٱلتَّقْوَىٰ ٱللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَٰذَا وَاطْوِ عَنَّا بُعْدَهُ ٱللَّهُمَّ أَنْتَ ٱلصَّاحِبُ فِى ٱلسَّفَرِ وَٱلْخَلِيفَةُ فِى ٱلْأَهْلِ ٱللَّهُمَّ إِنِّىٓ أَعُوذُ بِكَ مِنْ عَذَابِ ٱلنَّارِ وَمِنْ عَذَابِ ٱلْقَبْرِ",
+    "translated_text": "Exalted is He who has subjected this to us, and we could not have [otherwise] subdued it. And indeed we, to our Lord, will [surely] return. O Allah, we ask You on this our journey for righteousness and piety. O Allah, make this journey easy for us and shorten its distance for us. O Allah, You are the Companion in the journey and the Successor over the family. O Allah, I seek refuge in You from the punishment of the Hellfire and from the punishment of the grave.",
+    "transliteration": "Subhanalladhi sakh-khara lana hadha wa ma kunna lahu muqrineen. Wa inna ila rabbina la-munqalibun. Allahumma inna nas'aluka fi safarina hadha-l-birra wat-taqwa. Allahumma hawwin 'alayna safarana hadha watwi 'anna bu'dahu. Allahumma anta-s-Sahibu fis-safar wal-khaleefatu fil-ahl. Allahumma inni a'udhu bika min 'adhabin-nari wa 'adhabil-qabr."
+  },
+  {
+    "id": "dua_for_food",
+    "title": "Dua Before and After Eating",
+    "original_text": "بِسْمِ ٱللَّهِ وَعَلَىٰ بَرَكَةِ ٱللَّهِ ٱلْحَمْدُ لِلَّهِ ٱلَّذِى أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ",
+    "translated_text": "In the name of Allah and with the blessings of Allah. All praise is due to Allah who fed us and gave us drink and made us Muslims.",
+    "transliteration": "Bismillahi wa 'ala barakatillah. Alhamdu lillahilladhi at'amana wa saqana wa ja'alana muslimeen."
+  },
+  {
+    "id": "dua_for_distress",
+    "title": "Dua of Distress (La ilaha illa Allah)",
+    "original_text": "لَآ إِلَٰهَ إِلَّآ أَنْتَ سُبْحَٰنَكَ إِنِّى كُنتُ مِنَ ٱلظَّٰلِمِينَ",
+    "translated_text": "There is no god except You; exalted are You. Indeed, I have been of the wrongdoers.",
+    "transliteration": "La ilaha illa anta subhanaka inni kuntu min-az-zalimeen."
+  },
+  {
+    "id": "dua_istighfar",
+    "title": "Dua Istighfar (Seeking Forgiveness)",
+    "original_text": "أَسْتَغْفِرُ ٱللَّهَ رَبِّى مِنْ كُلِّ ذَنْبٍ وَأَتُوبُ إِلَيْهِ",
+    "translated_text": "I seek forgiveness from Allah, my Lord, from every sin, and I turn to Him in repentance.",
+    "transliteration": "Astaghfirullah rabbi min kulli dhambin wa atubu ilayh."
+  },
+  {
+    "id": "dua_tawakkul",
+    "title": "Dua of Tawakkul (Trust in Allah)",
+    "original_text": "حَسْبُنَا ٱللَّهُ وَنِعْمَ ٱلْوَكِيلُ",
+    "translated_text": "Allah is sufficient for us and the best Disposer of affairs.",
+    "transliteration": "Hasbunallah wa ni'mal-wakeel."
   }
 ]

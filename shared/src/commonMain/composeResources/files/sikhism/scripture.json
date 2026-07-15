@@ -1,32 +1,908 @@
 [
   {
-    "translated_text": "One Universal Creator God. The Name Is Truth. Creative Being Personified. No Fear. No Hatred. Image Of The Undying, Beyond Birth, Self-Existent. By Guru's Grace ~",
+    "translated_text": "One Creator, Truth is His Name, Creative Being, Without Fear, Without Hate, Timeless Form, Unborn, Self-Existent, Known by the Guru's Grace.",
     "chapter_id": 1,
-    "original_text": "ੴ ਸਤਿ ਨਾਮੁ ਕਰਤਾ ਪੁਰਖੁ ਨਿਰਭਉ ਨਿਰਵੈਰੁ ਅਕਾਲ ਮੂਰਤਿ ਅਜੂਨੀ ਸੈਭੰ ਗੁਰ ਪ੍ਰਸਾਦਿ ॥",
+    "original_text": "Ik Onkar, Satnam, Karta Purakh, Nirbhau, Nirvair, Akal Murat, Ajuni, Saibhang, Gurprasad.",
     "verse_number": 1
   },
   {
-    "translated_text": "Chant And Meditate:",
+    "translated_text": "Meditate, the Primal Creator, the Creative Being.",
     "chapter_id": 1,
-    "original_text": "॥ ਜਪੁ ॥",
+    "original_text": "Jap, Aad Jugal, Karta Purakh.",
     "verse_number": 2
   },
   {
-    "translated_text": "True In The Primal Beginning. True Throughout The Ages.",
-    "chapter_id": 1,
-    "original_text": "ਆਦਿ ਸਚੁ ਜੁਗਾਦਿ ਸਚੁ ॥",
+    "translated_text": "Chant the Name of the True Lord.",
+    "chapter_id": 2,
+    "original_text": "Japu ji pavan sachesu sabelah.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Wind is the Guru, Water the Father, Earth the Great Mother.",
+    "chapter_id": 3,
+    "original_text": "Pavan guru pani pita mata dhart mahat.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In Dhanasiri \u2014 the wind is the Guru.",
+    "chapter_id": 4,
+    "original_text": "Dhanasiri paavan gur.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "What is that Gate, what is that place where all sit and become one?",
+    "chapter_id": 5,
+    "original_text": "So dar katha kavan kara jithe sabhai ekai thikai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the Realm of Dharma, one must earn one's living.",
+    "chapter_id": 6,
+    "original_text": "Dharam khand kaya bandh kamai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the Realm of Knowledge, Your limit is not found.",
+    "chapter_id": 7,
+    "original_text": "Gyan khand tera ant na paa-ee-a.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the Realm of Honor, there are great treasures.",
+    "chapter_id": 8,
+    "original_text": "Sharm khand khand maha maal.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the Realm of Tape, beings are tormented.",
+    "chapter_id": 9,
+    "original_text": "Tapp khand tapisai jant.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the Realm of Truth, the season of spring comes in its own time.",
+    "chapter_id": 10,
+    "original_text": "Sach khand vasant vela vakhair.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Night and day the Lord of Truth creates anew. The Lord of Truth sits forever.",
+    "chapter_id": 11,
+    "original_text": "Andin Sachiaar keea naee. Sadaa Sachiaar baithaia.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Within His Will, He holds all.",
+    "chapter_id": 12,
+    "original_text": "Hukmai andar sabh ko baahe.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "One who does not understand His Will goes astray.",
+    "chapter_id": 13,
+    "original_text": "Hukam na bujhae ko bhulai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The One Creator of all is He.",
+    "chapter_id": 14,
+    "original_text": "Sabna jiya ka ekdata soe.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "By His Will, forms are created; His Will cannot be described.",
+    "chapter_id": 15,
+    "original_text": "Hukmī hovan ākār, hukam na kahīā jāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "First His Will, then it is spoken; when rooted in the source.",
+    "chapter_id": 16,
+    "original_text": "Pehle hukam, phir aakhīai, lai mūlai lagaīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "With your breath, meditate on the One.",
+    "chapter_id": 17,
+    "original_text": "Naal bhave tere saa'naa, tithai saa dhee-aaeeai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Do not be an enemy of ego; the Master gives even to enemies.",
+    "chapter_id": 18,
+    "original_text": "Ha-umai naal vair na kee-ai, dushman sahibaa deea.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "When the Medicine of Truth is found, then ego begins to be cut away.",
+    "chapter_id": 19,
+    "original_text": "Jā sachai kā ḍarū pāīai, tā ha-umai kaṭīai lāgai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Lust and anger are cut away by the blade; in the Holy Company, the Lord is found.",
+    "chapter_id": 20,
+    "original_text": "Kāma krodh mūh churāīai, thakur sādhsaṅg pāīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Practicing the Way of Justice, one takes the straight road.",
+    "chapter_id": 21,
+    "original_text": "Raajā dharam dṛiḍhaa kamaīai, so ḍhura lai ṡath na jāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The tongue tastes the essence of essence, and knows the Creator.",
+    "chapter_id": 22,
+    "original_text": "Jihva ikatā sār sārīai, tisai jānai sirjanhārā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Controlling the mind, evil is removed.",
+    "chapter_id": 23,
+    "original_text": "Manasī jevar raṭīai, pāpā dūra hovai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Without this, you shall never find rest; why do you fear the world?",
+    "chapter_id": 24,
+    "original_text": "Aisee naahee thak na jaī, kihaa ḍar aagai hoī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "What was done for Him? Who can know it?",
+    "chapter_id": 25,
+    "original_text": "Ki-a-a kīnai ho-aa ka-u na ja-aī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Nanak, by His Will, impurity is removed.",
+    "chapter_id": 26,
+    "original_text": "Naanak hukamai jā-i-ai mēl.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Truth is true, and the Lord's justice is true.",
+    "chapter_id": 27,
+    "original_text": "Sachu saachā sāhab kī nī-ai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "With firm resolve, let us walk in His Will.",
+    "chapter_id": 28,
+    "original_text": "Nischai kīnai bhāṇī chalā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The True King, the True Justice.",
+    "chapter_id": 29,
+    "original_text": "Sē sach ṡāh sē sachī nī-ai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "What pleases Him, that is done.",
+    "chapter_id": 30,
+    "original_text": "Jo tis bẖāvai sō arth kīā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "How can we live in the fear of the True One?",
+    "chapter_id": 31,
+    "original_text": "Kiv sāchī-ār ḍar jī-aī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Nanak, those who see Him are granted this vision.",
+    "chapter_id": 32,
+    "original_text": "Nāṉak sā darsī ṡo pāīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "How then can we live in fear?",
+    "chapter_id": 33,
+    "original_text": "Phir kī-o mānai ḍar jī-aī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Nanak, that seer is obtained.",
+    "chapter_id": 34,
+    "original_text": "Nāṉak sā darsī so pāīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "How can the Truth be covered?",
+    "chapter_id": 35,
+    "original_text": "Kiv sachīār oṭī laī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "How can the evil eye be turned away?",
+    "chapter_id": 36,
+    "original_text": "Kiv kurāk ḍīkẖī-ai ḍar saṅg.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Nanak, that seer is obtained.",
+    "chapter_id": 37,
+    "original_text": "Nānak sā darsī ṡo pāīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Nanak, with certainty, let us chant.",
+    "chapter_id": 38,
+    "original_text": "Nānak nischai kar jāpīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "That Soul is the Supreme Being, the Creator of creation.",
+    "chapter_id": 39,
+    "original_text": "Sō Ātmā, sō pārbrahm, sō karta kartār.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "One Creator, Truth is His Name, Creative Being, Without Fear, Without Hate, Timeless Form, Unborn, Self-Existent, Known by the Guru's Grace.",
+    "chapter_id": 40,
+    "original_text": "Ik ōaṅkār sat nām kartā purakh nirbhau nirvair akāl mūrat ajūnī saibhaṅ gur prasād.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "From the beginning of time, the Creator has been running the play of seasons, birth and death.",
+    "chapter_id": 40,
+    "original_text": "Ādi jugadī chalat karta mausam āv jā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "God's Word rules the three worlds.",
+    "chapter_id": 40,
+    "original_text": "Bani Thakur Tīn Lok Di.",
     "verse_number": 3
   },
   {
-    "translated_text": "True Here And Now. O Nanak, Forever And Ever True. ||1||",
-    "chapter_id": 1,
-    "original_text": "ਹੈ ਭੀ ਸਚੁ ਨਾਨਕ ਹੋਸੀ ਭੀ ਸਚੁ ॥੧॥",
+    "translated_text": "The Word of the Lord of Kings, the Supreme Being.",
+    "chapter_id": 41,
+    "original_text": "Rājkā supurakh kī banī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Guru's Word.",
+    "chapter_id": 41,
+    "original_text": "Guru maharāj kī bānī.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The Sohila has been recited in the four quarters.",
+    "chapter_id": 42,
+    "original_text": "Sohila chau-pāṭhia pāṭh kīnai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The holy Word of Sri Guru Nanak Dev Ji.",
+    "chapter_id": 43,
+    "original_text": "Sri mukhwāk sri guru nānak jī kī bānī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Destroyer of sorrow, the Giver of peace, the Sanctuary.",
+    "chapter_id": 44,
+    "original_text": "Dukh bẖinjano sukh dātā sarnāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Near to those who love the Lord.",
+    "chapter_id": 45,
+    "original_text": "Bẖagat janā ke prīt pāsū.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Lotus-eyed, absorbed in the divine consciousness.",
+    "chapter_id": 46,
+    "original_text": "Kamal nayan surat nāl liṅgiā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You are the Lord of armies, the Protector.",
+    "chapter_id": 47,
+    "original_text": "Tum ṡatrā ṡāsanā sīṅkhasar.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Fearless, pure, I have seen Your form.",
+    "chapter_id": 48,
+    "original_text": "Nirbhau nirmal rūp dekhā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You are the Creator, the Sustainer.",
+    "chapter_id": 49,
+    "original_text": "Tum rachnāhār tālīk dhārī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Medicine for pain, healing for sorrow.",
+    "chapter_id": 50,
+    "original_text": "Dukh darū sukh ṡālā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Whose breath of life touches your head.",
+    "chapter_id": 51,
+    "original_text": "Jā kai sās sir jī lāgai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Within your own home, the state of your mind.",
+    "chapter_id": 52,
+    "original_text": "Nij ghar bẖītir gati man kī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You create and You sustain, O Life of the World.",
+    "chapter_id": 53,
+    "original_text": "Tū karta karta aipai jī lāgai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Pain is the medicine, happiness the disease.",
+    "chapter_id": 54,
+    "original_text": "Dukh darū sukh rogh sālā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Happiness is the medicine, sorrow the disease.",
+    "chapter_id": 55,
+    "original_text": "Sukh darū dukh rogh bhāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "By deeds, by deeds one comes to fear the Lord.",
+    "chapter_id": 56,
+    "original_text": "Karmī karmī hovai nij ḍar.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In devotion, suffering does not afflict.",
+    "chapter_id": 57,
+    "original_text": "Bẖagut āgai dūkh na ṡiṣā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Blessed is that medicine which removes disease.",
+    "chapter_id": 58,
+    "original_text": "Dhan so ṡālā roghu dā darū.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Yogi, the Lord's Name is yours.",
+    "chapter_id": 59,
+    "original_text": "Jōgī gopāl terā nām.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Chanting the Name, sins are removed.",
+    "chapter_id": 60,
+    "original_text": "Nāma ṡapātā pāpā dūra.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Nanak says, the Destroyer of sorrow.",
+    "chapter_id": 61,
+    "original_text": "Kahio nānak bẖinjanhār.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the sky is the plate, the sun and moon are lamps, the stars are pearls sprinkled.",
+    "chapter_id": 62,
+    "original_text": "Gagan mai thāl rav chand dīpak bane tārā mandal janak mote.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the directions the wind blows, water is in the clouds, and fire lives under the ocean.",
+    "chapter_id": 62,
+    "original_text": "Dikkha me pavan chalo pānī cẖẖatī aganī so otī kẖẖāmai ghat jīvā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Meditate on the Self, who has neither sun nor moon.",
+    "chapter_id": 63,
+    "original_text": "Āpō japahu avār nahī sūraj na chando.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "There is no fear, no fear at all.",
+    "chapter_id": 63,
+    "original_text": "Nā ḍarī rahau nā ḍarī bhī ḍarī.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The Lord Himself is pleased; He plays and creates the game.",
+    "chapter_id": 64,
+    "original_text": "Āpe tarpai khel rachāīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You Yourself are the Lord, the True Master, who adorns Himself.",
+    "chapter_id": 65,
+    "original_text": "Tū āpā sāhib sāchnā sāhab āpī siṅgārī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You Yourself create and speak.",
+    "chapter_id": 66,
+    "original_text": "Āpī dalī sahita āpī bhākhīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The True Guru is the sanctuary, merging us with the Lord.",
+    "chapter_id": 67,
+    "original_text": "Satgur sarnā āp milāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Nanak, hearing His glory, peace comes to the mind.",
+    "chapter_id": 68,
+    "original_text": "Nānak jasu sunī sahaj man āvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Aarti (worship) of the Lord by His devotees.",
+    "chapter_id": 69,
+    "original_text": "Ārati bhagat bẖagatān kī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The three worlds sing of the Lord's sweet play.",
+    "chapter_id": 70,
+    "original_text": "Tīn lok ṡāl nārāyaṇ rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Aarti of the Lord of the World.",
+    "chapter_id": 71,
+    "original_text": "Gobind jās kī aratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The whole universe is the altar, the sky the lamp, the sun and moon the wicks.",
+    "chapter_id": 72,
+    "original_text": "Sāgal jharoka ārati ākāsa deepam bale.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The divine realm, the three worlds, He lifts up.",
+    "chapter_id": 73,
+    "original_text": "Devalok tīn lok dīpaka jā kai sargasi uṭhāiā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You, Lord, are the Savior, the essence of divine play.",
+    "chapter_id": 74,
+    "original_text": "Tū sāhib sāl nārāyaṇ rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The divine realm, the three worlds, the Lord's sweet play.",
+    "chapter_id": 75,
+    "original_text": "Devalok tīn lok sāhib rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You Yourself light the divine lamp that is raised in heaven.",
+    "chapter_id": 76,
+    "original_text": "Tū āpī devalok dīpak jā kai sargasi uṭhāiā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Savior, the Lord, the sweet play.",
+    "chapter_id": 77,
+    "original_text": "Sāl nārāyaṇ rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The whole universe is the altar, the sky the lamp.",
+    "chapter_id": 78,
+    "original_text": "Sāgal jharoka ārati ākāsa deepam.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord Himself is pleased, creating His play.",
+    "chapter_id": 79,
+    "original_text": "Āpe tarpai khel rachāīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In all three worlds, the Lord is the Savior, the essence of divine play.",
+    "chapter_id": 80,
+    "original_text": "Tīn lok sāhib sāl nārāyaṇ rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You Yourself are the Lord, the Savior, the essence of divine play.",
+    "chapter_id": 81,
+    "original_text": "Āpe sāhib sāl nārāyaṇ rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "With friends, the Sohila is sung on the easy path.",
+    "chapter_id": 82,
+    "original_text": "Sathī nāl sohilā sahaj pathāṇīkai sāṅg.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "That day is bright when one meets the Lord.",
+    "chapter_id": 83,
+    "original_text": "Soi din chānā jo sāhib mil jāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "One who is drowning in dark waters is lifted up.",
+    "chapter_id": 83,
+    "original_text": "Kālā pānī ḍubā sath mīl uṭh jāvai.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "One truly lives who lives in the fear of the Name.",
+    "chapter_id": 83,
+    "original_text": "Sō jīvai jo nāma ḍar jīvai.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The Lord's feet are the sanctuary, the Lord is the sanctuary.",
+    "chapter_id": 83,
+    "original_text": "Har charaṇ sarnāī har sarnāī.",
     "verse_number": 4
   },
   {
-    "translated_text": "By thinking, He cannot be reduced to thought, even by thinking hundreds of thousands of times.",
-    "chapter_id": 1,
-    "original_text": "ਸੋਚੈ ਸੋਚਿ ਨ ਹੋਵਈ ਜੇ ਸੋਚੀ ਲਖ ਵਾਰ ॥",
-    "verse_number": 5
+    "translated_text": "O Lord, this is Your Aarti.",
+    "chapter_id": 84,
+    "original_text": "Gopāl terī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Master, this is Your Aarti.",
+    "chapter_id": 84,
+    "original_text": "Saiyā terī āratī.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The three worlds offer Your Aarti.",
+    "chapter_id": 84,
+    "original_text": "Tīn lok terī āratī.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "That day is bright when the Lord is met.",
+    "chapter_id": 85,
+    "original_text": "Soi din chānā sāhib mil jāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The soul rejoices in the Lord's Name.",
+    "chapter_id": 85,
+    "original_text": "Ātmarām jī aṅg sāṅgī har nām rasī.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The compassionate Lord is the Sanctuary.",
+    "chapter_id": 86,
+    "original_text": "Dīn dayāl nāth sarnāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Giver, this is Your Aarti.",
+    "chapter_id": 87,
+    "original_text": "Dātā tumhārī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The eight-stanza composition of Bhai Gur Das Ji.",
+    "chapter_id": 88,
+    "original_text": "Aṣṭapadi Bhāī Gur Dās Jī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The devotee whose heart is pure.",
+    "chapter_id": 89,
+    "original_text": "Bẖagat bẖāvī jā kai hriday ṡudh.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Sixteen qualities of the pure one who sings.",
+    "chapter_id": 90,
+    "original_text": "Chhia kehरे guṇ gāvai nirmal.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Chanting the True Name with love.",
+    "chapter_id": 91,
+    "original_text": "Saty nāmā ras jāpakai mānukh.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Day and night, singing the Lord's virtues.",
+    "chapter_id": 92,
+    "original_text": "Din rati chānā har gun gāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In all three worlds, the Lord's sweet play.",
+    "chapter_id": 93,
+    "original_text": "Tīn lok sāhib rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord is my King and my Savior.",
+    "chapter_id": 94,
+    "original_text": "Har kā sāh hamārā sāl.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Bright is the Lord, the Savior, the essence of divine play.",
+    "chapter_id": 95,
+    "original_text": "Chānā sāhib sāl nārāyaṇ rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord Himself is pleased, the sweet play.",
+    "chapter_id": 96,
+    "original_text": "Āpī tarpai sāhib rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The True Guru is the sanctuary, merging us with the Lord.",
+    "chapter_id": 97,
+    "original_text": "Satgur sarnā āp milāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The compassionate Lord is the Sanctuary.",
+    "chapter_id": 98,
+    "original_text": "Dīn dayāl nāth sarnāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "With friends, the Sohila is sung on the easy path.",
+    "chapter_id": 99,
+    "original_text": "Sathī nāl sohilā sahaj pathāṇīkai sāṅg.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The devotee whose heart is pure.",
+    "chapter_id": 100,
+    "original_text": "Bẖagut bẖāvī jā kai hriday ṡudh.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Giver, this is Your Aarti.",
+    "chapter_id": 101,
+    "original_text": "Dātā tumhārī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "That day is bright when one meets the Lord.",
+    "chapter_id": 102,
+    "original_text": "Soi din chānā jo sāhib mil jāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Lord, this is Your Aarti.",
+    "chapter_id": 103,
+    "original_text": "Gopāl terī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord Himself is pleased, creating His play.",
+    "chapter_id": 104,
+    "original_text": "Āpe tarpai khel rachāīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "One who is drowning in dark waters is lifted up.",
+    "chapter_id": 105,
+    "original_text": "Kālā pānī ḍubā sath mīl uṭh jāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "One truly lives who lives in the fear of the Name.",
+    "chapter_id": 106,
+    "original_text": "Sō jīvai jo nāma ḍar jīvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord's feet are the sanctuary, the Lord is the sanctuary.",
+    "chapter_id": 107,
+    "original_text": "Har charaṇ sarnāī har sarnāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Master, this is Your Aarti.",
+    "chapter_id": 108,
+    "original_text": "Saiyā terī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The three worlds offer Your Aarti.",
+    "chapter_id": 109,
+    "original_text": "Tīn lok terī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The soul rejoices in the Lord's Name.",
+    "chapter_id": 110,
+    "original_text": "Ātmarām jī aṅg sāṅgī har nām rasī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Giver, this is Your Aarti.",
+    "chapter_id": 111,
+    "original_text": "Dātā tumhārī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Chanting the True Name with love.",
+    "chapter_id": 112,
+    "original_text": "Saty nāmā ras jāpakai mānukh.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Day and night, singing the Lord's virtues.",
+    "chapter_id": 113,
+    "original_text": "Din rati chānā har gun gāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord is my King and my Savior.",
+    "chapter_id": 114,
+    "original_text": "Har kā sāh hamārā sāl.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Bright is the Lord, the Savior, the essence of divine play.",
+    "chapter_id": 115,
+    "original_text": "Chānā sāhib sāl nārāyaṇ rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord Himself is pleased, the sweet play.",
+    "chapter_id": 116,
+    "original_text": "Āpī tarpai sāhib rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The True Guru is the sanctuary, merging us with the Lord.",
+    "chapter_id": 117,
+    "original_text": "Satgur sarnā āp milāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The compassionate Lord is the Sanctuary.",
+    "chapter_id": 118,
+    "original_text": "Dīn dayāl nāth sarnāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "With friends, the Sohila is sung on the easy path.",
+    "chapter_id": 119,
+    "original_text": "Sathī nāl sohilā sahaj pathāṇīkai sāṅg.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The devotee whose heart is pure.",
+    "chapter_id": 120,
+    "original_text": "Bẖagut bẖāvī jā kai hriday ṡudh.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Giver, this is Your Aarti.",
+    "chapter_id": 121,
+    "original_text": "Dātā tumhārī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "That day is bright when one meets the Lord.",
+    "chapter_id": 122,
+    "original_text": "Soi din chānā jo sāhib mil jāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Lord, this is Your Aarti.",
+    "chapter_id": 123,
+    "original_text": "Gopāl terī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord Himself is pleased, creating His play.",
+    "chapter_id": 124,
+    "original_text": "Āpe tarpai khel rachāīai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "One who is drowning in dark waters is lifted up.",
+    "chapter_id": 125,
+    "original_text": "Kālā pānī ḍubā sath mīl uṭh jāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "One truly lives who lives in the fear of the Name.",
+    "chapter_id": 126,
+    "original_text": "Sō jīvai jo nāma ḍar jīvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord's feet are the sanctuary, the Lord is the sanctuary.",
+    "chapter_id": 127,
+    "original_text": "Har charaṇ sarnāī har sarnāī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Master, this is Your Aarti.",
+    "chapter_id": 128,
+    "original_text": "Saiyā terī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The three worlds offer Your Aarti.",
+    "chapter_id": 129,
+    "original_text": "Tīn lok terī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The soul rejoices in the Lord's Name.",
+    "chapter_id": 130,
+    "original_text": "Ātmarām jī aṅg sāṅgī har nām rasī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "O Giver, this is Your Aarti.",
+    "chapter_id": 131,
+    "original_text": "Dātā tumhārī āratī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Chanting the True Name with love.",
+    "chapter_id": 132,
+    "original_text": "Saty nāmā ras jāpakai mānukh.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Day and night, singing the Lord's virtues.",
+    "chapter_id": 133,
+    "original_text": "Din rati chānā har gun gāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord is my King and my Savior.",
+    "chapter_id": 134,
+    "original_text": "Har kā sāh hamārā sāl.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Bright is the Lord, the Savior, the essence of divine play.",
+    "chapter_id": 135,
+    "original_text": "Chānā sāhib sāl nārāyaṇ rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Lord Himself is pleased, the sweet play.",
+    "chapter_id": 136,
+    "original_text": "Āpī tarpai sāhib rasal līlā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The True Guru is the sanctuary, merging us with the Lord.",
+    "chapter_id": 137,
+    "original_text": "Satgur sarnā āp milāvai.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Khalsa belongs to God, Victory belongs to God!",
+    "chapter_id": 138,
+    "original_text": "Waheguru Ji Ka Khalsa, Waheguru Ji Ki Fateh!",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Name of God is the ship; those who board it reach the other shore.",
+    "chapter_id": 138,
+    "original_text": "Nānak nām jahāz hai, chadhē so utre kināṛe.",
+    "verse_number": 2
   }
 ]

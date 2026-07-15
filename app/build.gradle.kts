@@ -17,8 +17,10 @@ val flavorAppName = currentFlavor["appName"].toString()
 
 val generateBuildConfig by tasks.registering {
     val outputDir = layout.buildDirectory.dir("generated/source/buildConfig/commonMain")
+    val androidResDir = layout.buildDirectory.dir("generated/androidRes")
     inputs.file(flavorsFile)
     outputs.dir(outputDir)
+    outputs.dir(androidResDir)
     doLast {
         val colors = currentFlavor["colors"] as Map<String, String>
         val term = currentFlavor["terminology"] as Map<String, String>
@@ -62,15 +64,18 @@ val generateBuildConfig by tasks.registering {
             """.trimIndent(),
         )
 
-        // Copy Assets to composeResources
+        // Copy Assets to composeResources and androidMain/res/drawable
         val assetDir = rootProject.file("assets/${currentFlavor["flavorId"]}")
         val drawableDir = file("src/commonMain/composeResources/drawable")
+        val androidDrawableDir = androidResDir.get().asFile.resolve("drawable")
         val filesDir = file("src/commonMain/composeResources/files")
         drawableDir.mkdirs()
+        androidDrawableDir.mkdirs()
         filesDir.mkdirs()
 
         assetDir.listFiles { file -> file.name.endsWith(".png") }?.forEach { f ->
             f.copyTo(File(drawableDir, f.name), overwrite = true)
+            f.copyTo(File(androidDrawableDir, f.name), overwrite = true)
         }
         assetDir.listFiles { file -> file.name.endsWith(".db") }?.forEach { f ->
             f.copyTo(File(filesDir, f.name), overwrite = true)
@@ -112,7 +117,7 @@ kotlin {
 
     sourceSets {
         commonMain.configure {
-            kotlin.srcDir(generateBuildConfig.map { it.outputs.files.singleFile })
+            kotlin.srcDir(layout.buildDirectory.dir("generated/source/buildConfig/commonMain"))
         }
         commonMain.dependencies {
             implementation(project(":shared"))
@@ -138,7 +143,22 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].res.srcDirs(
+        "src/androidMain/res",
+        layout.buildDirectory.dir("generated/androidRes").get().asFile,
+    )
+
+    // Ensure the icon/resource generation runs before any Android resource processing
+    tasks.matching {
+        it.name.contains(
+            "mergeReleaseResources",
+        ) ||
+            it.name.contains(
+                "processReleaseResources",
+            ) || it.name.contains("mergeDebugResources") || it.name.contains("processDebugResources") || it.name == "preBuild"
+    }.configureEach {
+        dependsOn(generateBuildConfig)
+    }
 
     defaultConfig {
         applicationId = flavorAppId

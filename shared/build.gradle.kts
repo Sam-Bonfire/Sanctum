@@ -57,6 +57,20 @@ kotlin {
             // Ktor Networking
             implementation(libs.ktor.client.core)
         }
+
+        val mobileMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(libs.room.runtime)
+                implementation(libs.sqlite.bundled)
+            }
+        }
+
+        val androidMain by getting {
+            dependsOn(mobileMain)
+        }
+
+        sourceSets.findByName("iosMain")?.dependsOn(mobileMain)
     }
 }
 

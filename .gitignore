@@ -20,3 +20,7 @@ local.properties
 # System files
 .DS_Store
 Thumbs.db
+
+# Build progress/cache files
+*.bible_progress.json
+.bible_progress.json
