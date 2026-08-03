@@ -14,6 +14,10 @@ jujutsu = "latest"
 "format:check" = "gradle spotlessCheck"
 "seo:validate" = "kotlin scripts/validate_seo.main.kts"
 "seo:generate-metadata" = "kotlin scripts/generate_fastlane_metadata.main.kts"
+"push:dev" = "jj git push --bookmark dev"
+"push:main" = "jj git push --bookmark main"
+"release" = "jj bookmark set main -r dev && jj git push --bookmark main"
+"hotfix:sync" = "jj rebase -b dev -d main"
 
 # Flavor shortcuts for Android Build
 "build:islam:android" = "gradle :app:assembleDebug -Pflavor=islam"
