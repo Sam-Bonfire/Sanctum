@@ -22,7 +22,7 @@ actual val platformModule: Module = module {
         database.userDataDao()
     }
 
-    single<com.sanctum.core.feature.scripture.domain.ScriptureRepository> {
+    single<com.sanctum.core.feature.scripture.data.ScriptureRepository> {
         com.sanctum.core.feature.scripture.data.RoomScriptureRepository(get(), get())
     }
 
@@ -37,5 +37,7 @@ actual val platformModule: Module = module {
         com.sanctum.core.feature.compass.getPlatformSensors()
     }
 
-    single<Settings> { Settings() }
+    single<Settings> { createSettings() }
 }
+
+expect fun createSettings(): Settings

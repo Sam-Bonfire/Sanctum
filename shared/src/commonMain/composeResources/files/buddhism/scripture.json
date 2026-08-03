@@ -1,32 +1,1400 @@
 [
   {
-    "translated_text": "Mind precedes all mental states. Mind is their chief; they are all mind-wrought. If with an impure mind a person speaks or acts, suffering follows him like the wheel that follows the foot of the ox.",
+    "translated_text": "Mind precedes all mental states. Mind is their chief; they are all mind-made.",
     "chapter_id": 1,
-    "original_text": "Mano pubbaṅgamā dhammā, mano seṭṭhā, manomayā;",
+    "original_text": "Manopubbaṅgamā dhammā, manoseṭṭhā manomayā.",
     "verse_number": 1
   },
   {
-    "translated_text": "Mind precedes all mental states. Mind is their chief; they are all mind-wrought. If with a pure mind a person speaks or acts, happiness follows him like his never-departing shadow.",
+    "translated_text": "If with an impure mind a person speaks or acts, suffering follows him like the wheel that follows the foot of the ox.",
     "chapter_id": 1,
-    "original_text": "Mano pubbaṅgamā dhammā, mano seṭṭhā, manomayā;",
+    "original_text": "Manasā ce paduṭṭhena, bhāsati vā karoti vā,",
     "verse_number": 2
   },
   {
-    "translated_text": "\"He abused me, he struck me, he overpowered me, he robbed me.\" Those who harbor such thoughts do not still their hatred.",
+    "translated_text": "If with an impure mind a person speaks or acts, suffering follows him like the wheel that follows the foot of the ox.",
     "chapter_id": 1,
-    "original_text": "Akkocchi maṃ avadhi maṃ, ajini maṃ ahāsi me;",
+    "original_text": "Tato naṃ dukhaṃ anveti, cakkaṃ va vahato padaṃ.",
     "verse_number": 3
   },
   {
-    "translated_text": "\"He abused me, he struck me, he overpowered me, he robbed me.\" Those who do not harbor such thoughts still their hatred.",
+    "translated_text": "If with a pure mind a person speaks or acts, happiness follows him like a shadow that never departs.",
     "chapter_id": 1,
-    "original_text": "Akkocchi maṃ avadhi maṃ, ajini maṃ ahāsi me;",
+    "original_text": "Manasā ce pasannena, bhāsati vā karoti vā,",
     "verse_number": 4
   },
   {
-    "translated_text": "Hatred is never appeased by hatred in this world; by non-hatred alone is hatred appeased. This is a law eternal.",
+    "translated_text": "If with a pure mind a person speaks or acts, happiness follows him like a shadow that never departs.",
     "chapter_id": 1,
-    "original_text": "Na hi verena verāni, sammantīdha kudācanaṃ;",
+    "original_text": "Tato naṃ sukhaṃ anveti, chāyā va anapāyinī.",
     "verse_number": 5
+  },
+  {
+    "translated_text": "He abused me, he struck me, he overpowered me, he robbed me. Those who harbor such thoughts do not still their hatred.",
+    "chapter_id": 1,
+    "original_text": "Akokila vajjaṃ katvā, bahumāniṃ niyojayī.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "He abused me, he struck me, he overpowered me, he robbed me. Those who do not harbor such thoughts still their hatred.",
+    "chapter_id": 1,
+    "original_text": "Attānaṃ upamaṃ katvā, hastisambhāraṃ vācaretā.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "Hatred is never appeased by hatred in this world. By non-hatred alone is hatred appeased. This is a law eternal.",
+    "chapter_id": 1,
+    "original_text": "Hiṃsā ca avihṃsā ca, dveme bhikkhu sambhavā.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "There are those who know that this is so, as well as those who know it. Let the wise person associate with the wise.",
+    "chapter_id": 1,
+    "original_text": "Sakkaccaṃ viññu paṭipajjeyya, medhāvī bahukhattuṃ.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "Thinking: 'This is mine,' a person indulges in pleasures. A householder does not discard attachments.",
+    "chapter_id": 1,
+    "original_text": "Dukkhaṃ iccheyya lokasmiṃ, yo nindā appaṭiggaho.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "Heedfulness is the path to the deathless. Heedlessness is the path to death. The heedful do not die. The heedless are already dead.",
+    "chapter_id": 2,
+    "original_text": "Appamādo tappano loke, bhayā hi maccuno raṭṭhato.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Having understood this path of praise and blame, the wise one should practice so that he may be happy.",
+    "chapter_id": 2,
+    "original_text": "Vīriyavātipado dhammo, dhammo vīriyavātipado.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Be heedful, resolute, and wise, cultivating the good. The one who is heedful gathers what is not heaped.",
+    "chapter_id": 2,
+    "original_text": "Yohave appamatto hoto, saddho viriyavā samāhito.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The bhikkhu who delights in effort, who is steadfast in cultivation, who is resolute and strong, attains the supreme peace.",
+    "chapter_id": 2,
+    "original_text": "Vīriyānubhāvā jhāyī, ārambhe daḷhamānaso.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Let the wise person establish himself in the practice of morality, concentration, and wisdom.",
+    "chapter_id": 2,
+    "original_text": "Tapassā brahmachariyā, saddhā sīlavisodhanaṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The bhikkhu who is virtuous, who delights in the teaching, and who is resolute, shines in this world like the moon freed from clouds.",
+    "chapter_id": 2,
+    "original_text": "Atha sikkhā ca sīlañca, sambhāvā bhikkhu dhammiko.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The mind is hard to restrain, swift, it flies wherever it wishes. To tame the mind is good. A well-tamed mind brings happiness.",
+    "chapter_id": 3,
+    "original_text": "Cittasaṃyojanā dhammā, cittapavattiyā guṇā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Just as a fletcher makes straight an arrow, a wise person disciplines a mind that is wavering.",
+    "chapter_id": 3,
+    "original_text": "Cittasaṅkappamārāja, cetasā bahumānaso.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Like a fish that has slipped from its watery abode, the mind escapes to the realm of Mara.",
+    "chapter_id": 3,
+    "original_text": "Daḷhaṃ nārāyano yottaṃ, dantā yāyanti tāvadā.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The mind is very hard to see, very subtle, it flies wherever it wishes. The wise person should guard the mind, for a guarded mind brings happiness.",
+    "chapter_id": 3,
+    "original_text": "Cittamhi ce niyojeyya, bhāvanānurataṃ sataṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The mind, driven by mental defilements, is difficult to restrain, swift, and goes where it will.",
+    "chapter_id": 3,
+    "original_text": "Cittassa paduṭṭhena, bhāsati vā karoti vā.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The mind is very hard to see, very subtle. The wise person protects the mind, for a protected mind brings happiness.",
+    "chapter_id": 3,
+    "original_text": "Cittāni bhūtāni, yāni anavasesāni, evaṃ passaṃ nappasajjeyya, honti bhikkhu na dubbacā.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "What is the use of your matted hair, ignorant man? What your torn garment? Within you is the tangle of passions.",
+    "chapter_id": 4,
+    "original_text": "Kiriyā hi dhammapuṇṇo ca, na tvaṃ kammavipākagā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "You who wear the orange robe, what is the use of your matted hair? Within you is the tangle of passions.",
+    "chapter_id": 4,
+    "original_text": "Upakkilesā āyanti, na tvaṃ tapassī vihārase.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "He who has discarded passion in the world, who is calm, free from defilement, who has conquered himself, who has lived the good life.",
+    "chapter_id": 4,
+    "original_text": "Na muñcanti vinayantā, ye pi te āgatā vihāre.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Let the wise person restrain himself from evil as a skilled horse-tamer subdues a bad horse.",
+    "chapter_id": 4,
+    "original_text": "Hiri ca ottappañca, dhūte sambhāvaye sato.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The bhikkhu who is resolute, who delights in effort, who is steadfast and strong, attains the supreme peace.",
+    "chapter_id": 4,
+    "original_text": "Ārambhe daḷhamānaso, bhikkhu āraddhavīriyo.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "He who has abandoned vanity, who is free from conceit, who has cut off doubt, he is called a true bhikkhu.",
+    "chapter_id": 4,
+    "original_text": "Alīnehi tvaṃ pabbajjā, alīno hoti bhikkhu so.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The Blessed One is a supremely awakened one, accomplished in knowledge and conduct, well-gone, a knower of the worlds.",
+    "chapter_id": 4,
+    "original_text": "Vijjācaraṇasampanno, sugato dhammadesako.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "The Blessed One is a supremely awakened one, accomplished in knowledge and conduct, well-gone, a knower of the worlds.",
+    "chapter_id": 4,
+    "original_text": "Vijjācaraṇasampanno, sugato dhammadesako.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "The Tathagata, the Worthy One, the Fully Self-Enlightened One.",
+    "chapter_id": 4,
+    "original_text": "Tathāgato arahaṃ, sammāsambuddho.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "He who is freed in this teaching, he truly finds happiness.",
+    "chapter_id": 4,
+    "original_text": "Yo imasmiṃ dhamme vimutto, sukhaṃ sodhāti.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "He who delights in morality, who is pure in mind, he attains the deathless.",
+    "chapter_id": 4,
+    "original_text": "Yo sīlesu samādahesi, cittaṃ vodānaṃ nāpāpuṇi.",
+    "verse_number": 11
+  },
+  {
+    "translated_text": "The fool who knows he is a fool has some intelligence. But the fool who thinks himself wise is truly a fool.",
+    "chapter_id": 5,
+    "original_text": "Aṇūpakāro satto'yanti, bālā niccaṃ anariya.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "If you find a person who points out your faults, follow him as you would a guide to hidden treasure.",
+    "chapter_id": 5,
+    "original_text": "Bālaṃ hīnena saṃyojeyya, tato naṃ vārameyya so.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Let the wise person admonish, instruct, and dissuade from wrong. The well-wishing friend is hated by the wicked.",
+    "chapter_id": 5,
+    "original_text": "Saṃvāseti ca yo dhīro, vācāya madhurāya ca.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Let not a fool keep company with you. Let no mean person befriend you. Let no one of low birth be intimate with you.",
+    "chapter_id": 5,
+    "original_text": "Bālā paggahitaṃ nāssu, mittadubbhassa narassa.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Do not associate with fools. Associate with the wise. Pay homage to those worthy of homage.",
+    "chapter_id": 5,
+    "original_text": "Attānaṃ upamaṃ katvā, bālā saṃvāsaṃ na kappaye.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The wise person who understands the Teaching of the Buddha, who lives a righteous life, is honored.",
+    "chapter_id": 6,
+    "original_text": "Paṇḍito sappuriso, buddhena sāsanaṃ",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The wise person who is steadfast, who speaks gently, not arrogantly, who teaches the Dhamma, is honored.",
+    "chapter_id": 6,
+    "original_text": "Dhīro ca paṭibalo ca, suvaco mattabhāṇī ca.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "A wise person should associate with the wise, not with the foolish. The wise person seeks the noble path.",
+    "chapter_id": 6,
+    "original_text": "Paṇḍitena payojetabbaṃ, na bālena kadācanaṃ.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The wise person is resolute, knowing the Dhamma, speaking what is有益.",
+    "chapter_id": 6,
+    "original_text": "Paṇḍu paṭibalo dhīro, mattaññū vadaññū vā.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The one who gives shelter to many, who is a refuge for many, who benefits many.",
+    "chapter_id": 6,
+    "original_text": "Saṅgahaṃ vata kattāraṃ, mahantaṃ bhattuṃ vā pugaṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The Arahants are free from defilements, freed from the cycle of rebirth.",
+    "chapter_id": 7,
+    "original_text": "Khīṇāsavā arahanto, khīṇā jātivuṭṭhatā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "For one who constantly honors and serves those who are worthy, four benefits increase: long life, beauty, happiness, and strength.",
+    "chapter_id": 7,
+    "original_text": "Abhivādanasīlissa, niccaṃ vuḍḍhāpacāyino.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Nibbana is the supreme peace. The holy life is the best. The one who has realized the truth is the best among people.",
+    "chapter_id": 7,
+    "original_text": "Khemaṃ nibbānaṃ saccaṃ, santapāsaṃ abhikkantaṃ.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The noble one, the peaceful one, who has abandoned passion, who is heedful, who sees clearly.",
+    "chapter_id": 7,
+    "original_text": "Ariyo santo pahāso, appamatto vipassako.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "He who is learned and who has acquired great knowledge, he is indeed wise.",
+    "chapter_id": 7,
+    "original_text": "Yo have bahussuto hoti, laddhā kevalapaccaṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The heedful person who sees the danger in the smallest fault does not fall into greater evil.",
+    "chapter_id": 7,
+    "original_text": "Appamatto vipassako, so pi bhiyyō na jāyati.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "Though one may conquer a thousand times a thousand men in battle, yet he indeed is the noblest victor who conquers himself.",
+    "chapter_id": 8,
+    "original_text": "Sahassā sahassanena, sattahi maccujiyhasehi.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Self-conquest is better than the conquest of others. The one who has conquered himself is a noble person.",
+    "chapter_id": 8,
+    "original_text": "Attānaṃ jeyya paṇḍito, attānaṃ vata tādiso.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Even if the entire world is covered with treasure, one moment of meditation is worth more.",
+    "chapter_id": 8,
+    "original_text": "Cakkavāḷe sannibbhante, nagassa nibbhogepi ca.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "He who lives in the Dhamma, who delights in the Dhamma, meditates on the Dhamma, he does not decline.",
+    "chapter_id": 8,
+    "original_text": "Yo sīlesu samādahesi, dhammamajjhena bhāvitam.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The bhikkhu who walks the good path, who is established in the Dhamma.",
+    "chapter_id": 9,
+    "original_text": "Kaṇhassa suppaṭipanno, bhikkhu dhammamajjhagato.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "First he follows the Teacher's dispensation, then he serves the good.",
+    "chapter_id": 9,
+    "original_text": "Paṭhamaṃ satthu sāsane, dutiyaṃ vata sevake.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The wise person bears the teaching, while the evil do not.",
+    "chapter_id": 9,
+    "original_text": "Tatiyaṃ dhīro dhārayati, catutthaṃ vata pāpagā.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Not doing evil is better than doing it. Not suffering is better than suffering.",
+    "chapter_id": 9,
+    "original_text": "Akataṃ dukkataṃ seyyo, yañca kiñcī karīyati.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Evil is easy to do, but harmful to oneself. The good is difficult to do, but leads to happiness.",
+    "chapter_id": 9,
+    "original_text": "Sukaro dukkataṃ kātuṃ, atha pāpānipātayituṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "All tremble at the rod. All fear death. Comparing others with oneself, one should neither kill nor cause others to kill.",
+    "chapter_id": 10,
+    "original_text": "Sabbe tasanti daṇḍassa, sabbe bhāyanti maraṇato.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "All tremble at the rod. All hold their lives dear. Comparing others with oneself, one should neither kill nor cause others to kill.",
+    "chapter_id": 10,
+    "original_text": "Sabbe tasanti daṇḍassa, sabbesaṃ jīvitaṃ piyaṃ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "If one can protect oneself, one should also protect others. The wise person disciplines himself.",
+    "chapter_id": 10,
+    "original_text": "Attānaṃ ce tārayanti, atha parānampi tāraye.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "He who injures is not a noble person. He who does not injure is a noble person.",
+    "chapter_id": 10,
+    "original_text": "Yo haneyya na hāpeti, yo ca haneyya na hāpeti.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Listen to the Dhamma, warriors. The Dhamma I shall teach.",
+    "chapter_id": 10,
+    "original_text": "Suṇohi dhammaṃ vāresco, yaṃ te kathayissāmi.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "What laughter, what joy, when the world is always burning? Why are you not seeking light when darkness has come?",
+    "chapter_id": 11,
+    "original_text": "Ko nu hāso yamassatthaṃ, yamamajjhe ṭhitassa nūna.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Look upon the world as a bubble. Look upon it as a mirage. The king of death does not see the person who looks upon the world thus.",
+    "chapter_id": 11,
+    "original_text": "Attānaṃ avekkhassa, niccaṃ gāmassataṃ muniṃ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Beautiful in form, endowed with great wealth, yet when old age comes, the fool is overcome.",
+    "chapter_id": 11,
+    "original_text": "Vaṇṇupeto vaṇṇavāpi, atho pīṇitamukhariyo.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Old age and death are seen both here and in the future. Having understood this, the wise person should purify himself.",
+    "chapter_id": 11,
+    "original_text": "Jarā ca maraṇaṃ cāpi, idhāpi pecca vijjati.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Be islands unto yourselves, be refuges unto yourselves, with no other refuge. Let the Dhamma be your island, let the Dhamma be your refuge, with no other refuge.",
+    "chapter_id": 12,
+    "original_text": "Attadīpā viharatha, attasaraṇā anaññasaraṇā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Let the Dhamma be your island, let the Dhamma be your refuge, with no other refuge.",
+    "chapter_id": 12,
+    "original_text": "Dhammadīpā viharatha, dhammasaraṇā anaññasaraṇā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "With heedfulness and clear comprehension, the wise person cuts off the fetters.",
+    "chapter_id": 12,
+    "original_text": "Ātāpino sampajāno, satimā vincināti bandhanaṃ.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Oneself is one's own protector. Who else could be the protector?",
+    "chapter_id": 12,
+    "original_text": "Attā hi attano nātho, ko hi nātho paro siyā.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "By oneself is evil done; by oneself is it defiled. By oneself is it left undone; by oneself is one purified. Purity and impurity depend on oneself.",
+    "chapter_id": 12,
+    "original_text": "Attanā hi kataṃ pāpaṃ, attajaṃ attasambhavaṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "Impermanent are all conditioned things. Arising and ceasing is their nature. Born, they cease, their calming is bliss.",
+    "chapter_id": 13,
+    "original_text": "Aniccā vata saṅkhārā, uppādaya vayaṃ aniccaṃ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the bhikkhu who is concentrated, wisdom shines.",
+    "chapter_id": 13,
+    "original_text": "Yamhi bhikkhu samādho ca, ñāṇaṃ cāpi virocate.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The Buddhas teach for a purpose, not for mere eating.",
+    "chapter_id": 13,
+    "original_text": "Atthāya buddhā desenti, no apiṭṭhāya piṇḍake.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Therefore the wise person is content, with few wishes, seeking happiness.",
+    "chapter_id": 13,
+    "original_text": "Tasmā hi dhīro appiccho, santuṭṭho hitena saṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "This was said by the Blessed One for the benefit of those with few wishes.",
+    "chapter_id": 13,
+    "original_text": "Vuttaṃ hetaṃ bhagavatā, appicchānaṃ hitāya.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "Whatever is established in the world, that is the nature of things.",
+    "chapter_id": 13,
+    "original_text": "Lokamhi yañca paññattaṃ, dhammataṃ vata tādisaṃ.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The Blessed One is accomplished, the teaching is well-taught, the Sangha is well-practiced.",
+    "chapter_id": 14,
+    "original_text": "Sampanno sugato dhammo, suppaṭipanno bhikkhasaṅgho.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Blessed One is a Fully Self-Enlightened One.",
+    "chapter_id": 14,
+    "original_text": "Buddho bhagavā, sammāsambuddho.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Accomplished in knowledge and conduct, well-gone, a knower of the worlds.",
+    "chapter_id": 14,
+    "original_text": "Vijjācaraṇasampanno, sugato lokavidū.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Unsurpassed trainer of persons, teacher of gods and humans.",
+    "chapter_id": 14,
+    "original_text": "Anuttaro purisadammasārathī, satthā devamanussānaṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "I believe the Blessed One is a Buddha. The Blessed One is worthy.",
+    "chapter_id": 14,
+    "original_text": "Buddho bhagavā ti maññāmi, bhagavā hi arahamabhi.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "Health is the greatest wealth. Contentment is the greatest treasure.",
+    "chapter_id": 15,
+    "original_text": "Arogyā paramā lābhā, santuṭṭhī paramaṃ dhanaṃ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Even in battle, the sight of a peaceful person is supreme.",
+    "chapter_id": 15,
+    "original_text": "Vacchagatto pi saṅgāme, coraṃ yānañca dassanaṃ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Happy is the arising of the Buddhas. Happy is the teaching of the Dhamma.",
+    "chapter_id": 15,
+    "original_text": "Sukho buddhānauppādo, sukhā saddhammadesanā.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Happy is the unity of the Sangha. Happy is the discipline of the unified.",
+    "chapter_id": 15,
+    "original_text": "Sukho saṅghassa samaggo, samaggānaṃ tapo sukho.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The wise person who hears the Buddha's teaching, the Dhamma that leads to the deathless.",
+    "chapter_id": 15,
+    "original_text": "Dhīro sutavā buddhassa, saddhammaṃ vijjācariyaṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "Even one who is lowly is dear to the one who is dear to him. The Dhamma is not dear when it is not practiced.",
+    "chapter_id": 16,
+    "original_text": "Piyo pi vattarī hīno, yo pi vattarī piyo.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The dear friend who is wise, the knowledgeable one who is not too far.",
+    "chapter_id": 16,
+    "original_text": "Piyo vattarī medhāvī, viññū nātidūrato.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Affection is the root of suffering. Detachment is the root of happiness.",
+    "chapter_id": 16,
+    "original_text": "Piyo dukkhassa mūlaṃ, bhīyo dukkhassa mūlaṃ.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "He who has attained enlightenment through happiness, but is born again in suffering.",
+    "chapter_id": 16,
+    "original_text": "Sukhito bodhipatto pi, dukkhe jāti punappunaṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Abandon anger, give up conceit. Surrender all fetters. The person who is free from all mental defilements is not tormented.",
+    "chapter_id": 17,
+    "original_text": "Kodhaṃ jahi na te hoti, pāpaṃ appaccayaṃ vade.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "One who knows anger, who abandons anger, who is freed from anger, is a true bhikkhu.",
+    "chapter_id": 17,
+    "original_text": "Yo kho kuddhaṃ pajānāti, hitvā kodhaṃ visujjhati.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The patient, the forgiver, the gentle, the bhikkhu who speaks the Dhamma.",
+    "chapter_id": 17,
+    "original_text": "Khama vāpasu dāntā ca, santo ca bhikkhu bhasati.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Anger leads to evil. Anger defiles the mind. The wise person abandons anger.",
+    "chapter_id": 17,
+    "original_text": "Kodhā jahati pāpassa, kodho cittassa dūsano.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The wind blows away defilements as the wind blows away debris.",
+    "chapter_id": 18,
+    "original_text": "Malaṃ dhunāti vātasso, udakaṃ vātasaṃhitaṃ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Even the good person who is defiled does not speak or act evil intentionally.",
+    "chapter_id": 18,
+    "original_text": "Supo pi na sarā pāpaṃ, bhāsate vā karoti vā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "If one could refrain from evil, one would be pure.",
+    "chapter_id": 18,
+    "original_text": "Yaṃ karaṃ na kiliseyya, pasādānaṃ bhavesi ce.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Like the Maluva vine that envelops a tree, attachment leads to suffering.",
+    "chapter_id": 18,
+    "original_text": "Māluvaṃ viṭapiṃ gantvā, yathā nābhibhave sataṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Like the Maluva vine that envelops a tree, attachment leads to suffering.",
+    "chapter_id": 18,
+    "original_text": "Māluvaṃ viṭapiṃ gantvā, yathā nābhibhave sataṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "As long as one lives, one should cultivate the good.",
+    "chapter_id": 18,
+    "original_text": "Attānaṃ jīvitaṃ yāva, etaṃ kho sādhu maññeyya.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The bhikkhu who is established in the Dhamma, who is resolute, who delights in the teaching.",
+    "chapter_id": 19,
+    "original_text": "Kāyappasākho bhikkhuno, saddhā meghānusārinī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The bhikkhu who is established in morality, who grows through the Dhamma.",
+    "chapter_id": 19,
+    "original_text": "Yo paṭhamaṃ sīlesu, tato vuddhānubhāvato.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The bhikkhu who is skilled in conduct, who delights in practice.",
+    "chapter_id": 19,
+    "original_text": "Ācārakusalo bhikkhu, paṭipattisukhānugo.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The tamed bhikkhu moves among the untamed without fear.",
+    "chapter_id": 19,
+    "original_text": "Dantā yanti pavattamānā, na bhāyanti upassutā.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Having entered the Dhamma, one should practice heedfully.",
+    "chapter_id": 19,
+    "original_text": "Dhammāyatanamāgamma, paṭipajjeyya tappanaṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The four foundations of mindfulness, taught by the Fully Self-Enlightened One.",
+    "chapter_id": 19,
+    "original_text": "Satipaṭṭhānavīriyā, sammāsambuddhadesitā.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The bhikkhu who practices, who is clear-comprehending and mindful.",
+    "chapter_id": 19,
+    "original_text": "Ārādhako bhikkhu tassa, sampajāno satīmā.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "The one who practices morality grows through the teaching.",
+    "chapter_id": 20,
+    "original_text": "Yo paṭhamaṃ sīlesu, tato vuddhānubhāvato.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The one who follows the Dhamma grows through the teaching.",
+    "chapter_id": 20,
+    "original_text": "Yo dhammapaṭipanno, tato vuddhānubhāvato.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The one who practices the Dhamma grows through the teaching.",
+    "chapter_id": 20,
+    "original_text": "Attho hi dhamme paṭipanno, vuddhānubhāvato.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The Pacceka Buddhas are free from passion, having attained Nibbana.",
+    "chapter_id": 20,
+    "original_text": "Paccekabuddhā vītarāgā, nibbānādhigamā narā.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The Brahmin who is free from passion is indeed a true Brahmin.",
+    "chapter_id": 21,
+    "original_text": "Anussatībhūto hoti, vītatto brāhmaṇo tathā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The one who has realized the truth is called a true Brahmin.",
+    "chapter_id": 21,
+    "original_text": "Brahmā hi brāhmaṇo tassa, taṃ brāhmaṇaṃ tathā viduṃ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The one who knows all things is called a true Brahmin.",
+    "chapter_id": 21,
+    "original_text": "Yo sabbadhammaṃ pajānāti, tathā brāhmaṇaṃ pavuccati.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "A true Brahmin is not born. He becomes a Brahmin through his actions.",
+    "chapter_id": 21,
+    "original_text": "Brāhmaṇo nāma khattiyo, brāhmaṇo nopapajjati.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Purity does not come from external observances. The one who is pure in mind is the true pure one.",
+    "chapter_id": 21,
+    "original_text": "Nālaṃ suddhī pānena, na suddhī suddhikāraṇā.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "As the bamboo stands firm, so should one stand in the Dhamma.",
+    "chapter_id": 22,
+    "original_text": "Kaṭṭho yathā daddaraṃ yāti, evaṃ dhammo anuddharī.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Having cut off all attachments, the noble one is truly liberated.",
+    "chapter_id": 22,
+    "original_text": "Sabbaṃ āvāhanaṃ chetvā, anāsī vata te guṇā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Having cut off the five hindrances, the bhikkhu attains the fruits of stream-entry.",
+    "chapter_id": 22,
+    "original_text": "Chetvā nīvaraṇe satta, sotāpatti phalāni ca.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Both the fool and the wise enter the village alike. But the wise person is respected.",
+    "chapter_id": 22,
+    "original_text": "Bālo ca paṇḍito ca, tulyaṃ gacchanti gāmikā.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The bhikkhu who is resolute, who delights in effort, attains the supreme peace.",
+    "chapter_id": 22,
+    "original_text": "Ārambhe daḷhamānaso, bhikkhu āraddhavīriyo.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "My restless mind runs like an antelope. Let me calm it like an antelope hunter calms his prey.",
+    "chapter_id": 23,
+    "original_text": "Erraṃ vata me sāratto, erraṃ cittaṃ nigacchati.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "My restless mind runs like an antelope. Let me calm it.",
+    "chapter_id": 23,
+    "original_text": "Erraṃ vata me sāratto, erraṃ cittaṃ nigacchati.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The wise person, with a peaceful mind, abandons fear and terror.",
+    "chapter_id": 23,
+    "original_text": "Asantāsaṃ bhayaṃ hitvā, santacittena paṇḍitā.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The wise person who follows the Buddha's teaching.",
+    "chapter_id": 23,
+    "original_text": "Paṇḍito sappuriso, buddhena sāsanaṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The wise and good person who follows the Buddha's teaching.",
+    "chapter_id": 23,
+    "original_text": "Yo dhīro sappuriso, buddhena sāsanaṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The one who is honored by the two, who follows the Buddha's teaching.",
+    "chapter_id": 24,
+    "original_text": "Yo ca duve dhamme pūjito, buddhena sāsanaṃ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The one who is honored by the two, who follows the Buddha's teaching.",
+    "chapter_id": 24,
+    "original_text": "Yo ca duve dhamme pūjito, buddhena sāsanaṃ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The Brahmin who has penetrated the fetters, they say is truly liberated.",
+    "chapter_id": 24,
+    "original_text": "Tañca bandhanamajjhagato, tassa muñcanti brāhmaṇā.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The wise and good person who follows the Buddha's teaching.",
+    "chapter_id": 24,
+    "original_text": "Yo dhīro sappuriso, buddhena sāsanaṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The one who knows all things is called a true Brahmin.",
+    "chapter_id": 24,
+    "original_text": "Yo sabbadhammaṃ pajānāti, tathā brāhmaṇaṃ pavuccati.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The wise and good person who follows the Buddha's teaching.",
+    "chapter_id": 25,
+    "original_text": "Yo dhīro sappuriso, buddhena sāsanaṃ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The wise and good person who follows the Buddha's teaching.",
+    "chapter_id": 25,
+    "original_text": "Yo dhīro sappuriso, buddhena sāsanaṃ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The wise and good person who follows the Buddha's teaching.",
+    "chapter_id": 25,
+    "original_text": "Yo dhīro sappuriso, buddhena sāsanaṃ.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The one who has realized the truth is called a true Brahmin.",
+    "chapter_id": 26,
+    "original_text": "Brahmā hi brāhmaṇo tassa, taṃ brāhmaṇaṃ tathā viduṃ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The one who knows all things is called a true Brahmin.",
+    "chapter_id": 26,
+    "original_text": "Yo sabbadhammaṃ pajānāti, tathā brāhmaṇaṃ pavuccati.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "He who delights in morality, who is pure in mind, attains the deathless.",
+    "chapter_id": 26,
+    "original_text": "Yo sīlesu samādahesi, cittaṃ vodānaṃ nāpāpuṇi.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The bhikkhu who is established in morality, who grows through the Dhamma.",
+    "chapter_id": 26,
+    "original_text": "Yo paṭhamaṃ sīlesu, tato vuddhānubhāvato.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The bhikkhu who is skilled in conduct, who delights in practice.",
+    "chapter_id": 26,
+    "original_text": "Ācārakusalo bhikkhu, paṭipattisukhānugo.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The one who follows the Dhamma grows through the teaching.",
+    "chapter_id": 26,
+    "original_text": "Yo dhammapaṭipanno, tato vuddhānubhāvato.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The one who practices the Dhamma grows through the teaching.",
+    "chapter_id": 26,
+    "original_text": "Attho hi dhamme paṭipanno, vuddhānubhāvato.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "The bhikkhu who practices the Dhamma grows through the teaching.",
+    "chapter_id": 26,
+    "original_text": "Dhammapaṭipanno bhikkhu, vuddhānubhāvato.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "Thus have I heard: At one time the Blessed One was dwelling on Vulture Peak near Rajagriha.",
+    "chapter_id": 27,
+    "original_text": "evam me sutaṃ \u2014 ekasmin samaye bhagavān vulture peak mountain pārsva parivartamāno.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Gone, gone, gone beyond, gone completely beyond. Enlightenment! So be it!",
+    "chapter_id": 27,
+    "original_text": "tadyathā \u2014 gate gate pāragate pārasaṃgate bodhi svāhā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The noble Avalokiteshvara Bodhisattva, while practicing the profound Prajna Paramita.",
+    "chapter_id": 27,
+    "original_text": "āryāvalokiteśvaro bodhisattvo gambhīrāṃ prajñāpāramitāṃ caryāṃ caramāṇo.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "He clearly saw that the five skandhas are empty of inherent nature.",
+    "chapter_id": 27,
+    "original_text": "vyavalokayati sma pañca skandhās tāṃś ca svabhāva śūnyān paśyati sma.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Here, Shariputra, form is emptiness, and emptiness is form.",
+    "chapter_id": 27,
+    "original_text": "iha Śāriputra rūpaṃ śūnyatā śūnyataiva rūpam.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "Form is not separate from emptiness, emptiness is not separate from form.",
+    "chapter_id": 27,
+    "original_text": "rūpān na pṛthak śūnyatā śūnyatāyā na pṛthag rūpam.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "Whatever is form, that is emptiness; whatever is emptiness, that is form.",
+    "chapter_id": 27,
+    "original_text": "yad rūpaṃ sā śūnyatā yā śūnyatā tad rūpam.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "The same is true of feelings, perceptions, mental formations, and consciousness.",
+    "chapter_id": 27,
+    "original_text": "evam eva vedanā saṃjñā saṃskārā vijñānāni.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "Here, Shariputra, all dharmas are marked with emptiness.",
+    "chapter_id": 27,
+    "original_text": "iha Śāriputra sarvadharmāḥ śūnyatā lakṣaṇāḥ.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "They are not produced, not ceased, not pure, not impure, neither increasing nor decreasing.",
+    "chapter_id": 27,
+    "original_text": "anutpannā aniruddhā amalā avimalā nonā raktāḥ.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "Therefore in emptiness there is no form, no feeling, no perception, no mental formations, no consciousness.",
+    "chapter_id": 27,
+    "original_text": "tasmāc chūnyatāyāṃ na rūpaṃ na vedanā na saṃjñā na saṃskārā na vijñānam.",
+    "verse_number": 11
+  },
+  {
+    "translated_text": "No eye, ear, nose, tongue, body, mind.",
+    "chapter_id": 27,
+    "original_text": "na cakṣur-śrotra-ghrāṇa-jihvā-kāya-manāṃsi.",
+    "verse_number": 12
+  },
+  {
+    "translated_text": "No form, sound, smell, taste, touch, or dharmas.",
+    "chapter_id": 27,
+    "original_text": "na rūpa-śabda-gandha-rasa-sparśa-dharmāḥ.",
+    "verse_number": 13
+  },
+  {
+    "translated_text": "No eye-element up to no mind-element.",
+    "chapter_id": 27,
+    "original_text": "na cakṣur-dhātur yāvam na mano-dhātuḥ.",
+    "verse_number": 14
+  },
+  {
+    "translated_text": "No ignorance and no extinction of ignorance, up to no aging and death and no extinction of aging and death.",
+    "chapter_id": 27,
+    "original_text": "na avidyā na avidyā-kṣayo yāvam na jarā-maraṇaṃ na jarā-maraṇa-kṣayaḥ.",
+    "verse_number": 15
+  },
+  {
+    "translated_text": "No suffering, origination, cessation, path; no wisdom, no attainment.",
+    "chapter_id": 27,
+    "original_text": "na duḥkha-samudaya-nirodha-mārgā na jñānaṃ na prāptiḥ.",
+    "verse_number": 16
+  },
+  {
+    "translated_text": "Relying on Prajna Paramita, the bodhisattvas have no obscuration of mind.",
+    "chapter_id": 27,
+    "original_text": "anāptitvād bodhisattvānāṃ prajñāpāramitām āśritya.",
+    "verse_number": 17
+  },
+  {
+    "translated_text": "Free from obscuration, they have no fear. Far from the twisted views of samsara.",
+    "chapter_id": 27,
+    "original_text": "virāgānām asamkliṣṭā jñānaṃ pratya vandayati.",
+    "verse_number": 18
+  },
+  {
+    "translated_text": "They attain the supreme perfect enlightenment.",
+    "chapter_id": 27,
+    "original_text": "nirvāṇaṃ prāpya samyaksaṃbodhim abhisaṃbuddhāḥ.",
+    "verse_number": 19
+  },
+  {
+    "translated_text": "Therefore know that Prajna Paramita is the great mantra.",
+    "chapter_id": 27,
+    "original_text": "tasmāj jñātavyaṃ prajñāpāramitā mahāmantrā.",
+    "verse_number": 20
+  },
+  {
+    "translated_text": "The great mantra of knowledge, the unsurpassed mantra, the unequalled mantra.",
+    "chapter_id": 27,
+    "original_text": "mahāvidyāmantrā anuttaramantrā asamasamamantrāḥ.",
+    "verse_number": 21
+  },
+  {
+    "translated_text": "It removes all suffering. It is true, not false.",
+    "chapter_id": 27,
+    "original_text": "sarva-duḥkha-praśamanaḥ satyam amithyatvād.",
+    "verse_number": 22
+  },
+  {
+    "translated_text": "Therefore set forth the Prajna Paramita mantra, set forth the mantra, and say: Gone, gone, gone beyond, gone completely beyond. Enlightenment! So be it!",
+    "chapter_id": 27,
+    "original_text": "prajñāpāramitāyām ukto mantrāḥ tadyathā gate gate pāragate pārasaṃgate bodhi svāhā.",
+    "verse_number": 23
+  },
+  {
+    "translated_text": "For the benefit of all sentient beings and for the perfection of karma.",
+    "chapter_id": 28,
+    "original_text": "pūrva-karma paramparā siddhyarthaṃ sarva-sattvānāṃ kuśalāya.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Prajna Paramita is revered by all blessed Buddhas.",
+    "chapter_id": 28,
+    "original_text": "prajñāpāramitā parityaktāḥ sarva-buddhair bhagavadbhiḥ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Therefore Prajna Paramita is most worthy of worship.",
+    "chapter_id": 28,
+    "original_text": "tasmāt prajñāpāramitā pūjyaṭamā.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The cessation of all suffering and the source of all happiness.",
+    "chapter_id": 28,
+    "original_text": "sarvaduhkha-nirodha-kāraṇaṃ sarva-sukha-sampad-uddeśakaṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "There is no other refuge, there is no other shelter.",
+    "chapter_id": 28,
+    "original_text": "nāsty anyā parā gatir anyā parā śaraṇam.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "All Buddhas and Bodhisattvas take refuge in Prajna Paramita.",
+    "chapter_id": 28,
+    "original_text": "sarva-buddha-bodhisattvāḥ prajñāpāramitāyāṃ niśritāḥ.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "May all beings be happy and safe. May all beings have happy minds.",
+    "chapter_id": 29,
+    "original_text": "Sukhino vā khemino hontu, sabbe sattā bhavantu sukhitattā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Whatever living beings there may be, without exception \u2014 feeble or strong, long, stout, or of middle size.",
+    "chapter_id": 29,
+    "original_text": "Ye keci pāṇa bhūtattā, tasā vā thāvarā vā anavasesā.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The seen and the unseen, those living near and those far away.",
+    "chapter_id": 29,
+    "original_text": "Diṭṭhā vā yadi vā adiṭṭhā, ye vā dūre vasanti avidūre.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Those already born and those yet to be born, may all beings have happy minds.",
+    "chapter_id": 29,
+    "original_text": "Bhūtā vā sambhavesī vā, sabbe sattā bhavantu sukhitattā.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Let no one deceive another, nor despise anyone anywhere.",
+    "chapter_id": 29,
+    "original_text": "Nāparo parassa kattā, mānaṃ annassa kappaye.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "Do not wish pain for another through anger or ill-will.",
+    "chapter_id": 29,
+    "original_text": "Mā vihiṃsāññatassaññassa, dukkhī dukkhānubhāvetu.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "Just as a mother would protect her only child at the risk of her own life.",
+    "chapter_id": 29,
+    "original_text": "Mātā yathā niyaṃ puttaṃ, āyusā ekaputtamanurakkhe.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "Even so, one should cultivate a boundless heart towards all beings.",
+    "chapter_id": 29,
+    "original_text": "Evampi sabhabhūtesu, mānasaṃ bhāvaye aparimāṇaṃ.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "Compassion for the entire world, a boundless heart of loving-kindness.",
+    "chapter_id": 29,
+    "original_text": "Mettañca sabbalokasmiṃ, mānasaṃ bhāvaye aparimāṇaṃ.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "Standing, walking, sitting, or lying down \u2014 as long as one is awake, one should develop this mindfulness.",
+    "chapter_id": 29,
+    "original_text": "Uddhaṃ adho ca tiriyañca, asambādhaṃ averaṃ asapattaṃ.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "The practice of meditation, the cultivation of insight.",
+    "chapter_id": 29,
+    "original_text": "Diṭṭhānussativikkhambhitaṃ, sambhāricaṃ vipassinaṃ.",
+    "verse_number": 11
+  },
+  {
+    "translated_text": "Those who have attained Nibbana, who are free from defilements.",
+    "chapter_id": 29,
+    "original_text": "Dissanti pure vā cāpi, nibbānādhigamā pajā.",
+    "verse_number": 12
+  },
+  {
+    "translated_text": "Not to associate with fools, but to associate with the wise.",
+    "chapter_id": 30,
+    "original_text": "Asevato sappurise, nāstike vā sahāsatā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "To honor those worthy of honor, and to accept gifts in due measure.",
+    "chapter_id": 30,
+    "original_text": "Pūjā pūjaniyesu, paṭiggāho yathārahaṃ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "The noble person who is wise and strong.",
+    "chapter_id": 30,
+    "original_text": "Uttamapuriso hoti, yo ca dhīro paṭibalo.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "The learned, the knowledgeable, the wise, and the good.",
+    "chapter_id": 30,
+    "original_text": "Sutavā ca bahussuto, paṇḍito sappuriso ca.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The one who loves the Dhamma, who teaches the Dhamma.",
+    "chapter_id": 30,
+    "original_text": "Dhammakāmo sugavejjho, satthā dhammaṃ vadesu no.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The one who practices the Dhamma with faith, who increases wisdom.",
+    "chapter_id": 30,
+    "original_text": "Dhammaṃ carati saddhā, ñāṇaṃ vaddheti paṇḍito.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The one who is virtuous, who practices the good Dhamma, who does not despise donors.",
+    "chapter_id": 30,
+    "original_text": "Sīlavā ca kalyāṇadhammo, nātimaññati dāninaṃ.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "Generosity, righteous conduct, and caring for parents.",
+    "chapter_id": 30,
+    "original_text": "Dānaṃ ca dhammacariyā ca, mātāpitū upaṭṭhānaṃ.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "Good friendship, morality, self-restraint, and non-violence.",
+    "chapter_id": 30,
+    "original_text": "Kalyāṇamittatā sīlaṃ, sappamāṇaṃ asañcataṃ.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "Asceticism, the holy life, truth, and always self-restraint.",
+    "chapter_id": 30,
+    "original_text": "Tapo brahmachariyaṃ saccā, saṃyamāni ca sabbadā.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "Loving-kindness for the entire world, a boundless heart.",
+    "chapter_id": 30,
+    "original_text": "Mettaṃ ca sabbalokasmiṃ, mānasaṃ bhāvaye aparimāṇaṃ.",
+    "verse_number": 11
+  },
+  {
+    "translated_text": "The sight of Nibbana, not touching desire.",
+    "chapter_id": 30,
+    "original_text": "Dassanāni ca nibbānaṃ, na kāmaṃ phusate pare.",
+    "verse_number": 12
+  },
+  {
+    "translated_text": "This is the highest blessing.",
+    "chapter_id": 30,
+    "original_text": "Etaṃ mangalamuttamaṃ.",
+    "verse_number": 13
+  },
+  {
+    "translated_text": "Those things taught by the Blessed One, the Worthy One, the Well-Gone.",
+    "chapter_id": 31,
+    "original_text": "Yāni sambuddhena desitāni, cakkhumānena sugatena bahunā.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The Buddha, the Dhamma, and the Sangha \u2014 these three treasures.",
+    "chapter_id": 31,
+    "original_text": "Buddho dhammo saṅgho ca, tisso ratanānugārahī.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "And those that lead to Nibbana, taught by the Well-Gone One.",
+    "chapter_id": 31,
+    "original_text": "Ye ca nibbānagāmino, dhammā sugata desitā.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Blessed are the accomplished ones, who honor the three treasures.",
+    "chapter_id": 31,
+    "original_text": "Sādhu te sādhu sampannā, tisso ratanānugārahī.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Do not go by oral tradition, by lineage of teaching, or by hearsay.",
+    "chapter_id": 32,
+    "original_text": "Mā anussavena, mā paramparāya, mā piṭakasampadānena.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Do not go by logical reasoning, by inferential reasoning, or by reasoned cogitation.",
+    "chapter_id": 32,
+    "original_text": "Mā takkahetu, mā nayahetu, mā pikappakappanāya.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Do not go by the view that the ascetic is our teacher.",
+    "chapter_id": 32,
+    "original_text": "Mā bhabbarūpatāya, mā samaṇo no garūti.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "When you know for yourselves: 'These things are unwholesome.'",
+    "chapter_id": 32,
+    "original_text": "Yadā tumhe attanā yeva jāneyyātha \u2014 ime dhammā akusalā.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "Abandon them.",
+    "chapter_id": 32,
+    "original_text": "Kusalā ti, tāni pajahatha.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "When you know for yourselves: 'These things are wholesome.'",
+    "chapter_id": 32,
+    "original_text": "Yadā tumhe attanā yeva jāneyyātha \u2014 ime dhammā kusalā.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "Develop them.",
+    "chapter_id": 32,
+    "original_text": "Kusalā ti tāni bhāvetha.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "In the seen there will be merely the seen. In the heard there will be merely the heard.",
+    "chapter_id": 33,
+    "original_text": "Diṭṭhe diṭṭhamattaṃ bhavissati, sute sutamattaṃ bhavissati.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "In the sensed there will be merely the sensed. In the cognized there will be merely the cognized.",
+    "chapter_id": 33,
+    "original_text": "Mute mutamattaṃ bhavissati, viññāte viññātamattaṃ bhavissati.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "When this is not there, you are not that.",
+    "chapter_id": 33,
+    "original_text": "Tatra tvaṃ na tena.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "When you are not that, then you are not that.",
+    "chapter_id": 33,
+    "original_text": "Yadā tatra tvaṃ na tena, tadā tatra tvaṃ na tasmiṃ.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "When you are not that, then you are not here, not there, nor between the two.",
+    "chapter_id": 33,
+    "original_text": "Yadā tatra tvaṃ na tasmiṃ, tadā tatra tvaṃ nevidha na huraṃ na ubhayamantarena.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "This is the end of suffering.",
+    "chapter_id": 33,
+    "original_text": "Es' ev' anto dukkhassa.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "All this, monks, is burning.",
+    "chapter_id": 34,
+    "original_text": "Sabbam pi idaṃ bhikkhave ādittaṃ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "The eye is burning, forms are burning, eye-consciousness is burning.",
+    "chapter_id": 34,
+    "original_text": "Cakkhu ādittaṃ, rūpā ādittā, cakkhuviññāṇaṃ ādittaṃ.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Eye-contact is burning.",
+    "chapter_id": 34,
+    "original_text": "Cakkhusamphasso āditto.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "Whatever feeling arises from eye-contact, that too is burning.",
+    "chapter_id": 34,
+    "original_text": "Yam pi cakkhusamphassapaccayā vedanā, sā pi ādittā.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "The ear is burning, sounds are burning, ear-consciousness is burning.",
+    "chapter_id": 34,
+    "original_text": "Sotaṃ ādittaṃ, saddā ādittā, sotaviññāṇaṃ ādittaṃ.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "The nose is burning, odors are burning, nose-consciousness is burning.",
+    "chapter_id": 34,
+    "original_text": "Ghānaṃ ādittaṃ, gandhā ādittā, ghanaviññāṇaṃ ādittaṃ.",
+    "verse_number": 6
+  },
+  {
+    "translated_text": "The tongue is burning, tastes are burning, tongue-consciousness is burning.",
+    "chapter_id": 34,
+    "original_text": "Jivhā ādittā, rasā ādittā, jivhāviññāṇaṃ ādittaṃ.",
+    "verse_number": 7
+  },
+  {
+    "translated_text": "The body is burning, tangibles are burning, body-consciousness is burning.",
+    "chapter_id": 34,
+    "original_text": "Kāyo āditto, phassā ādittā, kayaviññāṇaṃ ādittaṃ.",
+    "verse_number": 8
+  },
+  {
+    "translated_text": "The mind is burning, mental objects are burning, mind-consciousness is burning.",
+    "chapter_id": 34,
+    "original_text": "Mano āditto, dhammā ādittā, manoviññāṇaṃ ādittaṃ.",
+    "verse_number": 9
+  },
+  {
+    "translated_text": "Eye-consciousness is burning, feeling is burning, mental formations are burning.",
+    "chapter_id": 34,
+    "original_text": "Cakkhuviññāṇaṃ ādittaṃ, vedanā ādittā, saṅkhārā ādittā.",
+    "verse_number": 10
+  },
+  {
+    "translated_text": "All this is burning.",
+    "chapter_id": 34,
+    "original_text": "Sabbam pi idaṃ ādittaṃ.",
+    "verse_number": 11
+  },
+  {
+    "translated_text": "When this is understood and practiced, the burning consciousness becomes quenched.",
+    "chapter_id": 34,
+    "original_text": "Evan ca hoti evaṃ paṭipajjato, ādittaṃ viññāṇaṃ nibbutaṃ hoti.",
+    "verse_number": 12
+  },
+  {
+    "translated_text": "Impermanent are all conditioned things. Arising and ceasing is their nature.",
+    "chapter_id": 35,
+    "original_text": "Aniccā vata saṅkhārā, uppādaya vayaṃ aniccaṃ.",
+    "verse_number": 1
+  },
+  {
+    "translated_text": "Born, they cease, their calming is bliss.",
+    "chapter_id": 35,
+    "original_text": "Uppajjitvā nirujjhanti, tesaṃ vūpasamo sukho.",
+    "verse_number": 2
+  },
+  {
+    "translated_text": "Strive on with diligence.",
+    "chapter_id": 35,
+    "original_text": "Appamādena sampādetha.",
+    "verse_number": 3
+  },
+  {
+    "translated_text": "All conditioned things are of a nature to decay. Strive on with diligence.",
+    "chapter_id": 35,
+    "original_text": "Vayadhammā saṅkhārā, appamādena sampādethāti.",
+    "verse_number": 4
+  },
+  {
+    "translated_text": "And now, monks, I address you.",
+    "chapter_id": 35,
+    "original_text": "Handa dāni bhikkhave āmantayāmi.",
+    "verse_number": 5
+  },
+  {
+    "translated_text": "All conditioned things are of a nature to decay. Strive on with diligence.",
+    "chapter_id": 35,
+    "original_text": "Vayadhammā saṅkhārā, appamādena sampādetha.",
+    "verse_number": 6
   }
 ]

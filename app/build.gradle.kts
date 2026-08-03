@@ -62,15 +62,18 @@ val generateBuildConfig by tasks.registering {
             """.trimIndent(),
         )
 
-        // Copy Assets to composeResources
+        // Copy Assets to composeResources and androidMain/res/drawable
         val assetDir = rootProject.file("assets/${currentFlavor["flavorId"]}")
         val drawableDir = file("src/commonMain/composeResources/drawable")
+        val androidDrawableDir = file("src/androidMain/res/drawable")
         val filesDir = file("src/commonMain/composeResources/files")
         drawableDir.mkdirs()
+        androidDrawableDir.mkdirs()
         filesDir.mkdirs()
 
         assetDir.listFiles { file -> file.name.endsWith(".png") }?.forEach { f ->
             f.copyTo(File(drawableDir, f.name), overwrite = true)
+            f.copyTo(File(androidDrawableDir, f.name), overwrite = true)
         }
         assetDir.listFiles { file -> file.name.endsWith(".db") }?.forEach { f ->
             f.copyTo(File(filesDir, f.name), overwrite = true)
