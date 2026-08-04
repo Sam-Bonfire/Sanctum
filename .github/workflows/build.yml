@@ -68,15 +68,10 @@ jobs:
         uses: jdx/mise-action@v4
 
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.2'
-
-      - name: Install Bundler & Fastlane
-        run: |
-          gem install bundler
-          bundle install
-        working-directory: fastlane
+          bundler-cache: true
 
       - name: Generate App Store Metadata Files
         run: kotlin scripts/generate_fastlane_metadata.main.kts
