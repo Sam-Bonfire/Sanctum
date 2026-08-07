@@ -38,7 +38,8 @@ Current Phase: Development & CI/CD Pipeline Hardening
 # AI-Specific Rules
 
 * **DO NOT** push to the `main` bookmark directly under any circumstance unless explicitly requested by the user in a prompt.
-* Always check `jj log` and `jj status` to verify bookmark positions before running a push command.
+* **DO NOT** use task-specific branch names (e.g. ones with randomly generated identifiers) when pushing or submitting changes. All active development, bug fixes, and feature integrations must be submitted directly to the `dev` branch to follow the project's VCS conventions.
+* Always check `jj log` and `jj status` (or equivalent git commands) to verify bookmark positions before running a push command.
 * Never introduce technologies not listed in `ARCHITECTURE.md`.
 * Never generate placeholder implementations.
 * Always update the automation guides and logs when changing CI/CD configurations.
@@ -52,3 +53,8 @@ Every modification should record:
 * **Reason**: Initial setup of project rules to enforce VCS branching protocol.
 * **Approved By**: Sam (User)
 * **Affected Rules**: VCS Bookmark Branching Protocol.
+
+* **Date**: 2026-08-06
+* **Reason**: Clarified AI Agent branch naming conventions to always submit directly to `dev`.
+* **Approved By**: Sam (User)
+* **Affected Rules**: AI-Specific Rules.
