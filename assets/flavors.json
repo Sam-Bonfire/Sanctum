@@ -43,6 +43,7 @@
       "daily_motivation": "Indeed, with hardship comes ease. Remain steadfast in your faith today."
     },
     "features": {
+      "hasTransliteration": true,
       "hasCompass": true
     }
   },
@@ -90,6 +91,7 @@
       "daily_motivation": "Be strong and courageous. You are guided and loved in every step of your journey."
     },
     "features": {
+      "hasTransliteration": false,
       "hasCompass": false
     }
   },
@@ -137,6 +139,7 @@
       "daily_motivation": "Focus on your rightful duty with a peaceful mind, detached from mere outcomes."
     },
     "features": {
+      "hasTransliteration": true,
       "hasCompass": false
     }
   },
@@ -184,6 +187,7 @@
       "daily_motivation": "Peace comes from within. Walk the middle path with compassion and awareness today."
     },
     "features": {
+      "hasTransliteration": true,
       "hasCompass": false
     }
   },
@@ -231,6 +235,7 @@
       "daily_motivation": "Remember the covenant and live with righteousness today."
     },
     "features": {
+      "hasTransliteration": true,
       "hasCompass": true
     }
   },
@@ -278,6 +283,7 @@
       "daily_motivation": "Recognize the whole human race as one. Live with honest labor and remember the Divine today."
     },
     "features": {
+      "hasTransliteration": true,
       "hasCompass": false
     }
   },
@@ -325,6 +331,7 @@
       "daily_motivation": "Live and let live. Practice non-violence in thought, word, and action today."
     },
     "features": {
+      "hasTransliteration": true,
       "hasCompass": false
     }
   },
@@ -372,6 +379,7 @@
       "daily_motivation": "Seek purity and sincerity of heart. Walk in harmony with the natural world today."
     },
     "features": {
+      "hasTransliteration": true,
       "hasCompass": false
     }
   },
@@ -419,6 +427,7 @@
       "daily_motivation": "Nature does not hurry, yet everything is accomplished. Flow with simplicity and peace today."
     },
     "features": {
+      "hasTransliteration": true,
       "hasCompass": false
     }
   }

@@ -8,7 +8,7 @@ Sanctum is designed as a foundational architecture capable of generating multipl
 
 ### Prerequisites
 - **Java**: JDK 21+
-- **Mise**: [mise](https://mise.jdx.dev/) for task running and environment management (Install via `curl https://mise.run | sh` or standard OS package managers)
+- **Mise**: [mise](https://mise.jdx.dev/) for task running and environment management
 - **IDE**: Android Studio Koala / IntelliJ IDEA with KMP plugin
 - **Kotlin**: Kotlin CLI/compiler (for running developer scripts)
 
@@ -62,14 +62,9 @@ Sanctum is designed as a foundational architecture capable of generating multipl
 - **Database / Offline Data**: Room KMP & SQLite Bundled
 - **Networking**: Ktor Client
 
-## CI/CD Pipeline & Deployments
-
-The project leverages a robust GitHub Actions workflow combined with Fastlane to automate building, testing, and store deployments for all flavors. For a comprehensive overview of the branch cadence and how to interact with the automation scripts, refer to the [Automation Guide](./documentation/automation_guide.md).
-
 ## Documentation
 
 - [Architecture Overview](./ARCHITECTURE.md)
-- [Automation Guide](./documentation/automation_guide.md)
 
 ## Utility Scripts
 
