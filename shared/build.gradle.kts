@@ -93,6 +93,11 @@ kotlin {
             implementation(libs.sqlite.bundled)
             implementation(libs.ktor.client.darwin)
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+            }
+        }
         val wasmJsMain by getting {
             dependencies {
                 implementation(libs.compose.runtime)

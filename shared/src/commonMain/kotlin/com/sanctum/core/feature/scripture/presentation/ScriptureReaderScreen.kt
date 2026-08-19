@@ -29,6 +29,8 @@ import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.scripture.domain.ScriptureChapter
 
+enum class TranslationMode { BOTH, ORIGINAL_ONLY, TRANSLATION_ONLY }
+
 @Composable
 fun ScriptureReaderScreen(
     chapter: ScriptureChapter,
@@ -97,6 +99,28 @@ fun ScriptureReaderScreen(
                 }
 
                 Spacer(modifier = Modifier.width(16.dp))
+
+                // Translation Mode Toggle
+                IconButton(
+                    onClick = {
+                        translationMode = when (translationMode) {
+                            TranslationMode.BOTH -> TranslationMode.ORIGINAL_ONLY
+                            TranslationMode.ORIGINAL_ONLY -> TranslationMode.TRANSLATION_ONLY
+                            TranslationMode.TRANSLATION_ONLY -> TranslationMode.BOTH
+                        }
+                    },
+                    modifier = Modifier.size(32.dp),
+                ) {
+                    val modeColor = if (translationMode != TranslationMode.BOTH) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.6f)
+                    Text(
+                        text = "A/文",
+                        fontWeight = FontWeight.Bold,
+                        color = modeColor,
+                        fontSize = 12.sp,
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
 
                 // Audio Player Toggle
                 IconButton(
@@ -248,7 +272,10 @@ fun ScriptureReaderScreen(
 
                         Spacer(modifier = Modifier.height(6.dp))
 
-                        if (verse.originalText.isNotEmpty() && verse.originalText != verse.translation) {
+                        val showOriginal = translationMode == TranslationMode.BOTH || translationMode == TranslationMode.ORIGINAL_ONLY
+                        val showTranslation = translationMode == TranslationMode.BOTH || translationMode == TranslationMode.TRANSLATION_ONLY
+
+                        if (showOriginal && verse.originalText.isNotEmpty() && (verse.originalText != verse.translation || !showTranslation)) {
                             Text(
                                 text = verse.originalText,
                                 fontSize = (24 * fontSizeMultiplier).sp,
@@ -259,16 +286,20 @@ fun ScriptureReaderScreen(
                                 textAlign = TextAlign.End,
                                 modifier = Modifier.fillMaxWidth(),
                             )
-                            Spacer(modifier = Modifier.height(8.dp))
+                            if (showTranslation) {
+                                Spacer(modifier = Modifier.height(8.dp))
+                            }
                         }
 
-                        Text(
-                            text = verse.translation,
-                            fontSize = (18 * fontSizeMultiplier).sp,
-                            color = SanctumTheme.colors.textPrimary,
-                            lineHeight = (28 * fontSizeMultiplier).sp,
-                            fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
-                        )
+                        if (showTranslation) {
+                            Text(
+                                text = verse.translation,
+                                fontSize = (18 * fontSizeMultiplier).sp,
+                                color = SanctumTheme.colors.textPrimary,
+                                lineHeight = (28 * fontSizeMultiplier).sp,
+                                fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                            )
+                        }
 
                         if (showTransliteration && verse.transliteration != null) {
                             Spacer(modifier = Modifier.height(6.dp))

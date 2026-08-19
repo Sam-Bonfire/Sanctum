@@ -52,3 +52,8 @@ Every modification should record:
 * **Reason**: Initial setup of project rules to enforce VCS branching protocol.
 * **Approved By**: Sam (User)
 * **Affected Rules**: VCS Bookmark Branching Protocol.
+
+* **Date**: 2026-08-06
+* **Reason**: Clarified AI Agent branch naming conventions to always submit directly to `dev`.
+* **Approved By**: Sam (User)
+* **Affected Rules**: AI-Specific Rules.
