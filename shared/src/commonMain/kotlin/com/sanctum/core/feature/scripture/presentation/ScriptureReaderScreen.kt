@@ -29,8 +29,6 @@ import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.scripture.domain.ScriptureChapter
 
-enum class TranslationMode { BOTH, ORIGINAL_ONLY, TRANSLATION_ONLY }
-
 @Composable
 fun ScriptureReaderScreen(
     chapter: ScriptureChapter,
@@ -42,7 +40,7 @@ fun ScriptureReaderScreen(
 ) {
     var fontSizeMultiplier by remember { mutableStateOf(1.0f) }
     var isPlayingAudio by remember { mutableStateOf(false) }
-    var translationMode by remember { mutableStateOf(TranslationMode.BOTH) }
+    var showTransliteration by remember { mutableStateOf(true) }
 
     val config = LocalWhiteLabelConfig.current
     val verseList = chapter.verses
@@ -100,28 +98,6 @@ fun ScriptureReaderScreen(
 
                 Spacer(modifier = Modifier.width(16.dp))
 
-                // Translation Mode Toggle
-                IconButton(
-                    onClick = {
-                        translationMode = when (translationMode) {
-                            TranslationMode.BOTH -> TranslationMode.ORIGINAL_ONLY
-                            TranslationMode.ORIGINAL_ONLY -> TranslationMode.TRANSLATION_ONLY
-                            TranslationMode.TRANSLATION_ONLY -> TranslationMode.BOTH
-                        }
-                    },
-                    modifier = Modifier.size(32.dp),
-                ) {
-                    val modeColor = if (translationMode != TranslationMode.BOTH) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.6f)
-                    Text(
-                        text = "A/文",
-                        fontWeight = FontWeight.Bold,
-                        color = modeColor,
-                        fontSize = 12.sp,
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(8.dp))
-
                 // Audio Player Toggle
                 IconButton(
                     onClick = { isPlayingAudio = !isPlayingAudio },
@@ -133,6 +109,21 @@ fun ScriptureReaderScreen(
                         tint = if (isPlayingAudio) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.6f),
                         modifier = Modifier.size(20.dp),
                     )
+                }
+
+                if (config.hasTransliteration) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    IconButton(
+                        onClick = { showTransliteration = !showTransliteration },
+                        modifier = Modifier.size(32.dp),
+                    ) {
+                        Text(
+                            text = "T",
+                            fontWeight = FontWeight.Bold,
+                            color = if (showTransliteration) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.6f),
+                            fontSize = 16.sp,
+                        )
+                    }
                 }
             }
         }
@@ -257,10 +248,7 @@ fun ScriptureReaderScreen(
 
                         Spacer(modifier = Modifier.height(6.dp))
 
-                        val showOriginal = translationMode == TranslationMode.BOTH || translationMode == TranslationMode.ORIGINAL_ONLY
-                        val showTranslation = translationMode == TranslationMode.BOTH || translationMode == TranslationMode.TRANSLATION_ONLY
-
-                        if (showOriginal && verse.originalText.isNotEmpty() && (verse.originalText != verse.translation || !showTranslation)) {
+                        if (verse.originalText.isNotEmpty() && verse.originalText != verse.translation) {
                             Text(
                                 text = verse.originalText,
                                 fontSize = (24 * fontSizeMultiplier).sp,
@@ -271,22 +259,18 @@ fun ScriptureReaderScreen(
                                 textAlign = TextAlign.End,
                                 modifier = Modifier.fillMaxWidth(),
                             )
-                            if (showTranslation) {
-                                Spacer(modifier = Modifier.height(8.dp))
-                            }
+                            Spacer(modifier = Modifier.height(8.dp))
                         }
 
-                        if (showTranslation) {
-                            Text(
-                                text = verse.translation,
-                                fontSize = (18 * fontSizeMultiplier).sp,
-                                color = SanctumTheme.colors.textPrimary,
-                                lineHeight = (28 * fontSizeMultiplier).sp,
-                                fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
-                            )
-                        }
+                        Text(
+                            text = verse.translation,
+                            fontSize = (18 * fontSizeMultiplier).sp,
+                            color = SanctumTheme.colors.textPrimary,
+                            lineHeight = (28 * fontSizeMultiplier).sp,
+                            fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                        )
 
-                        if (verse.transliteration != null) {
+                        if (showTransliteration && verse.transliteration != null) {
                             Spacer(modifier = Modifier.height(6.dp))
                             Text(
                                 text = verse.transliteration,

@@ -26,6 +26,7 @@ data class WhiteLabelConfig(
     val navItems: List<NavItemConfig>,
     val headerIcon: @Composable () -> Unit,
     val compassTitle: String,
+    val hasTransliteration: Boolean = true,
 )
 
 /**

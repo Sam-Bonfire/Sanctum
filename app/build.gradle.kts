@@ -27,6 +27,7 @@ val generateBuildConfig by tasks.registering {
         val copy = currentFlavor["copy"] as Map<String, String>
         val features = (currentFlavor["features"] as? Map<String, Boolean>) ?: emptyMap()
         val hasCompass = features["hasCompass"] ?: false
+        val hasTransliteration = features["hasTransliteration"] ?: true
 
         val file = file("${outputDir.get().asFile}/com/sanctum/app/BuildConfig.kt")
         file.parentFile.mkdirs()
@@ -60,6 +61,7 @@ val generateBuildConfig by tasks.registering {
                 
                 // Features
                 const val HAS_COMPASS = $hasCompass
+                const val HAS_TRANSLITERATION = $hasTransliteration
             }
             """.trimIndent(),
         )
