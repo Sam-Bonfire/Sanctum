@@ -150,14 +150,14 @@ android {
         layout.buildDirectory.dir("generated/androidRes").get().asFile,
     )
 
-    // Ensure the icon/resource generation runs before any Android resource processing
+    // Ensure the icon/resource generation runs before any Android/Kotlin compilation or resource processing
     tasks.matching {
-        it.name.contains(
-            "mergeReleaseResources",
-        ) ||
-            it.name.contains(
-                "processReleaseResources",
-            ) || it.name.contains("mergeDebugResources") || it.name.contains("processDebugResources") || it.name == "preBuild"
+        it.name.contains("Kotlin") ||
+            it.name.contains("mergeReleaseResources") ||
+            it.name.contains("processReleaseResources") ||
+            it.name.contains("mergeDebugResources") ||
+            it.name.contains("processDebugResources") ||
+            it.name == "preBuild"
     }.configureEach {
         dependsOn(generateBuildConfig)
     }
