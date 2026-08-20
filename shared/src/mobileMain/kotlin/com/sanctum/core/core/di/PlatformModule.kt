@@ -22,8 +22,17 @@ actual val platformModule: Module = module {
         database.userDataDao()
     }
 
+    single {
+        val database: PrayerDatabase = get()
+        database.journalDao()
+    }
+
     single<com.sanctum.core.feature.scripture.data.ScriptureRepository> {
         com.sanctum.core.feature.scripture.data.RoomScriptureRepository(get(), get())
+    }
+
+    single<com.sanctum.core.feature.journal.data.JournalRepository> {
+        com.sanctum.core.feature.journal.data.RoomJournalRepository(get())
     }
 
     single<com.sanctum.core.feature.duas.data.DuasRepository> {
