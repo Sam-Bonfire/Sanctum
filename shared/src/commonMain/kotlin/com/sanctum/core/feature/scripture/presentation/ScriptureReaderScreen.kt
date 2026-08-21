@@ -11,6 +11,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Notifications
@@ -34,6 +35,7 @@ fun ScriptureReaderScreen(
     chapter: ScriptureChapter,
     bookmarkedVerseIds: Set<String>,
     onBookmarkToggle: (String) -> Unit,
+    onReflectClick: (String, String) -> Unit = { _, _ -> },
     previousChapter: ScriptureChapter? = null,
     nextChapter: ScriptureChapter? = null,
     onNavigateToChapter: (String) -> Unit = {},
@@ -232,17 +234,34 @@ fun ScriptureReaderScreen(
                                 letterSpacing = 1.sp,
                             )
 
-                            // Heart bookmark toggle button
-                            IconButton(
-                                onClick = { onBookmarkToggle(verse.id) },
-                                modifier = Modifier.size(28.dp),
-                            ) {
-                                Icon(
-                                    imageVector = if (isBookmarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                                    contentDescription = "Bookmark",
-                                    tint = if (isBookmarked) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.35f),
-                                    modifier = Modifier.size(16.dp),
-                                )
+                            Row {
+                                // Reflect icon
+                                IconButton(
+                                    onClick = { onReflectClick(verse.id, chapter.id) },
+                                    modifier = Modifier.size(28.dp),
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Edit,
+                                        contentDescription = "Reflect on this verse",
+                                        tint = SanctumTheme.colors.textSecondary.copy(alpha = 0.5f),
+                                        modifier = Modifier.size(16.dp),
+                                    )
+                                }
+
+                                Spacer(modifier = Modifier.width(4.dp))
+
+                                // Heart bookmark toggle button
+                                IconButton(
+                                    onClick = { onBookmarkToggle(verse.id) },
+                                    modifier = Modifier.size(28.dp),
+                                ) {
+                                    Icon(
+                                        imageVector = if (isBookmarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                                        contentDescription = "Bookmark",
+                                        tint = if (isBookmarked) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.35f),
+                                        modifier = Modifier.size(16.dp),
+                                    )
+                                }
                             }
                         }
 
