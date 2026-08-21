@@ -11,11 +11,22 @@ class AndroidPlatformNotificationManager : PlatformNotificationManager {
 
     private val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    override fun scheduleNotification(id: Int, title: String, message: String, triggerTimeInMillis: Long) {
+    override fun scheduleNotification(
+        id: Int,
+        title: String,
+        message: String,
+        triggerTimeInMillis: Long,
+        alertType: String,
+        soundFileName: String?,
+    ) {
         val intent = Intent(applicationContext, PrayerAlarmReceiver::class.java).apply {
             putExtra("NOTIFICATION_ID", id)
             putExtra("NOTIFICATION_TITLE", title)
             putExtra("NOTIFICATION_MESSAGE", message)
+            putExtra("ALERT_TYPE", alertType)
+            if (soundFileName != null) {
+                putExtra("SOUND_FILE_NAME", soundFileName)
+            }
         }
 
         val pendingIntent = PendingIntent.getBroadcast(

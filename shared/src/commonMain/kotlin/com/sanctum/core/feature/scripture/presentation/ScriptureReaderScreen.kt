@@ -40,6 +40,7 @@ fun ScriptureReaderScreen(
 ) {
     var fontSizeMultiplier by remember { mutableStateOf(1.0f) }
     var isPlayingAudio by remember { mutableStateOf(false) }
+    var showTransliteration by remember { mutableStateOf(true) }
 
     val config = LocalWhiteLabelConfig.current
     val verseList = chapter.verses
@@ -108,6 +109,21 @@ fun ScriptureReaderScreen(
                         tint = if (isPlayingAudio) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.6f),
                         modifier = Modifier.size(20.dp),
                     )
+                }
+
+                if (config.hasTransliteration) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    IconButton(
+                        onClick = { showTransliteration = !showTransliteration },
+                        modifier = Modifier.size(32.dp),
+                    ) {
+                        Text(
+                            text = "T",
+                            fontWeight = FontWeight.Bold,
+                            color = if (showTransliteration) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.6f),
+                            fontSize = 16.sp,
+                        )
+                    }
                 }
             }
         }
@@ -254,7 +270,7 @@ fun ScriptureReaderScreen(
                             fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
                         )
 
-                        if (verse.transliteration != null) {
+                        if (showTransliteration && verse.transliteration != null) {
                             Spacer(modifier = Modifier.height(6.dp))
                             Text(
                                 text = verse.transliteration,
