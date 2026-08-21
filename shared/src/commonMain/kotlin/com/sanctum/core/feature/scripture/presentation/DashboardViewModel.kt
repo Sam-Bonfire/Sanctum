@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
 import com.sanctum.core.core.notifications.PlatformNotificationManager
 import com.sanctum.core.feature.compass.domain.PlatformSensors
+import com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository
 import com.sanctum.core.feature.scripture.data.ScriptureRepository
 import com.sanctum.core.feature.scripture.domain.PrayerScheduleUseCase
 import kotlinx.coroutines.delay
@@ -43,6 +44,7 @@ class DashboardViewModel(
     private val notificationManager: PlatformNotificationManager,
     private val settings: Settings,
     private val scriptureRepository: ScriptureRepository,
+    private val notificationSettingsRepository: PrayerNotificationSettingsRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(DashboardUiState())
@@ -143,11 +145,16 @@ class DashboardViewModel(
         schedule.forEachIndexed { index, prayer ->
             val targetMillis = prayerScheduleUseCase.parsePrayerTimeToMillis(prayer)
             if (targetMillis != null && targetMillis > now) {
+                val settings = notificationSettingsRepository.getSetting(prayer.name)
+                val soundFileName = if (settings.alertType.name == "AUDIO") settings.muezzinVoice.fileName else null
+
                 notificationManager.scheduleNotification(
                     id = index,
                     title = "Prayer Time",
                     message = "It is now time for ${prayer.name}.",
                     triggerTimeInMillis = targetMillis,
+                    alertType = settings.alertType.name,
+                    soundFileName = soundFileName,
                 )
             }
         }

@@ -12,16 +12,40 @@ import platform.Foundation.dateWithTimeIntervalSince1970
 import platform.UserNotifications.UNCalendarNotificationTrigger
 import platform.UserNotifications.UNMutableNotificationContent
 import platform.UserNotifications.UNNotificationRequest
+import platform.UserNotifications.UNNotificationSound
 import platform.UserNotifications.UNUserNotificationCenter
 
 class IosPlatformNotificationManager : PlatformNotificationManager {
 
-    override fun scheduleNotification(id: Int, title: String, message: String, triggerTimeInMillis: Long) {
+    override fun scheduleNotification(
+        id: Int,
+        title: String,
+        message: String,
+        triggerTimeInMillis: Long,
+        alertType: String,
+        soundFileName: String?,
+    ) {
         val center = UNUserNotificationCenter.currentNotificationCenter()
 
         val content = UNMutableNotificationContent().apply {
             setTitle(title)
             setBody(message)
+
+            when (alertType) {
+                "AUDIO" -> {
+                    if (soundFileName != null) {
+                        setSound(UNNotificationSound.soundNamed(soundFileName))
+                    } else {
+                        setSound(UNNotificationSound.defaultSound)
+                    }
+                }
+                "VIBRATE" -> {
+                    setSound(UNNotificationSound.defaultSound) // iOS doesn't have vibrate only without sound natively in local push without silent payload hack, but default covers it.
+                }
+                "SILENT" -> {
+                    // Do not set sound
+                }
+            }
         }
 
         val date = NSDate.dateWithTimeIntervalSince1970(triggerTimeInMillis / 1000.0)
