@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LocationOn
@@ -29,6 +30,7 @@ import cafe.adriel.voyager.navigator.Navigator
 import com.russhwolf.settings.Settings
 import com.sanctum.app.navigation.DashboardScreenNode
 import com.sanctum.app.navigation.DuasCatalogScreenNode
+import com.sanctum.app.navigation.JournalScreenNode
 import com.sanctum.app.navigation.OnboardingScreenNode
 import com.sanctum.app.navigation.QiblaCompassScreenNode
 import com.sanctum.app.navigation.ScriptureIndexScreenNode
@@ -102,6 +104,7 @@ fun App() {
                                 add(NavItemConfig("qibla", BuildConfig.TERM_SCHEDULE_TITLE, Icons.Default.LocationOn))
                             }
                             add(NavItemConfig("reader", BuildConfig.TERM_SCRIPTURE_TITLE, Icons.AutoMirrored.Filled.List))
+                            add(NavItemConfig("journal", "Journal", Icons.Default.Edit))
                             add(NavItemConfig("duas", BuildConfig.TERM_DAILY_DEVOTION, Icons.Default.Favorite))
                             add(NavItemConfig("settings", "Profile", Icons.Default.Person))
                         },
@@ -140,6 +143,7 @@ fun App() {
                                         is DashboardScreenNode -> "dashboard"
                                         is QiblaCompassScreenNode -> "qibla"
                                         is ScriptureIndexScreenNode -> "reader"
+                                        is JournalScreenNode -> "journal"
                                         is DuasCatalogScreenNode -> "duas"
                                         is SettingsScreenNode -> "settings"
                                         else -> "dashboard"
@@ -149,6 +153,7 @@ fun App() {
                                             "dashboard" -> DashboardScreenNode()
                                             "qibla" -> QiblaCompassScreenNode()
                                             "reader" -> ScriptureIndexScreenNode()
+                                            "journal" -> JournalScreenNode()
                                             "duas" -> DuasCatalogScreenNode()
                                             "settings" -> SettingsScreenNode()
                                             else -> DashboardScreenNode()

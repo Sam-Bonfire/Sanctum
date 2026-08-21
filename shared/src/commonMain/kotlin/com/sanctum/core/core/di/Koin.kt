@@ -11,6 +11,7 @@ val presentationModule = module {
     single { com.sanctum.core.feature.sync.presentation.SyncViewModel(get()) }
     single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get()) }
     single { com.sanctum.core.feature.duas.presentation.DuasCatalogViewModel(get(), get()) }
+    single { com.sanctum.core.feature.journal.presentation.JournalViewModel(get()) }
 }
 
 val domainModule = module {

@@ -15,6 +15,9 @@ import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.compass.domain.PlatformSensors
 import com.sanctum.core.feature.compass.presentation.QiblaCompassScreen
 import com.sanctum.core.feature.duas.presentation.DuasCatalogScreen
+import com.sanctum.core.feature.journal.presentation.JournalDetailScreen
+import com.sanctum.core.feature.journal.presentation.JournalScreen
+import com.sanctum.core.feature.journal.presentation.JournalViewModel
 import com.sanctum.core.feature.scripture.presentation.DashboardScreen
 import com.sanctum.core.feature.scripture.presentation.DashboardViewModel
 import com.sanctum.core.feature.scripture.presentation.ScriptureIndexScreen
@@ -39,6 +42,61 @@ class QiblaCompassScreenNode : Screen {
         QiblaCompassScreen(
             sensors = sensors,
             onManualLocationClick = {},
+        )
+    }
+}
+
+class JournalScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = koinInject<JournalViewModel>()
+        val uiState by viewModel.uiState.collectAsState()
+        val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
+
+        androidx.compose.runtime.LaunchedEffect(Unit) {
+            viewModel.loadAllEntries()
+        }
+
+        JournalScreen(
+            uiState = uiState,
+            onEntryClick = { entryId ->
+                navigator.push(JournalDetailScreenNode(entryId, null, null))
+            },
+            onCreateNewEntry = {
+                navigator.push(JournalDetailScreenNode(null, null, null))
+            },
+        )
+    }
+}
+
+class JournalDetailScreenNode(
+    private val entryId: Int?,
+    private val verseId: Int?,
+    private val chapterId: Int?,
+) : Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = koinInject<JournalViewModel>()
+        val uiState by viewModel.uiState.collectAsState()
+        val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
+
+        androidx.compose.runtime.LaunchedEffect(entryId, verseId, chapterId) {
+            if (entryId != null) {
+                viewModel.loadEntry(entryId)
+            } else {
+                viewModel.prepareNewEntry(verseId, chapterId)
+            }
+        }
+
+        JournalDetailScreen(
+            entry = uiState.currentEntry,
+            onSave = { title, content ->
+                viewModel.saveEntry(title, content)
+            },
+            onDelete = {
+                if (entryId != null) viewModel.deleteEntry(entryId)
+            },
+            onBack = { navigator.pop() },
         )
     }
 }
@@ -87,6 +145,9 @@ class ScriptureReaderScreenNode(private val chapterId: String) : Screen {
                     chapter = chapter,
                     bookmarkedVerseIds = uiState.bookmarkedVerseIds,
                     onBookmarkToggle = { scriptureViewModel.toggleBookmark(it) },
+                    onReflectClick = { verseId, chapterId ->
+                        navigator.push(JournalDetailScreenNode(null, verseId.toIntOrNull(), chapterId.toIntOrNull()))
+                    },
                     previousChapter = prevChapter,
                     nextChapter = nextChapter,
                     onNavigateToChapter = { nextId ->
