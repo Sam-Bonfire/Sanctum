@@ -27,4 +27,7 @@ actual val platformModule: Module = module {
 
     // Resource-backed Duas repository since WasmJs lacks Room SQLite support
     single<com.sanctum.core.feature.duas.data.DuasRepository> { com.sanctum.core.feature.duas.data.ResourceDuasRepository() }
+
+    // Wasm stub for JournalRepository since Room isn't supported yet
+    single<com.sanctum.core.feature.journal.data.JournalRepository> { com.sanctum.core.feature.journal.data.WasmJournalRepository() }
 }
