@@ -72,11 +72,13 @@ class WasmScriptureRepository(private val settings: Settings) : ScriptureReposit
         if (state is ScriptureLoadState.Success) {
             val firstVerse = state.chapters[1]?.firstOrNull()
                 ?: throw NoSuchElementException("No verses available in chapter 1 for $religionId.")
+            val id = "${firstVerse.chapter_id}_${firstVerse.verse_number}"
             return ScriptureVerse(
-                id = "${firstVerse.chapter_id}_${firstVerse.verse_number}",
+                id = id,
                 number = firstVerse.verse_number,
                 originalText = firstVerse.original_text,
                 translation = firstVerse.translated_text,
+                historicalContext = if (firstVerse.verse_number == 1) com.sanctum.core.feature.scripture.domain.history.MockHistory.mockContext else null,
             )
         }
         throw IllegalStateException("Scripture data unavailable: $state")
@@ -92,11 +94,13 @@ class WasmScriptureRepository(private val settings: Settings) : ScriptureReposit
                     number = chapterId,
                     title = null,
                     verses = verses.map { v ->
+                        val id = "${v.chapter_id}_${v.verse_number}"
                         ScriptureVerse(
-                            id = "${v.chapter_id}_${v.verse_number}",
+                            id = id,
                             number = v.verse_number,
                             originalText = v.original_text,
                             translation = v.translated_text,
+                            historicalContext = if (v.verse_number == 1) com.sanctum.core.feature.scripture.domain.history.MockHistory.mockContext else null,
                         )
                     },
                 )
@@ -134,11 +138,13 @@ class WasmScriptureRepository(private val settings: Settings) : ScriptureReposit
                     number = idInt,
                     title = null,
                     verses = verses.map { v ->
+                        val id = "${v.chapter_id}_${v.verse_number}"
                         ScriptureVerse(
-                            id = "${v.chapter_id}_${v.verse_number}",
+                            id = id,
                             number = v.verse_number,
                             originalText = v.original_text,
                             translation = v.translated_text,
+                            historicalContext = if (v.verse_number == 1) com.sanctum.core.feature.scripture.domain.history.MockHistory.mockContext else null,
                         )
                     },
                 ),

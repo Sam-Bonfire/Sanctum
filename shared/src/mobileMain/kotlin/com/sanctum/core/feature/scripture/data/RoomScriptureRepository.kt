@@ -74,6 +74,7 @@ class RoomScriptureRepository(
         number = verseNumber,
         originalText = originalText,
         translation = translatedText,
+        historicalContext = if (verseNumber == 1) com.sanctum.core.feature.scripture.domain.history.MockHistory.mockContext else null,
     )
 
     override fun getBookmarkedVerseIds(): Flow<Set<String>> =

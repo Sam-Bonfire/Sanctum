@@ -11,9 +11,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Share
@@ -26,12 +26,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.sanctum.core.core.design.LocalWhiteLabelConfig
 import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.scripture.domain.ScriptureChapter
+import com.sanctum.core.feature.scripture.domain.history.HistoricalContext
 
 @Composable
 fun ScriptureReaderScreen(
@@ -48,6 +50,7 @@ fun ScriptureReaderScreen(
     var fontSizeMultiplier by remember { mutableStateOf(1.0f) }
     var isPlayingAudio by remember { mutableStateOf(false) }
     var showTransliteration by remember { mutableStateOf(true) }
+    var selectedHistoricalContext by remember { mutableStateOf<HistoricalContext?>(null) }
 
     val config = LocalWhiteLabelConfig.current
     val verseList = chapter.verses
@@ -239,21 +242,20 @@ fun ScriptureReaderScreen(
                                 letterSpacing = 1.sp,
                             )
 
-                            Row {
-                                // Reflect icon
-                                IconButton(
-                                    onClick = { onReflectClick(verse.id, chapter.id) },
-                                    modifier = Modifier.size(28.dp),
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Edit,
-                                        contentDescription = "Reflect on this verse",
-                                        tint = SanctumTheme.colors.textSecondary.copy(alpha = 0.5f),
-                                        modifier = Modifier.size(16.dp),
-                                    )
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                if (verse.historicalContext != null) {
+                                    IconButton(
+                                        onClick = { selectedHistoricalContext = verse.historicalContext },
+                                        modifier = Modifier.size(28.dp),
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Info,
+                                            contentDescription = "Historical Context",
+                                            tint = SanctumTheme.colors.brand,
+                                            modifier = Modifier.size(16.dp),
+                                        )
+                                    }
                                 }
-
-                                Spacer(modifier = Modifier.width(4.dp))
 
                                 val shareController = remember { com.sanctum.core.feature.share.domain.ShareController() }
                                 if (shareController.isShareSupported()) {
@@ -271,9 +273,7 @@ fun ScriptureReaderScreen(
                                             modifier = Modifier.size(16.dp),
                                         )
                                     }
-                                    Spacer(modifier = Modifier.width(4.dp))
                                 }
-
                                 // Heart bookmark toggle button
                                 IconButton(
                                     onClick = { onBookmarkToggle(verse.id) },
@@ -400,6 +400,79 @@ fun ScriptureReaderScreen(
                         }
                     } else {
                         Spacer(modifier = Modifier.weight(1f))
+                    }
+                }
+            }
+        }
+    }
+
+    selectedHistoricalContext?.let { context ->
+        Dialog(onDismissRequest = { selectedHistoricalContext = null }) {
+            SanctumCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                contentPadding = PaddingValues(24.dp),
+            ) {
+                Column {
+                    Text(
+                        text = "HISTORICAL CONTEXT",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = SanctumTheme.colors.brand,
+                        letterSpacing = 2.sp,
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    if (context.timelineDate != null) {
+                        Text(
+                            text = "Timeline: ${context.timelineDate}",
+                            fontSize = 14.sp,
+                            color = SanctumTheme.colors.textPrimary,
+                            fontWeight = FontWeight.Medium,
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+
+                    if (context.location != null) {
+                        Text(
+                            text = "Location: ${context.location.name}",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SanctumTheme.colors.textPrimary,
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = context.location.description,
+                            fontSize = 14.sp,
+                            color = SanctumTheme.colors.textSecondary,
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+                    }
+
+                    if (context.figures.isNotEmpty()) {
+                        Text(
+                            text = "Notable Figures:",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SanctumTheme.colors.textPrimary,
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        context.figures.forEach { figure ->
+                            Text(
+                                text = figure.name,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = SanctumTheme.colors.textPrimary,
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = figure.summary,
+                                fontSize = 13.sp,
+                                color = SanctumTheme.colors.textSecondary,
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
                     }
                 }
             }

@@ -9,4 +9,5 @@ data class ScriptureVerse(
     val translation: String,
     // For pronunciation assistance
     val transliteration: String? = null,
+    val historicalContext: com.sanctum.core.feature.scripture.domain.history.HistoricalContext? = null,
 )
