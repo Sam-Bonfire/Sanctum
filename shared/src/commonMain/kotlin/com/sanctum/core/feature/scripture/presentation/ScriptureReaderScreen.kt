@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,6 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.sanctum.core.core.design.LocalWhiteLabelConfig
 import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
@@ -33,6 +36,7 @@ import com.sanctum.core.feature.scripture.domain.ScriptureChapter
 @Composable
 fun ScriptureReaderScreen(
     chapter: ScriptureChapter,
+    bookName: String = "",
     bookmarkedVerseIds: Set<String>,
     onBookmarkToggle: (String) -> Unit,
     onReflectClick: (String, String) -> Unit = { _, _ -> },
@@ -40,6 +44,7 @@ fun ScriptureReaderScreen(
     nextChapter: ScriptureChapter? = null,
     onNavigateToChapter: (String) -> Unit = {},
 ) {
+    val navigator = LocalNavigator.currentOrThrow
     var fontSizeMultiplier by remember { mutableStateOf(1.0f) }
     var isPlayingAudio by remember { mutableStateOf(false) }
     var showTransliteration by remember { mutableStateOf(true) }
@@ -249,6 +254,25 @@ fun ScriptureReaderScreen(
                                 }
 
                                 Spacer(modifier = Modifier.width(4.dp))
+
+                                val shareController = remember { com.sanctum.core.feature.share.domain.ShareController() }
+                                if (shareController.isShareSupported()) {
+                                    // Share button
+                                    IconButton(
+                                        onClick = {
+                                            navigator.push(com.sanctum.core.feature.share.presentation.ShareVerseScreen(verse, bookName, chapter.number))
+                                        },
+                                        modifier = Modifier.size(28.dp),
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Share,
+                                            contentDescription = "Share",
+                                            tint = SanctumTheme.colors.textSecondary.copy(alpha = 0.35f),
+                                            modifier = Modifier.size(16.dp),
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                }
 
                                 // Heart bookmark toggle button
                                 IconButton(
