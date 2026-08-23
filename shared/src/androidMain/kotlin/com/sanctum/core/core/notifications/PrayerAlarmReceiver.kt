@@ -36,6 +36,18 @@ class PrayerAlarmReceiver : BroadcastReceiver() {
             .setAutoCancel(true)
             .build()
 
-        notificationManager.notify(id, notification)
+        // Lint complains about missing POST_NOTIFICATIONS check when calling notify()
+        // We ensure we only notify if we have permission or are on older SDKs.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (androidx.core.content.ContextCompat.checkSelfPermission(
+                    context,
+                    android.Manifest.permission.POST_NOTIFICATIONS,
+                ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+            ) {
+                notificationManager.notify(id, notification)
+            }
+        } else {
+            notificationManager.notify(id, notification)
+        }
     }
 }
