@@ -2,12 +2,12 @@ package com.sanctum.core.feature.sync.domain
 
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
-import kotlinx.cinterop.convert
 import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
+import platform.Foundation.dataWithBytes
 import platform.Foundation.writeToFile
 
 @OptIn(ExperimentalForeignApi::class)
@@ -26,7 +26,7 @@ actual suspend fun saveDatabaseUpdateBytes(bytes: ByteArray): Boolean {
 
         if (updateDbPath != null) {
             val nsData = bytes.usePinned { pinned ->
-                NSData.create(bytes = pinned.addressOf(0), length = bytes.size.convert())
+                NSData.dataWithBytes(pinned.addressOf(0), bytes.size.toULong())
             }
             nsData.writeToFile(updateDbPath, atomically = true)
             return true
@@ -37,16 +37,21 @@ actual suspend fun saveDatabaseUpdateBytes(bytes: ByteArray): Boolean {
     return false
 }
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun generateSha256(bytes: ByteArray): String {
-    val digest = ByteArray(32) // SHA-256 produces 32 bytes
-    bytes.usePinned { pinnedBytes ->
+    val uBytes = bytes.asUByteArray()
+    val digest = UByteArray(32) // SHA-256 produces 32 bytes
+    uBytes.usePinned { pinnedBytes ->
         digest.usePinned { pinnedDigest ->
             platform.CoreCrypto.CC_SHA256(
                 pinnedBytes.addressOf(0),
-                bytes.size.convert(),
+                bytes.size.toUInt(),
                 pinnedDigest.addressOf(0),
             )
         }
     }
-    return digest.joinToString("") { "%02x".format(it.toInt() and 0xFF) }
+    return digest.joinToString("") { byte ->
+        val hex = byte.toString(16)
+        if (hex.length < 2) "0$hex" else hex
+    }
 }

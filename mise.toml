@@ -5,30 +5,80 @@ kotlin = "2.0.0"
 jujutsu = "latest"
 
 [tasks]
-"build:android" = "gradle :app:assembleDebug"
-"run:web" = "gradle :app:wasmJsBrowserDevelopmentRun --continuous"
-"build" = "gradle build"
-"db:generate" = "kotlin scripts/db_seeder.main.kts assets/{{.flavor}}/prayer.db {{.flavor}}"
-"fonts:download" = "kotlin scripts/download_fonts.main.kts"
+# Core verification & quality checks
+"lint" = "gradle spotlessCheck"
 "format" = "gradle spotlessApply"
-"format:check" = "gradle spotlessCheck"
+"test" = "gradle check"
 "seo:validate" = "kotlin scripts/validate_seo.main.kts"
 "seo:generate-metadata" = "kotlin scripts/generate_fastlane_metadata.main.kts"
-"push:dev" = "jj git push --bookmark dev"
-"push:main" = "jj git push --bookmark main"
-"release" = "jj bookmark set main -r dev && jj git push --bookmark main"
-"hotfix:sync" = "jj rebase -b dev -d main"
+"fonts:download" = "kotlin scripts/download_fonts.main.kts"
+"db:generate" = "kotlin scripts/db_seeder.main.kts assets/{{.flavor}}/prayer.db {{.flavor}}"
 
-# Flavor shortcuts for Android Build
+# Generic platform build tasks
+"build" = "gradle build"
+"build:android" = "gradle :app:assembleDebug"
+"bundle:android" = "gradle :app:bundleRelease"
+"build:ios" = "gradle :app:linkReleaseFrameworkIosArm64"
+"build:wasm" = "gradle :app:wasmJsBrowserProductionWebpack"
+"run:web" = "gradle :app:wasmJsBrowserDevelopmentRun --continuous"
+
+# Android Build Shortcuts (Debug APK)
 "build:islam:android" = "gradle :app:assembleDebug -Pflavor=islam"
 "build:christianity:android" = "gradle :app:assembleDebug -Pflavor=christianity"
 "build:hinduism:android" = "gradle :app:assembleDebug -Pflavor=hinduism"
 "build:buddhism:android" = "gradle :app:assembleDebug -Pflavor=buddhism"
 "build:jewish:android" = "gradle :app:assembleDebug -Pflavor=jewish"
+"build:sikhism:android" = "gradle :app:assembleDebug -Pflavor=sikhism"
+"build:jainism:android" = "gradle :app:assembleDebug -Pflavor=jainism"
+"build:shinto:android" = "gradle :app:assembleDebug -Pflavor=shinto"
+"build:taoism:android" = "gradle :app:assembleDebug -Pflavor=taoism"
 
-# Flavor shortcuts for Web Run
+# Android Bundle Shortcuts (Release AAB)
+"bundle:islam:android" = "gradle :app:bundleRelease -Pflavor=islam"
+"bundle:christianity:android" = "gradle :app:bundleRelease -Pflavor=christianity"
+"bundle:hinduism:android" = "gradle :app:bundleRelease -Pflavor=hinduism"
+"bundle:buddhism:android" = "gradle :app:bundleRelease -Pflavor=buddhism"
+"bundle:jewish:android" = "gradle :app:bundleRelease -Pflavor=jewish"
+"bundle:sikhism:android" = "gradle :app:bundleRelease -Pflavor=sikhism"
+"bundle:jainism:android" = "gradle :app:bundleRelease -Pflavor=jainism"
+"bundle:shinto:android" = "gradle :app:bundleRelease -Pflavor=shinto"
+"bundle:taoism:android" = "gradle :app:bundleRelease -Pflavor=taoism"
+
+# iOS Release Framework Shortcuts (macOS only)
+"build:islam:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=islam"
+"build:christianity:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=christianity"
+"build:hinduism:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=hinduism"
+"build:buddhism:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=buddhism"
+"build:jewish:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=jewish"
+"build:sikhism:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=sikhism"
+"build:jainism:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=jainism"
+"build:shinto:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=shinto"
+"build:taoism:ios" = "gradle :app:linkReleaseFrameworkIosArm64 -Pflavor=taoism"
+
+# Web Production Distribution Shortcuts
+"build:islam:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=islam"
+"build:christianity:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=christianity"
+"build:hinduism:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=hinduism"
+"build:buddhism:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=buddhism"
+"build:jewish:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=jewish"
+"build:sikhism:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=sikhism"
+"build:jainism:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=jainism"
+"build:shinto:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=shinto"
+"build:taoism:wasm" = "gradle :app:wasmJsBrowserProductionWebpack -Pflavor=taoism"
+
+# Web Run Shortcuts
 "run:islam:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=islam --continuous"
 "run:christianity:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=christianity --continuous"
 "run:hinduism:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=hinduism --continuous"
 "run:buddhism:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=buddhism --continuous"
 "run:jewish:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=jewish --continuous"
+"run:sikhism:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=sikhism --continuous"
+"run:jainism:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=jainism --continuous"
+"run:shinto:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=shinto --continuous"
+"run:taoism:web" = "gradle :app:wasmJsBrowserDevelopmentRun -Pflavor=taoism --continuous"
+
+# Jujutsu VCS shortcuts
+"push:dev" = "jj git push --bookmark dev"
+"push:main" = "jj git push --bookmark main"
+"release" = "jj bookmark set main -r dev && jj git push --bookmark main"
+"hotfix:sync" = "jj rebase -b dev -d main"
