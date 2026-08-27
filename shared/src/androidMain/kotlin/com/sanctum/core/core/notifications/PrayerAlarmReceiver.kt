@@ -13,6 +13,8 @@ class PrayerAlarmReceiver : BroadcastReceiver() {
         val id = intent.getIntExtra("NOTIFICATION_ID", 0)
         val title = intent.getStringExtra("NOTIFICATION_TITLE") ?: "Prayer Time"
         val message = intent.getStringExtra("NOTIFICATION_MESSAGE") ?: "It is time to pray."
+        val alertType = intent.getStringExtra("ALERT_TYPE") ?: "AUDIO"
+        val soundFileName = intent.getStringExtra("SOUND_FILE_NAME")
 
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -28,26 +30,40 @@ class PrayerAlarmReceiver : BroadcastReceiver() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        val notification = NotificationCompat.Builder(context, "prayer_channel")
-            .setSmallIcon(android.R.drawable.ic_popup_reminder)
-            .setContentTitle(title)
-            .setContentText(message)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setAutoCancel(true)
-            .build()
-
-        // Lint complains about missing POST_NOTIFICATIONS check when calling notify()
-        // We ensure we only notify if we have permission or are on older SDKs.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (androidx.core.content.ContextCompat.checkSelfPermission(
-                    context,
-                    android.Manifest.permission.POST_NOTIFICATIONS,
-                ) == android.content.pm.PackageManager.PERMISSION_GRANTED
-            ) {
-                notificationManager.notify(id, notification)
+        if (alertType == "AUDIO" && soundFileName != null) {
+            val serviceIntent = Intent(context, AdhanPlaybackService::class.java).apply {
+                putExtra("NOTIFICATION_TITLE", title)
+                putExtra("NOTIFICATION_MESSAGE", message)
+                putExtra("SOUND_FILE_NAME", soundFileName)
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(serviceIntent)
+            } else {
+                context.startService(serviceIntent)
             }
         } else {
-            notificationManager.notify(id, notification)
+            val notificationBuilder = NotificationCompat.Builder(context, "prayer_channel")
+                .setSmallIcon(android.R.drawable.ic_popup_reminder)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+
+            if (alertType == "VIBRATE") {
+                notificationBuilder.setDefaults(NotificationCompat.DEFAULT_VIBRATE)
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (androidx.core.content.ContextCompat.checkSelfPermission(
+                        context,
+                        android.Manifest.permission.POST_NOTIFICATIONS,
+                    ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+                ) {
+                    notificationManager.notify(id, notificationBuilder.build())
+                }
+            } else {
+                notificationManager.notify(id, notificationBuilder.build())
+            }
         }
     }
 }
