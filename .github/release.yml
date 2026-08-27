@@ -1,0 +1,23 @@
+﻿changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+      - bot-commit
+  categories:
+    - title: "New Features"
+      labels:
+        - feature
+        - feat
+    - title: "Bug Fixes"
+      labels:
+        - fix
+        - bugfix
+    - title: "Multi-Flavor and Terminology"
+      labels:
+        - flavor
+        - content
+    - title: "Infrastructure and Maintenance"
+      labels:
+        - ci
+        - chore
+        - refactor

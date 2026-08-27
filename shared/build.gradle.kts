@@ -31,6 +31,15 @@ kotlin {
         }
     }
 
+    applyDefaultHierarchyTemplate {
+        common {
+            group("mobile") {
+                withAndroidTarget()
+                group("ios")
+            }
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
             implementation(libs.compose.runtime)
@@ -58,19 +67,24 @@ kotlin {
             implementation(libs.ktor.client.core)
         }
 
-        val mobileMain by creating {
-            dependsOn(commonMain.get())
+        val mobileMain by getting {
             dependencies {
                 implementation(libs.room.runtime)
                 implementation(libs.sqlite.bundled)
             }
         }
 
-        val androidMain by getting {
-            dependsOn(mobileMain)
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
         }
 
-        sourceSets.findByName("iosMain")?.dependsOn(mobileMain)
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+
+        wasmJsMain.dependencies {
+            implementation(libs.compose.runtime)
+        }
     }
 }
 
@@ -79,26 +93,6 @@ dependencies {
     add("kspIosX64", libs.room.compiler)
     add("kspIosArm64", libs.room.compiler)
     add("kspIosSimulatorArm64", libs.room.compiler)
-}
-
-kotlin {
-    sourceSets {
-        androidMain.dependencies {
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
-            implementation(libs.ktor.client.okhttp)
-        }
-        iosMain.dependencies {
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
-            implementation(libs.ktor.client.darwin)
-        }
-        val wasmJsMain by getting {
-            dependencies {
-                implementation(libs.compose.runtime)
-            }
-        }
-    }
 }
 
 android {

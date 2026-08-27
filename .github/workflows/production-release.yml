@@ -1,0 +1,177 @@
+name: Production Release & Rollback
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag to release or rollback to (e.g. v1.0.0)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build_android_release:
+    name: Build Android Release Binaries
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
+      fail-fast: false
+    steps:
+      - name: Checkout Code at Target Ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag_name || github.ref }}
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build Android Release Bundle & Installable APK (${{ matrix.flavor }})
+        run: |
+          mise run bundle:${{ matrix.flavor }}:android
+          mise run build:${{ matrix.flavor }}:android
+
+      - name: Stage Android Direct Release Assets
+        run: |
+          mkdir -p release-assets
+          cp app/build/outputs/bundle/release/*.aab release-assets/Sanctum-${{ matrix.flavor }}.aab 2>/dev/null || cp app/build/outputs/bundle/*/*.aab release-assets/Sanctum-${{ matrix.flavor }}.aab 2>/dev/null || true
+          cp app/build/outputs/apk/debug/*.apk release-assets/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || cp app/build/outputs/apk/*/*.apk release-assets/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || true
+
+      - name: Upload Android Release Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-android-${{ matrix.flavor }}
+          path: release-assets/*
+          retention-days: 14
+
+  build_ios_release:
+    name: Build iOS Release Frameworks
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
+      fail-fast: false
+    steps:
+      - name: Checkout Code at Target Ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag_name || github.ref }}
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build iOS Release Framework (${{ matrix.flavor }})
+        run: mise run build:${{ matrix.flavor }}:ios
+
+      - name: Package iOS Framework
+        run: |
+          mkdir -p release-assets
+          if [ -d "app/build/bin/iosArm64/releaseFramework/ComposeApp.framework" ]; then
+            cd app/build/bin/iosArm64/releaseFramework
+            zip -r "$GITHUB_WORKSPACE/release-assets/Sanctum-${{ matrix.flavor }}-ios-framework.zip" ComposeApp.framework
+          fi
+
+      - name: Upload iOS Release Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-ios-${{ matrix.flavor }}
+          path: release-assets/Sanctum-${{ matrix.flavor }}-ios-framework.zip
+          retention-days: 14
+
+  build_wasm_release:
+    name: Build WASM Web Distributions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
+      fail-fast: false
+    steps:
+      - name: Checkout Code at Target Ref
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag_name || github.ref }}
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build WASM Production Web Distribution (${{ matrix.flavor }})
+        run: mise run build:${{ matrix.flavor }}:wasm
+
+      - name: Package WASM Web Distribution
+        run: |
+          mkdir -p release-assets
+          WASM_DIR=$(find . -maxdepth 6 -type d -name "productionExecutable" | head -n 1)
+          if [ -z "$WASM_DIR" ]; then
+            WASM_DIR=$(find . -maxdepth 6 -type d -name "developmentExecutable" | head -n 1)
+          fi
+          if [ -n "$WASM_DIR" ] && [ -d "$WASM_DIR" ]; then
+            echo "Found WASM output directory: $WASM_DIR"
+            cd "$WASM_DIR"
+            zip -r "$GITHUB_WORKSPACE/release-assets/Sanctum-${{ matrix.flavor }}-wasm-web.zip" .
+          fi
+
+      - name: Upload WASM Release Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-wasm-${{ matrix.flavor }}
+          path: release-assets/Sanctum-${{ matrix.flavor }}-wasm-web.zip
+          retention-days: 14
+
+  publish_release:
+    name: Generate Changelog & Publish Release
+    needs: [build_android_release, build_ios_release, build_wasm_release]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.tag_name || github.ref }}
+
+      - name: Download All Release Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: final-release-assets
+          merge-multiple: true
+
+      - name: Generate Changelog via git-cliff
+        uses: orhun/git-cliff-action@v3
+        with:
+          config: .github/release.yml
+          args: --latest --strip header
+        env:
+          OUTPUT: RELEASE_NOTES.md
+        continue-on-error: true
+
+      - name: Fallback Release Notes
+        if: failure()
+        run: |
+          echo "## Release ${{ inputs.tag_name || github.ref_name }}" > RELEASE_NOTES.md
+          echo "Automated multi-flavor release for Android, iOS, and Web (Wasm)." >> RELEASE_NOTES.md
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG_NAME: ${{ inputs.tag_name || github.ref_name }}
+        run: |
+          gh release create "$TAG_NAME" \
+            final-release-assets/* \
+            --title "Sanctum Release $TAG_NAME" \
+            --notes-file RELEASE_NOTES.md \
+            --verify-tag
+
+      - name: Generate Release Summary
+        if: always()
+        run: |
+          echo "### Production Release Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Release Tag | \`${{ inputs.tag_name || github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Flavors Built | 9 (islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Platforms | Android (AAB & APK), iOS (Framework), Web (WASM) |" >> $GITHUB_STEP_SUMMARY

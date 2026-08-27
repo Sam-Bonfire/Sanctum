@@ -2,10 +2,12 @@ package com.sanctum.core.core.database
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
 
+@OptIn(ExperimentalForeignApi::class)
 actual fun getDatabaseBuilder(): RoomDatabase.Builder<PrayerDatabase> {
     val fileManager = NSFileManager.defaultManager()
     val documentDirectory = fileManager.URLForDirectory(
@@ -20,6 +22,6 @@ actual fun getDatabaseBuilder(): RoomDatabase.Builder<PrayerDatabase> {
     val dbFilePath = dbUrl?.path ?: throw IllegalStateException("Database path could not be resolved.")
     return Room.databaseBuilder<PrayerDatabase>(
         name = dbFilePath,
-        factory = { PrayerDatabase::class.instantiateImpl() },
-    ).fallbackToDestructiveMigration()
+        factory = { PrayerDatabaseConstructor.initialize() },
+    ).fallbackToDestructiveMigration(dropAllTables = true)
 }
