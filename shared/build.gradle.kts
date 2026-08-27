@@ -66,7 +66,6 @@ kotlin {
             // Ktor Networking
             implementation(libs.ktor.client.core)
         }
-
         val mobileMain by getting {
             dependencies {
                 implementation(libs.room.runtime)
