@@ -9,14 +9,17 @@ expect val platformModule: Module
 val presentationModule = module {
     single { com.sanctum.core.feature.scripture.presentation.ScriptureViewModel(get()) }
     single { com.sanctum.core.feature.sync.presentation.SyncViewModel(get()) }
-    single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get()) }
+    single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get(), get()) }
     single { com.sanctum.core.feature.duas.presentation.DuasCatalogViewModel(get(), get()) }
     single { com.sanctum.core.feature.journal.presentation.JournalViewModel(get()) }
+    single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get()) }
 }
 
 val domainModule = module {
     single<com.sanctum.core.feature.scripture.domain.PrayerEngine> { com.sanctum.core.feature.scripture.domain.BaselinePrayerEngine() }
     factory { com.sanctum.core.feature.scripture.domain.PrayerScheduleUseCase(get()) }
+    single { com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository(get()) }
+    single { com.sanctum.core.feature.prayer.domain.getAudioPlayer() }
 }
 
 val dataModule = module {
