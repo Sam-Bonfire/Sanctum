@@ -1,0 +1,77 @@
+﻿name: Tag Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'SemVer release increment type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - custom
+      custom_version:
+        description: 'Custom version string (required if version_type is custom, e.g. 1.2.0)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    name: Generate and Push Release Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Calculate Next Version Tag
+        id: semver
+        run: |
+          # Fetch latest tag or fallback to v0.1.0
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          VERSION="${LATEST_TAG#v}"
+          
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          MAJOR=${MAJOR:-0}
+          MINOR=${MINOR:-0}
+          PATCH=${PATCH:-0}
+          
+          if [ "${{ inputs.version_type }}" = "major" ]; then
+            NEW_MAJOR=$((MAJOR + 1))
+            NEW_TAG="v${NEW_MAJOR}.0.0"
+          elif [ "${{ inputs.version_type }}" = "minor" ]; then
+            NEW_MINOR=$((MINOR + 1))
+            NEW_TAG="v${MAJOR}.${NEW_MINOR}.0"
+          elif [ "${{ inputs.version_type }}" = "custom" ]; then
+            CUSTOM_INPUT="${{ inputs.custom_version }}"
+            NEW_TAG="v${CUSTOM_INPUT#v}"
+          else
+            NEW_PATCH=$((PATCH + 1))
+            NEW_TAG="v${MAJOR}.${MINOR}.${NEW_PATCH}"
+          fi
+          
+          echo "tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          echo "Generated new release tag: $NEW_TAG from base $LATEST_TAG"
+
+      - name: Push Git Tag
+        run: |
+          git tag ${{ steps.semver.outputs.tag }}
+          git push origin ${{ steps.semver.outputs.tag }}
+
+      - name: Generate Tag Summary
+        if: always()
+        run: |
+          echo "### Release Tag Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Tag Name | \`${{ steps.semver.outputs.tag }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Increment Type | ${{ inputs.version_type }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger Ref | ${{ github.ref }} |" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,239 @@
+name: Preview Phase (PR Validation)
+
+on:
+  pull_request:
+    branches: [dev, main]
+  workflow_dispatch:
+
+concurrency:
+  group: pr-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  filter:
+    name: Change Detection & Path Filtering
+    runs-on: ubuntu-latest
+    outputs:
+      shared: ${{ steps.changes.outputs.shared }}
+      android: ${{ steps.changes.outputs.android }}
+      ios: ${{ steps.changes.outputs.ios }}
+      wasm: ${{ steps.changes.outputs.wasm }}
+      flavors: ${{ steps.changes.outputs.flavors }}
+      islam: ${{ steps.changes.outputs.islam }}
+      christianity: ${{ steps.changes.outputs.christianity }}
+      hinduism: ${{ steps.changes.outputs.hinduism }}
+      buddhism: ${{ steps.changes.outputs.buddhism }}
+      jewish: ${{ steps.changes.outputs.jewish }}
+      sikhism: ${{ steps.changes.outputs.sikhism }}
+      jainism: ${{ steps.changes.outputs.jainism }}
+      shinto: ${{ steps.changes.outputs.shinto }}
+      taoism: ${{ steps.changes.outputs.taoism }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Filter Changed Paths
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            shared:
+              - 'shared/src/commonMain/**'
+              - 'app/src/commonMain/**'
+              - 'gradle/**'
+              - '*.gradle.kts'
+              - 'mise.toml'
+              - 'assets/flavors.json'
+            android:
+              - 'app/src/androidMain/**'
+              - 'shared/src/androidMain/**'
+              - 'shared/src/mobileMain/**'
+            ios:
+              - 'app/src/iosMain/**'
+              - 'shared/src/iosMain/**'
+              - 'shared/src/mobileMain/**'
+              - 'iosApp/**'
+            wasm:
+              - 'app/src/wasmJsMain/**'
+              - 'shared/src/wasmJsMain/**'
+            flavors:
+              - 'assets/**'
+            islam:
+              - 'assets/islam/**'
+            christianity:
+              - 'assets/christianity/**'
+            hinduism:
+              - 'assets/hinduism/**'
+            buddhism:
+              - 'assets/buddhism/**'
+            jewish:
+              - 'assets/jewish/**'
+            sikhism:
+              - 'assets/sikhism/**'
+            jainism:
+              - 'assets/jainism/**'
+            shinto:
+              - 'assets/shinto/**'
+            taoism:
+              - 'assets/taoism/**'
+
+  code_verification:
+    name: Code & SEO Quality Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Run Spotless Code Formatting Check
+        id: spotless
+        run: mise run lint
+
+      - name: Run SEO Validation Script
+        id: seo
+        run: mise run seo:validate
+
+      - name: Generate Verification Summary
+        if: always()
+        run: |
+          echo "### Verification Results: Code & SEO" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Spotless Linter | ${{ steps.spotless.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.spotless.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SEO Metadata Validator | ${{ steps.seo.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.seo.outcome }} |" >> $GITHUB_STEP_SUMMARY
+
+  android_preview:
+    name: Android Build Verification
+    needs: [filter, code_verification]
+    if: needs.filter.outputs.shared == 'true' || needs.filter.outputs.android == 'true' || needs.filter.outputs.flavors == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [islam, christianity, hinduism]
+      fail-fast: false
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build Android Debug APK (${{ matrix.flavor }})
+        id: build_android
+        run: mise run build:${{ matrix.flavor }}:android
+
+      - name: Stage Direct Android APK
+        run: |
+          mkdir -p preview-apk-output
+          cp app/build/outputs/apk/debug/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || cp app/build/outputs/apk/*/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || true
+
+      - name: Upload Android APK Preview
+        if: always() && steps.build_android.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sanctum-${{ matrix.flavor }}-apk
+          path: preview-apk-output/Sanctum-${{ matrix.flavor }}.apk
+          retention-days: 3
+
+      - name: Generate Android Summary
+        if: always()
+        run: |
+          echo "### Android Build Results: ${{ matrix.flavor }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Target | Flavor | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Android Debug APK | ${{ matrix.flavor }} | ${{ steps.build_android.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.build_android.outcome }} |" >> $GITHUB_STEP_SUMMARY
+
+  ios_preview:
+    name: iOS Build Verification
+    needs: [filter, code_verification]
+    if: needs.filter.outputs.shared == 'true' || needs.filter.outputs.ios == 'true'
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        flavor: [islam, christianity]
+      fail-fast: false
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build iOS Release Framework (${{ matrix.flavor }})
+        id: build_ios
+        run: mise run build:${{ matrix.flavor }}:ios
+
+      - name: Package iOS Framework
+        run: |
+          mkdir -p preview-ios-output
+          if [ -d "app/build/bin/iosArm64/releaseFramework/ComposeApp.framework" ]; then
+            cd app/build/bin/iosArm64/releaseFramework
+            zip -r "$GITHUB_WORKSPACE/preview-ios-output/Sanctum-${{ matrix.flavor }}-ios-framework.zip" ComposeApp.framework
+          fi
+
+      - name: Upload iOS Framework Preview
+        if: always() && steps.build_ios.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sanctum-${{ matrix.flavor }}-ios-framework
+          path: preview-ios-output/Sanctum-${{ matrix.flavor }}-ios-framework.zip
+          retention-days: 3
+
+      - name: Generate iOS Summary
+        if: always()
+        run: |
+          echo "### iOS Build Results: ${{ matrix.flavor }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Target | Flavor | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| iOS Release Framework | ${{ matrix.flavor }} | ${{ steps.build_ios.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.build_ios.outcome }} |" >> $GITHUB_STEP_SUMMARY
+
+  wasm_preview:
+    name: Web WASM Build Verification
+    needs: [filter, code_verification]
+    if: needs.filter.outputs.shared == 'true' || needs.filter.outputs.wasm == 'true' || needs.filter.outputs.flavors == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build WASM Web Distribution
+        id: build_wasm
+        run: mise run build:islam:wasm
+
+      - name: Package WASM Web Distribution
+        run: |
+          mkdir -p preview-wasm-output
+          WASM_DIR=$(find . -maxdepth 6 -type d -name "productionExecutable" | head -n 1)
+          if [ -z "$WASM_DIR" ]; then
+            WASM_DIR=$(find . -maxdepth 6 -type d -name "developmentExecutable" | head -n 1)
+          fi
+          if [ -n "$WASM_DIR" ] && [ -d "$WASM_DIR" ]; then
+            echo "Found WASM output directory: $WASM_DIR"
+            cd "$WASM_DIR"
+            zip -r "$GITHUB_WORKSPACE/preview-wasm-output/Sanctum-islam-wasm-web.zip" .
+          fi
+
+      - name: Upload Web WASM Preview
+        if: always() && steps.build_wasm.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sanctum-islam-wasm-web
+          path: preview-wasm-output/Sanctum-islam-wasm-web.zip
+          retention-days: 3
+
+      - name: Generate Web Summary
+        if: always()
+        run: |
+          echo "### Web WASM Build Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Target | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| WASM Webpack Distribution | ${{ steps.build_wasm.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.build_wasm.outcome }} |" >> $GITHUB_STEP_SUMMARY

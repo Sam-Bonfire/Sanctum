@@ -1,0 +1,40 @@
+name: Main Branch Validation (main)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify_main:
+    name: Production Branch Integrity Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Run Spotless Linter
+        id: spotless
+        run: mise run lint
+
+      - name: Run SEO Validation
+        id: seo
+        run: mise run seo:validate
+
+      - name: Compile WASM Web
+        id: wasm
+        run: mise run build:islam:wasm
+
+      - name: Generate Summary
+        if: always()
+        run: |
+          echo "### Main Branch Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Spotless Linter | ${{ steps.spotless.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.spotless.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SEO Validator | ${{ steps.seo.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.seo.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| WASM Build | ${{ steps.wasm.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.wasm.outcome }} |" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,212 @@
+name: Staging Pipeline (dev)
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+jobs:
+  filter:
+    name: Change Detection & Filtering
+    runs-on: ubuntu-latest
+    outputs:
+      shared: ${{ steps.changes.outputs.shared }}
+      android: ${{ steps.changes.outputs.android }}
+      ios: ${{ steps.changes.outputs.ios }}
+      wasm: ${{ steps.changes.outputs.wasm }}
+      flavors: ${{ steps.changes.outputs.flavors }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Filter Changed Paths
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            shared:
+              - 'shared/src/commonMain/**'
+              - 'app/src/commonMain/**'
+              - 'gradle/**'
+              - '*.gradle.kts'
+              - 'mise.toml'
+              - 'assets/flavors.json'
+            android:
+              - 'app/src/androidMain/**'
+              - 'shared/src/androidMain/**'
+              - 'shared/src/mobileMain/**'
+            ios:
+              - 'app/src/iosMain/**'
+              - 'shared/src/iosMain/**'
+              - 'shared/src/mobileMain/**'
+              - 'iosApp/**'
+            wasm:
+              - 'app/src/wasmJsMain/**'
+              - 'shared/src/wasmJsMain/**'
+            flavors:
+              - 'assets/**'
+
+  verify:
+    name: Code & SEO Quality Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Run Spotless Linter
+        id: spotless
+        run: mise run lint
+
+      - name: Run SEO Validator
+        id: seo
+        run: mise run seo:validate
+
+      - name: Generate Verification Summary
+        if: always()
+        run: |
+          echo "### Staging Verification Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Spotless Linter | ${{ steps.spotless.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.spotless.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SEO Metadata Validator | ${{ steps.seo.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.seo.outcome }} |" >> $GITHUB_STEP_SUMMARY
+
+  build_android:
+    name: Staging Android Builds
+    needs: [filter, verify]
+    if: needs.filter.outputs.shared == 'true' || needs.filter.outputs.android == 'true' || needs.filter.outputs.flavors == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
+      fail-fast: false
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build Android Debug APK (${{ matrix.flavor }})
+        id: build_apk
+        run: mise run build:${{ matrix.flavor }}:android
+
+      - name: Stage Direct Android APK
+        run: |
+          mkdir -p staging-apk-output
+          cp app/build/outputs/apk/debug/*.apk staging-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || cp app/build/outputs/apk/*/*.apk staging-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || true
+
+      - name: Upload Staging Direct APK
+        if: always() && steps.build_apk.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sanctum-${{ matrix.flavor }}-apk
+          path: staging-apk-output/Sanctum-${{ matrix.flavor }}.apk
+          retention-days: 7
+
+      - name: Generate Android Summary
+        if: always()
+        run: |
+          echo "### Staging Android Build: ${{ matrix.flavor }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Target | Flavor | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Android Debug APK | ${{ matrix.flavor }} | ${{ steps.build_apk.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.build_apk.outcome }} |" >> $GITHUB_STEP_SUMMARY
+
+  build_ios:
+    name: Staging iOS Builds
+    needs: [filter, verify]
+    if: needs.filter.outputs.shared == 'true' || needs.filter.outputs.ios == 'true' || needs.filter.outputs.flavors == 'true'
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
+      fail-fast: false
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build iOS Release Framework (${{ matrix.flavor }})
+        id: build_ios
+        run: mise run build:${{ matrix.flavor }}:ios
+
+      - name: Package iOS Framework
+        run: |
+          mkdir -p staging-ios-output
+          if [ -d "app/build/bin/iosArm64/releaseFramework/ComposeApp.framework" ]; then
+            cd app/build/bin/iosArm64/releaseFramework
+            zip -r "$GITHUB_WORKSPACE/staging-ios-output/Sanctum-${{ matrix.flavor }}-ios-framework.zip" ComposeApp.framework
+          fi
+
+      - name: Upload Staging iOS Framework
+        if: always() && steps.build_ios.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sanctum-${{ matrix.flavor }}-ios-framework
+          path: staging-ios-output/Sanctum-${{ matrix.flavor }}-ios-framework.zip
+          retention-days: 7
+
+      - name: Generate iOS Summary
+        if: always()
+        run: |
+          echo "### Staging iOS Build: ${{ matrix.flavor }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Target | Flavor | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| iOS Release Framework | ${{ matrix.flavor }} | ${{ steps.build_ios.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.build_ios.outcome }} |" >> $GITHUB_STEP_SUMMARY
+
+  build_wasm:
+    name: Staging Web WASM Builds
+    needs: [filter, verify]
+    if: needs.filter.outputs.shared == 'true' || needs.filter.outputs.wasm == 'true' || needs.filter.outputs.flavors == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
+      fail-fast: false
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain via Mise
+        uses: jdx/mise-action@v4
+
+      - name: Build WASM Web Distribution (${{ matrix.flavor }})
+        id: build_wasm
+        run: mise run build:${{ matrix.flavor }}:wasm
+
+      - name: Package WASM Web Distribution
+        run: |
+          mkdir -p staging-wasm-output
+          WASM_DIR=$(find . -maxdepth 6 -type d -name "productionExecutable" | head -n 1)
+          if [ -z "$WASM_DIR" ]; then
+            WASM_DIR=$(find . -maxdepth 6 -type d -name "developmentExecutable" | head -n 1)
+          fi
+          if [ -n "$WASM_DIR" ] && [ -d "$WASM_DIR" ]; then
+            echo "Found WASM output directory: $WASM_DIR"
+            cd "$WASM_DIR"
+            zip -r "$GITHUB_WORKSPACE/staging-wasm-output/Sanctum-${{ matrix.flavor }}-wasm-web.zip" .
+          fi
+
+      - name: Upload Staging Web Distribution
+        if: always() && steps.build_wasm.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sanctum-${{ matrix.flavor }}-wasm-web
+          path: staging-wasm-output/Sanctum-${{ matrix.flavor }}-wasm-web.zip
+          retention-days: 7
+
+      - name: Generate Web Summary
+        if: always()
+        run: |
+          echo "### Staging Web WASM Build: ${{ matrix.flavor }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Target | Flavor | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| WASM Distribution | ${{ matrix.flavor }} | ${{ steps.build_wasm.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.build_wasm.outcome }} |" >> $GITHUB_STEP_SUMMARY

@@ -3,13 +3,15 @@ package com.sanctum.core.feature.share.domain
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asSkiaBitmap
 import kotlinx.cinterop.ExperimentalForeignApi
-import kotlinx.cinterop.refTo
+import kotlinx.cinterop.addressOf
+import kotlinx.cinterop.usePinned
 import org.jetbrains.skia.Image
 import platform.Foundation.NSData
 import platform.Foundation.dataWithBytes
 import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 import platform.UIKit.UIImage
+import platform.UIKit.popoverPresentationController
 
 actual class ShareController actual constructor() {
     @OptIn(ExperimentalForeignApi::class)
@@ -18,7 +20,9 @@ actual class ShareController actual constructor() {
         val skiaImage = Image.makeFromBitmap(skiaBitmap)
         val bytes = skiaImage.encodeToData()?.bytes ?: return
 
-        val nsData = NSData.dataWithBytes(bytes.refTo(0), bytes.size.toULong())
+        val nsData = bytes.usePinned { pinned ->
+            NSData.dataWithBytes(pinned.addressOf(0), bytes.size.toULong())
+        }
         val uiImage = UIImage(data = nsData)
 
         val activityViewController = UIActivityViewController(

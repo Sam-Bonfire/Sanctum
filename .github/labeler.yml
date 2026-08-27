@@ -1,0 +1,39 @@
+﻿android:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'app/src/androidMain/**'
+          - 'shared/src/androidMain/**'
+          - 'shared/src/mobileMain/**'
+
+ios:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'app/src/iosMain/**'
+          - 'shared/src/iosMain/**'
+          - 'shared/src/mobileMain/**'
+          - 'iosApp/**'
+
+wasm:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'app/src/wasmJsMain/**'
+          - 'shared/src/wasmJsMain/**'
+
+shared:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'shared/src/commonMain/**'
+          - 'app/src/commonMain/**'
+
+flavors:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'assets/**'
+
+ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/**'
+          - 'mise.toml'
+          - 'gradle/**'
+          - '*.gradle.kts'
