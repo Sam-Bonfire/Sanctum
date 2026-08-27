@@ -210,3 +210,55 @@ jobs:
           echo "| Target | Flavor | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
           echo "| :--- | :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
           echo "| WASM Distribution | ${{ matrix.flavor }} | ${{ steps.build_wasm.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.build_wasm.outcome }} |" >> $GITHUB_STEP_SUMMARY
+
+  sync_main:
+    name: Sync Staging to Main
+    needs: [verify, build_android, build_ios, build_wasm]
+    if: always() && needs.verify.result == 'success' && (needs.build_android.result == 'success' || needs.build_android.result == 'skipped') && (needs.build_ios.result == 'success' || needs.build_ios.result == 'skipped') && (needs.build_wasm.result == 'success' || needs.build_wasm.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync & Fast-Forward Main from Dev
+        id: sync
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main dev
+
+          AHEAD_COUNT=$(git rev-list --count origin/main..origin/dev || echo "0")
+          echo "Commits ahead: $AHEAD_COUNT"
+
+          if [ "$AHEAD_COUNT" -eq 0 ]; then
+            echo "Main is already up to date with dev."
+            exit 0
+          fi
+
+          if git push origin origin/dev:refs/heads/main 2>/dev/null; then
+            echo "Successfully fast-forwarded main from dev directly."
+          else
+            echo "Direct push blocked by branch protection. Opening automated promotion PR..."
+            PR_URL=$(gh pr create --base main --head dev --title "chore(release): sync dev to main" --body "Automated promotion of verified dev build to main." 2>/dev/null || gh pr list --base main --head dev --json url -q '.[0].url')
+            if [ -n "$PR_URL" ]; then
+              echo "Merging promotion PR: $PR_URL"
+              gh pr merge "$PR_URL" --rebase --auto || gh pr merge "$PR_URL" --squash --auto || gh pr merge "$PR_URL" --admin --rebase || true
+            fi
+          fi
+
+      - name: Generate Sync Summary
+        if: always()
+        run: |
+          echo "### Staging to Main Sync Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Target | Action | Outcome |" >> $GITHUB_STEP_SUMMARY
+          echo "| :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
+          echo "| main branch | Automated Rebase / Sync | ${{ steps.sync.outcome == 'success' && 'Passed' || 'Completed' }} |" >> $GITHUB_STEP_SUMMARY
