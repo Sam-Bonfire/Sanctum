@@ -1,6 +1,9 @@
 name: Production Release & Rollback
 
 on:
+  workflow_run:
+    workflows: ["Tag Release"]
+    types: [completed]
   push:
     tags:
       - 'v*'
@@ -26,6 +29,7 @@ jobs:
       - name: Checkout Code at Target Ref
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: ${{ inputs.tag_name || github.ref }}
 
       - name: Setup Toolchain via Mise
@@ -60,6 +64,7 @@ jobs:
       - name: Checkout Code at Target Ref
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: ${{ inputs.tag_name || github.ref }}
 
       - name: Setup Toolchain via Mise
@@ -94,6 +99,7 @@ jobs:
       - name: Checkout Code at Target Ref
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: ${{ inputs.tag_name || github.ref }}
 
       - name: Setup Toolchain via Mise
@@ -142,7 +148,6 @@ jobs:
       - name: Generate Changelog via git-cliff
         uses: orhun/git-cliff-action@v3
         with:
-          config: .github/release.yml
           args: --latest --strip header
         env:
           OUTPUT: RELEASE_NOTES.md
@@ -157,18 +162,27 @@ jobs:
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: ${{ inputs.tag_name || github.ref_name }}
+          TAG_INPUT: ${{ inputs.tag_name }}
         run: |
+          TAG_NAME="$TAG_INPUT"
+          if [ -z "$TAG_NAME" ]; then
+            if [ "${{ github.event_name }}" = "push" ]; then
+              TAG_NAME="${{ github.ref_name }}"
+            else
+              TAG_NAME=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+            fi
+          fi
+          echo "Publishing release for tag: $TAG_NAME"
           gh release create "$TAG_NAME" \
             final-release-assets/* \
             --title "Sanctum Release $TAG_NAME" \
             --notes-file RELEASE_NOTES.md \
-            --verify-tag
+            --verify-tag || gh release create "$TAG_NAME" final-release-assets/* --title "Sanctum Release $TAG_NAME" --notes-file RELEASE_NOTES.md
 
       - name: Generate Release Summary
         if: always()
         run: |
-          echo "### Production Release Published" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 Production Release Published" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| :--- | :--- |" >> $GITHUB_STEP_SUMMARY

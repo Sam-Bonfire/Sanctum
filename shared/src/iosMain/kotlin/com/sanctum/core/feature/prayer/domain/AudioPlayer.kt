@@ -1,12 +1,14 @@
 package com.sanctum.core.feature.prayer.domain
 
-import platform.AVFoundation.AVAudioPlayer
+import kotlinx.cinterop.ExperimentalForeignApi
+import platform.AVFAudio.AVAudioPlayer
 import platform.Foundation.NSBundle
 import platform.Foundation.NSURL
 
 class IosAudioPlayer : AudioPlayer {
     private var audioPlayer: AVAudioPlayer? = null
 
+    @OptIn(ExperimentalForeignApi::class)
     override fun play(fileName: String) {
         stop()
         try {

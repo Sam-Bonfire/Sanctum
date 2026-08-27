@@ -9,6 +9,11 @@ concurrency:
   group: pr-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
   filter:
     name: Change Detection & Path Filtering
@@ -95,15 +100,28 @@ jobs:
         id: seo
         run: mise run seo:validate
 
+      - name: Run Test Suites
+        id: test
+        run: mise run test
+
+      - name: Publish Test Report & PR Annotations
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: '**/build/test-results/**/*.xml'
+          detailed_summary: true
+          include_passed: true
+
       - name: Generate Verification Summary
         if: always()
         run: |
-          echo "### Verification Results: Code & SEO" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Verification Results: Code, SEO & Tests" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Check | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
           echo "| :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
-          echo "| Spotless Linter | ${{ steps.spotless.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.spotless.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| SEO Metadata Validator | ${{ steps.seo.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.seo.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Spotless Linter | ${{ steps.spotless.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.spotless.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SEO Metadata Validator | ${{ steps.seo.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.seo.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Unit & Integration Tests | ${{ steps.test.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.test.outcome }} |" >> $GITHUB_STEP_SUMMARY
 
   android_preview:
     name: Android Build Verification
