@@ -1,4 +1,4 @@
-﻿name: Tag Release
+name: Tag Release
 
 on:
   workflow_dispatch:
@@ -20,6 +20,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   tag:
@@ -34,7 +35,7 @@ jobs:
       - name: Calculate Next Version Tag
         id: semver
         run: |
-          # Fetch latest tag or fallback to v0.1.0
+          # Fetch latest tag or fallback to v0.0.0
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           VERSION="${LATEST_TAG#v}"
           
@@ -60,18 +61,44 @@ jobs:
           echo "tag=$NEW_TAG" >> $GITHUB_OUTPUT
           echo "Generated new release tag: $NEW_TAG from base $LATEST_TAG"
 
+      - name: Generate Changelog Preview
+        id: changelog
+        run: |
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -n "$LATEST_TAG" ]; then
+            COMMITS=$(git log "${LATEST_TAG}..HEAD" --pretty=format:"* %s (%h)" || echo "* Initial release")
+          else
+            COMMITS=$(git log -n 10 --pretty=format:"* %s (%h)")
+          fi
+          {
+            echo "CHANGELOG_PREVIEW<<EOF"
+            echo "$COMMITS"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+
       - name: Push Git Tag
         run: |
           git tag ${{ steps.semver.outputs.tag }}
           git push origin ${{ steps.semver.outputs.tag }}
 
+      - name: Trigger Production Release Workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Dispatching production release workflow for tag: ${{ steps.semver.outputs.tag }}"
+          gh workflow run production-release.yml -f tag_name="${{ steps.semver.outputs.tag }}" || true
+
       - name: Generate Tag Summary
         if: always()
         run: |
-          echo "### Release Tag Created" >> $GITHUB_STEP_SUMMARY
+          echo "### 🏷️ Release Tag Created" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
           echo "| :--- | :--- |" >> $GITHUB_STEP_SUMMARY
           echo "| Tag Name | \`${{ steps.semver.outputs.tag }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| Increment Type | ${{ inputs.version_type }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Trigger Ref | ${{ github.ref }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "#### 📝 Changelog Preview" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "$CHANGELOG_PREVIEW" >> $GITHUB_STEP_SUMMARY

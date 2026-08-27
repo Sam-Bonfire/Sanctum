@@ -1,9 +1,16 @@
 name: Main Branch Validation (main)
 
 on:
+  pull_request:
+    branches: [main]
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
 
 jobs:
   verify_main:
@@ -24,17 +31,30 @@ jobs:
         id: seo
         run: mise run seo:validate
 
-      - name: Compile WASM Web
-        id: wasm
-        run: mise run build:islam:wasm
+      - name: Run Full Test Suite
+        id: test
+        run: mise run test
 
-      - name: Generate Summary
+      - name: Run Full Project Build
+        id: build
+        run: mise run build
+
+      - name: Publish Test Report & Annotations
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: '**/build/test-results/**/*.xml'
+          detailed_summary: true
+          include_passed: true
+
+      - name: Generate Validation Summary
         if: always()
         run: |
-          echo "### Main Branch Validation Results" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Main Branch Validation Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Check | Status | Outcome |" >> $GITHUB_STEP_SUMMARY
           echo "| :--- | :--- | :--- |" >> $GITHUB_STEP_SUMMARY
-          echo "| Spotless Linter | ${{ steps.spotless.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.spotless.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| SEO Validator | ${{ steps.seo.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.seo.outcome }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| WASM Build | ${{ steps.wasm.outcome == 'success' && 'Passed' || 'Failed' }} | ${{ steps.wasm.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Spotless Linter | ${{ steps.spotless.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.spotless.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SEO Metadata Validator | ${{ steps.seo.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.seo.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Test Suites | ${{ steps.test.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.test.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Full Build Compilation | ${{ steps.build.outcome == 'success' && '✅ Passed' || '❌ Failed' }} | ${{ steps.build.outcome }} |" >> $GITHUB_STEP_SUMMARY
