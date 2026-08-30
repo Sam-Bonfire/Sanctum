@@ -11,4 +11,12 @@ class WasmByocSyncManager : ByocSyncManager {
         Result.failure(UnsupportedOperationException("BYOC sync is not available on web."))
     override suspend fun restoreDataFromCloud(): Result<Unit> =
         Result.failure(UnsupportedOperationException("BYOC sync is not available on web."))
+
+    override fun setCloudProvider(provider: String) {
+        // No-op for web
+    }
+
+    override fun setAutomaticBackup(enabled: Boolean) {
+        // No-op for web
+    }
 }

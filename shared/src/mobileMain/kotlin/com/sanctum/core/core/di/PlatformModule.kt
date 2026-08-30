@@ -39,7 +39,7 @@ actual val platformModule: Module = module {
         com.sanctum.core.feature.duas.data.RoomDuasRepository(get())
     }
 
-    single { com.sanctum.core.feature.sync.data.DataExporter(get()) }
+    single { com.sanctum.core.feature.sync.data.DataExporter(get(), get()) }
     single<com.sanctum.core.feature.sync.domain.ByocSyncManager> { com.sanctum.core.feature.sync.data.MockSyncManager(get()) }
 
     single<com.sanctum.core.feature.compass.domain.PlatformSensors> {
