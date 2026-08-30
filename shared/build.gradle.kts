@@ -84,6 +84,10 @@ kotlin {
         wasmJsMain.dependencies {
             implementation(libs.compose.runtime)
         }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+        }
     }
 }
 
