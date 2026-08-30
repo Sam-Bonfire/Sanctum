@@ -1,13 +1,15 @@
 package com.sanctum.core.feature.sync.domain
 
-import com.sanctum.core.feature.journal.domain.JournalEntry
 import com.sanctum.core.feature.scripture.domain.Bookmark
-import com.sanctum.core.feature.scripture.domain.Highlight
 import com.sanctum.core.feature.scripture.domain.Note
+import com.sanctum.core.feature.scripture.domain.Highlight
+import com.sanctum.core.feature.journal.domain.JournalEntry
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
 class DataExporterTest {
 
@@ -21,16 +23,10 @@ class DataExporterTest {
             highlights = listOf(Highlight(id = 3, verseId = 30, colorHex = "#FFFFFF", timestampMs = 3000L)),
             journalEntries = listOf(
                 JournalEntry(
-                    id = 4,
-                    verseId = 40,
-                    chapterId = null,
-                    title = "Test journal",
-                    content = "Journal content",
-                    createdAt = 4000L,
-                    updatedAt = 5000L,
-                    moodTags = listOf("happy", "peaceful"),
-                ),
-            ),
+                    id = 4, verseId = 40, chapterId = null, title = "Test journal",
+                    content = "Journal content", createdAt = 4000L, updatedAt = 5000L, moodTags = listOf("happy", "peaceful")
+                )
+            )
         )
 
         val json = Json.encodeToString(payload)
@@ -56,16 +52,10 @@ class DataExporterTest {
             highlights = listOf(Highlight(id = 3, verseId = 30, colorHex = "#FFFFFF", timestampMs = 3000L)),
             journalEntries = listOf(
                 JournalEntry(
-                    id = 4,
-                    verseId = 40,
-                    chapterId = null,
-                    title = "Test journal",
-                    content = "New Journal content",
-                    createdAt = 4000L,
-                    updatedAt = 6000L,
-                    moodTags = listOf("happy"),
-                ),
-            ),
+                    id = 4, verseId = 40, chapterId = null, title = "Test journal",
+                    content = "New Journal content", createdAt = 4000L, updatedAt = 6000L, moodTags = listOf("happy")
+                )
+            )
         )
         // Here we test logic by simulating how DataExporter merge logic would act on cloudPayload.
         // For local timestamps < cloud timestamp, the cloud object should override.
@@ -74,8 +64,8 @@ class DataExporterTest {
         val localJournalTime = 5000L
 
         // Assert logic simulated from DataExporter `importDataFromJson` where timestamp comparisons are made
-        assertEquals(true, cloudPayload.bookmarks[0].timestampMs > localBookmarkTime) // Override
-        assertEquals(false, cloudPayload.notes[0].timestampMs > localNoteTime) // Skip overriding
-        assertEquals(true, cloudPayload.journalEntries[0].updatedAt > localJournalTime) // Override
+        assertTrue(cloudPayload.bookmarks[0].timestampMs > localBookmarkTime) // Override
+        assertFalse(cloudPayload.notes[0].timestampMs > localNoteTime) // Skip overriding
+        assertTrue(cloudPayload.journalEntries[0].updatedAt > localJournalTime) // Override
     }
 }
