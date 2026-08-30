@@ -144,6 +144,7 @@ class ScriptureReaderScreenNode(private val chapterId: String) : Screen {
                     initialScrollIndex = uiState.scrollIndex,
                     initialScrollOffset = uiState.scrollOffset,
                     bookmarkedVerseIds = uiState.bookmarkedVerseIds,
+                    crossReferences = uiState.crossReferences,
                     onBookmarkToggle = { scriptureViewModel.toggleBookmark(it) },
                     onReflectClick = { verseId, chapterId ->
                         navigator.push(JournalDetailScreenNode(null, verseId.toIntOrNull(), chapterId.toIntOrNull()))

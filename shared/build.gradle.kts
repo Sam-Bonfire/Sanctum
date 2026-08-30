@@ -66,6 +66,10 @@ kotlin {
             // Ktor Networking
             implementation(libs.ktor.client.core)
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
+        }
         val mobileMain by getting {
             dependencies {
                 implementation(libs.room.runtime)
