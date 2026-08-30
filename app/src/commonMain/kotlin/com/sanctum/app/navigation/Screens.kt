@@ -26,7 +26,6 @@ import com.sanctum.core.feature.scripture.presentation.ScriptureViewModel
 import com.sanctum.core.feature.sync.presentation.SettingsScreen
 import com.sanctum.core.feature.sync.presentation.SyncViewModel
 import org.koin.compose.koinInject
-
 class DashboardScreenNode : Screen {
     @Composable
     override fun Content() {
@@ -180,17 +179,10 @@ class SettingsScreenNode : Screen {
     override fun Content() {
         val syncViewModel = koinInject<SyncViewModel>()
         val syncState by syncViewModel.syncState.collectAsState()
-        val cloudProvider by syncViewModel.cloudProvider.collectAsState()
-        val isAutoBackupEnabled by syncViewModel.isAutoBackupEnabled.collectAsState()
-
         SettingsScreen(
             syncState = syncState,
-            cloudProvider = cloudProvider,
-            isAutoBackupEnabled = isAutoBackupEnabled,
             onBackupClick = { syncViewModel.backupNow() },
             onRestoreClick = { syncViewModel.restoreNow() },
-            onProviderChange = { syncViewModel.setProvider(it) },
-            onAutoBackupToggle = { syncViewModel.toggleAutoBackup(it) },
         )
     }
 }
