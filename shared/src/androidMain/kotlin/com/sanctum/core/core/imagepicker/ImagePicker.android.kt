@@ -14,7 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 actual fun rememberImagePicker(onImagePicked: (ImageBitmap?) -> Unit): ImagePicker {
     val context = LocalContext.current
     val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
+        contract = ActivityResultContracts.GetContent(),
     ) { uri: Uri? ->
         if (uri != null) {
             try {
