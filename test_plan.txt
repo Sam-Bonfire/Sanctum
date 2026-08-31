@@ -1,6 +1,0 @@
-1. Implement `DailyVerseManager` in `shared/src/commonMain`
-2. Implement Android Widget in `app/src/androidMain`
-3. Implement iOS Widget Bridge in `shared/src/iosMain`
-4. Add unit tests for `DailyVerseManager`
-5. Pre-commit checks
-6. Submit change
