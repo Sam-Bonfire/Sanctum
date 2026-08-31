@@ -7,7 +7,7 @@ import org.koin.dsl.module
 expect val platformModule: Module
 
 val presentationModule = module {
-    single { com.sanctum.core.feature.scripture.presentation.ScriptureViewModel(get()) }
+    single { com.sanctum.core.feature.scripture.presentation.ScriptureViewModel(get(), get()) }
     single { com.sanctum.core.feature.sync.presentation.SyncViewModel(get()) }
     single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get(), get()) }
     single { com.sanctum.core.feature.duas.presentation.DuasCatalogViewModel(get(), get()) }
@@ -25,6 +25,7 @@ val domainModule = module {
 val dataModule = module {
     single { com.sanctum.core.core.notifications.getPlatformNotificationManager() }
     single { com.sanctum.core.feature.compass.data.GeocodingRepository() }
+    single<com.sanctum.core.feature.scripture.domain.ScrollPositionRepository> { com.sanctum.core.feature.scripture.data.SettingsScrollPositionRepository(get()) }
     // ScriptureRepository is intentionally NOT registered here.
     // Each platform module (mobileMain, wasmJsMain) provides its own real implementation.
 }
