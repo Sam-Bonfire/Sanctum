@@ -44,6 +44,7 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
         }
+
         commonMain.dependencies {
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
