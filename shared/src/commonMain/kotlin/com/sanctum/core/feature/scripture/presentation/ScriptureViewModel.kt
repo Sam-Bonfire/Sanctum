@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sanctum.core.feature.scripture.data.ScriptureRepository
 import com.sanctum.core.feature.scripture.domain.ScriptureChapter
-import com.sanctum.core.feature.scripture.domain.ScrollPositionRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,18 +12,11 @@ import kotlinx.coroutines.launch
 data class ScriptureUiState(
     val isLoading: Boolean = true,
     val chapters: List<ScriptureChapter> = emptyList(),
-    val loadedChapters: List<ScriptureChapter> = emptyList(),
     val activeChapter: ScriptureChapter? = null,
     val bookmarkedVerseIds: Set<String> = emptySet(),
-    val scrollIndex: Int = 0,
-    val scrollOffset: Int = 0,
-    val isLoadingNextChapter: Boolean = false,
 )
 
-class ScriptureViewModel(
-    private val repository: ScriptureRepository,
-    private val scrollPositionRepository: ScrollPositionRepository,
-) : ViewModel() {
+class ScriptureViewModel(private val repository: ScriptureRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ScriptureUiState())
     val uiState: StateFlow<ScriptureUiState> = _uiState.asStateFlow()
@@ -55,43 +47,13 @@ class ScriptureViewModel(
 
     fun loadChapter(chapterId: String) {
         viewModelScope.launch {
-            // Restore scroll position
-            val savedIndex = scrollPositionRepository.getScrollIndex(chapterId)
-            val savedOffset = scrollPositionRepository.getScrollOffset(chapterId)
-
             repository.getChapter(chapterId).collect { chapter ->
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     activeChapter = chapter,
-                    loadedChapters = listOf(chapter),
-                    scrollIndex = savedIndex,
-                    scrollOffset = savedOffset,
                 )
             }
         }
-    }
-
-    fun loadNextChapter(chapterId: String) {
-        if (_uiState.value.isLoadingNextChapter) return
-
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoadingNextChapter = true)
-            repository.getChapter(chapterId).collect { chapter ->
-                val currentLoaded = _uiState.value.loadedChapters
-                if (!currentLoaded.any { it.id == chapter.id }) {
-                    _uiState.value = _uiState.value.copy(
-                        loadedChapters = currentLoaded + chapter,
-                        isLoadingNextChapter = false,
-                    )
-                } else {
-                    _uiState.value = _uiState.value.copy(isLoadingNextChapter = false)
-                }
-            }
-        }
-    }
-
-    fun saveScrollPosition(chapterId: String, index: Int, offset: Int) {
-        scrollPositionRepository.saveScrollPosition(chapterId, index, offset)
     }
 
     fun toggleBookmark(verseId: String) {

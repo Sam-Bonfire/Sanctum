@@ -72,9 +72,6 @@ kotlin {
             // Ktor Networking
             implementation(libs.ktor.client.core)
         }
-        commonTest.dependencies {
-            implementation(kotlin("test"))
-        }
         val mobileMain by getting {
             dependencies {
                 implementation(libs.room.runtime)
@@ -92,10 +89,6 @@ kotlin {
 
         wasmJsMain.dependencies {
             implementation(libs.compose.runtime)
-        }
-
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
         }
     }
 }

@@ -1,13 +1,11 @@
 package com.sanctum.core.feature.scripture.presentation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -37,20 +35,16 @@ import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.scripture.domain.ScriptureChapter
 import com.sanctum.core.feature.scripture.domain.history.HistoricalContext
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ScriptureReaderScreen(
-    loadedChapters: List<ScriptureChapter>,
-    allChapters: List<ScriptureChapter>,
-    initialScrollIndex: Int = 0,
-    initialScrollOffset: Int = 0,
+    chapter: ScriptureChapter,
     bookName: String = "",
     bookmarkedVerseIds: Set<String>,
     onBookmarkToggle: (String) -> Unit,
     onReflectClick: (String, String) -> Unit = { _, _ -> },
+    previousChapter: ScriptureChapter? = null,
+    nextChapter: ScriptureChapter? = null,
     onNavigateToChapter: (String) -> Unit = {},
-    onLoadNextChapter: (String) -> Unit = {},
-    onSaveScrollPosition: (String, Int, Int) -> Unit = { _, _, _ -> },
 ) {
     val navigator = LocalNavigator.currentOrThrow
     var fontSizeMultiplier by remember { mutableStateOf(1.0f) }
@@ -59,68 +53,7 @@ fun ScriptureReaderScreen(
     var selectedHistoricalContext by remember { mutableStateOf<HistoricalContext?>(null) }
 
     val config = LocalWhiteLabelConfig.current
-
-    val listState = rememberLazyListState(initialFirstVisibleItemIndex = initialScrollIndex, initialFirstVisibleItemScrollOffset = initialScrollOffset)
-
-    // Flat list of items to render
-    val listItems = remember(loadedChapters) {
-        val items = mutableListOf<ScriptureReaderItem>()
-        loadedChapters.forEach { chapter ->
-            items.add(ScriptureReaderItem.Header(chapter))
-            chapter.verses.forEach { verse ->
-                items.add(ScriptureReaderItem.Verse(chapter, verse))
-            }
-        }
-        items
-    }
-
-    // Determine current active chapter from scroll position
-    val firstVisibleItemIndex by remember { derivedStateOf { listState.firstVisibleItemIndex } }
-    val activeChapter = remember(firstVisibleItemIndex, listItems) {
-        if (listItems.isNotEmpty() && firstVisibleItemIndex < listItems.size) {
-            when (val item = listItems[firstVisibleItemIndex]) {
-                is ScriptureReaderItem.Header -> item.chapter
-                is ScriptureReaderItem.Verse -> item.chapter
-            }
-        } else {
-            loadedChapters.firstOrNull()
-        }
-    }
-
-    // Pre-compute text sizes based on font multiplier
-    val cachedTranslationTexts = remember(loadedChapters, fontSizeMultiplier) {
-        mutableMapOf<String, String>() // Placeholder if we need actual AnnotatedStrings later
-    }
-
-    // Save scroll position
-    LaunchedEffect(listState.firstVisibleItemIndex, listState.firstVisibleItemScrollOffset) {
-        activeChapter?.let {
-            onSaveScrollPosition(it.id, listState.firstVisibleItemIndex, listState.firstVisibleItemScrollOffset)
-        }
-    }
-
-    // Load next chapter dynamically
-    LaunchedEffect(listState.layoutInfo, loadedChapters) {
-        val totalItems = listState.layoutInfo.totalItemsCount
-        val lastVisibleItem = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-        if (totalItems > 0 && lastVisibleItem >= totalItems - 5) {
-            val lastLoadedChapter = loadedChapters.lastOrNull()
-            if (lastLoadedChapter != null) {
-                val currentIdx = allChapters.indexOfFirst { it.id == lastLoadedChapter.id }
-                if (currentIdx != -1 && currentIdx < allChapters.size - 1) {
-                    val nextChapterId = allChapters[currentIdx + 1].id
-                    onLoadNextChapter(nextChapterId)
-                }
-            }
-        }
-    }
-
-    val firstLoadedChapter = loadedChapters.firstOrNull()
-    val currentIdx = firstLoadedChapter?.let { fc -> allChapters.indexOfFirst { it.id == fc.id } } ?: -1
-    val previousChapter = if (currentIdx > 0) allChapters.getOrNull(currentIdx - 1) else null
-    val lastLoadedChapter = loadedChapters.lastOrNull()
-    val lastCurrentIdx = lastLoadedChapter?.let { lc -> allChapters.indexOfFirst { it.id == lc.id } } ?: -1
-    val nextChapter = if (lastCurrentIdx != -1 && lastCurrentIdx < allChapters.size - 1) allChapters.getOrNull(lastCurrentIdx + 1) else null
+    val verseList = chapter.verses
 
     Column(
         modifier = Modifier
@@ -138,7 +71,7 @@ fun ScriptureReaderScreen(
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
-                text = activeChapter?.title ?: activeChapter?.let { "Chapter ${it.number}" } ?: "Chapter",
+                text = chapter.title ?: "Chapter ${chapter.number}",
                 style = SanctumTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
                 color = SanctumTheme.colors.textPrimary,
@@ -207,7 +140,6 @@ fun ScriptureReaderScreen(
 
         // ─── Reading Area ────────────────────────────────────────────
         LazyColumn(
-            state = listState,
             contentPadding = PaddingValues(
                 top = 24.dp,
                 bottom = SanctumTheme.spacing.bottomNavPadding + 16.dp,
@@ -219,193 +151,177 @@ fun ScriptureReaderScreen(
                 .widthIn(max = 600.dp)
                 .align(Alignment.CenterHorizontally),
         ) {
+            // Cinematic Hero Backdrop
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(3f)
+                        .background(
+                            brush = Brush.verticalGradient(
+                                colors = listOf(
+                                    SanctumTheme.colors.brand.copy(alpha = 0.12f),
+                                    SanctumTheme.colors.brand.copy(alpha = 0.02f),
+                                ),
+                            ),
+                            shape = RoundedCornerShape(16.dp),
+                        )
+                        .border(
+                            width = 0.5.dp,
+                            color = SanctumTheme.colors.outlineVariant.copy(alpha = 0.3f),
+                            shape = RoundedCornerShape(16.dp),
+                        )
+                        .padding(24.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "SCRIPTURE READER",
+                            fontSize = 11.sp,
+                            color = SanctumTheme.colors.brand,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 3.sp,
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = chapter.title?.uppercase() ?: "CHAPTER ${chapter.number}",
+                            fontSize = 28.sp,
+                            color = SanctumTheme.colors.textPrimary,
+                            fontWeight = FontWeight.Medium,
+                            fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                            letterSpacing = 2.sp,
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.height(28.dp))
+            }
+
+            // Continuous Editorial Verses
             items(
-                items = listItems,
-                key = { item ->
-                    when (item) {
-                        is ScriptureReaderItem.Header -> "header_${item.chapter.id}"
-                        is ScriptureReaderItem.Verse -> "verse_${item.verse.id}"
-                    }
-                },
-                contentType = { item ->
-                    when (item) {
-                        is ScriptureReaderItem.Header -> "header"
-                        is ScriptureReaderItem.Verse -> "verse"
-                    }
-                },
-            ) { item ->
-                when (item) {
-                    is ScriptureReaderItem.Header -> {
-                        // Cinematic Hero Backdrop
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 16.dp)
-                                .aspectRatio(3f)
-                                .background(
-                                    brush = Brush.verticalGradient(
-                                        colors = listOf(
-                                            SanctumTheme.colors.brand.copy(alpha = 0.12f),
-                                            SanctumTheme.colors.brand.copy(alpha = 0.02f),
-                                        ),
-                                    ),
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                                .border(
-                                    width = 0.5.dp,
-                                    color = SanctumTheme.colors.outlineVariant.copy(alpha = 0.3f),
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                                .padding(24.dp),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                Text(
-                                    text = "SCRIPTURE READER",
-                                    fontSize = 11.sp,
-                                    color = SanctumTheme.colors.brand,
-                                    fontWeight = FontWeight.Bold,
-                                    letterSpacing = 3.sp,
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Text(
-                                    text = item.chapter.title?.uppercase() ?: "CHAPTER ${item.chapter.number}",
-                                    fontSize = 28.sp,
-                                    color = SanctumTheme.colors.textPrimary,
-                                    fontWeight = FontWeight.Medium,
-                                    fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
-                                    letterSpacing = 2.sp,
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(28.dp))
-                    }
-                    is ScriptureReaderItem.Verse -> {
-                        val verse = item.verse
-                        val chapter = item.chapter
-                        val isBookmarked = bookmarkedVerseIds.contains(verse.id)
+                items = verseList,
+                key = { it.id },
+            ) { verse ->
+                val isBookmarked = bookmarkedVerseIds.contains(verse.id)
 
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min)
+                        .padding(vertical = 12.dp),
+                    verticalAlignment = Alignment.Top,
+                ) {
+                    // Left border line highlighting bookmark status
+                    val lineColor = if (isBookmarked) {
+                        SanctumTheme.colors.brand
+                    } else {
+                        SanctumTheme.colors.outlineVariant.copy(alpha = 0.4f)
+                    }
+                    val lineWidth = if (isBookmarked) 3.dp else 1.dp
+
+                    Box(
+                        modifier = Modifier
+                            .width(lineWidth)
+                            .fillMaxHeight()
+                            .background(lineColor),
+                    )
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Column(modifier = Modifier.weight(1f)) {
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(IntrinsicSize.Min)
-                                .padding(vertical = 12.dp),
-                            verticalAlignment = Alignment.Top,
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.fillMaxWidth(),
                         ) {
-                            // Left border line highlighting bookmark status
-                            val lineColor = if (isBookmarked) {
-                                SanctumTheme.colors.brand
-                            } else {
-                                SanctumTheme.colors.outlineVariant.copy(alpha = 0.4f)
-                            }
-                            val lineWidth = if (isBookmarked) 3.dp else 1.dp
-
-                            Box(
-                                modifier = Modifier
-                                    .width(lineWidth)
-                                    .fillMaxHeight()
-                                    .background(lineColor),
+                            // Superscript verse number
+                            Text(
+                                text = "${verse.number}",
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = SanctumTheme.colors.brand,
+                                letterSpacing = 1.sp,
                             )
 
-                            Spacer(modifier = Modifier.width(16.dp))
-
-                            Column(modifier = Modifier.weight(1f)) {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween,
-                                    modifier = Modifier.fillMaxWidth(),
-                                ) {
-                                    // Superscript verse number
-                                    Text(
-                                        text = "${verse.number}",
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = SanctumTheme.colors.brand,
-                                        letterSpacing = 1.sp,
-                                    )
-
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        if (verse.historicalContext != null) {
-                                            IconButton(
-                                                onClick = { selectedHistoricalContext = verse.historicalContext },
-                                                modifier = Modifier.size(28.dp),
-                                            ) {
-                                                Icon(
-                                                    imageVector = Icons.Default.Info,
-                                                    contentDescription = "Historical Context",
-                                                    tint = SanctumTheme.colors.brand,
-                                                    modifier = Modifier.size(16.dp),
-                                                )
-                                            }
-                                        }
-
-                                        val shareController = remember { com.sanctum.core.feature.share.domain.ShareController() }
-                                        if (shareController.isShareSupported()) {
-                                            // Share button
-                                            IconButton(
-                                                onClick = {
-                                                    navigator.push(com.sanctum.core.feature.share.presentation.ShareVerseScreen(verse, bookName, chapter.number))
-                                                },
-                                                modifier = Modifier.size(28.dp),
-                                            ) {
-                                                Icon(
-                                                    imageVector = Icons.Default.Share,
-                                                    contentDescription = "Share",
-                                                    tint = SanctumTheme.colors.textSecondary.copy(alpha = 0.35f),
-                                                    modifier = Modifier.size(16.dp),
-                                                )
-                                            }
-                                        }
-                                        // Heart bookmark toggle button
-                                        IconButton(
-                                            onClick = { onBookmarkToggle(verse.id) },
-                                            modifier = Modifier.size(28.dp),
-                                        ) {
-                                            Icon(
-                                                imageVector = if (isBookmarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                                                contentDescription = "Bookmark",
-                                                tint = if (isBookmarked) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.35f),
-                                                modifier = Modifier.size(16.dp),
-                                            )
-                                        }
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                if (verse.historicalContext != null) {
+                                    IconButton(
+                                        onClick = { selectedHistoricalContext = verse.historicalContext },
+                                        modifier = Modifier.size(28.dp),
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Info,
+                                            contentDescription = "Historical Context",
+                                            tint = SanctumTheme.colors.brand,
+                                            modifier = Modifier.size(16.dp),
+                                        )
                                     }
                                 }
 
-                                Spacer(modifier = Modifier.height(6.dp))
-
-                                if (verse.originalText.isNotEmpty() && verse.originalText != verse.translation) {
-                                    Text(
-                                        text = verse.originalText,
-                                        fontSize = (24 * fontSizeMultiplier).sp,
-                                        color = SanctumTheme.colors.textPrimary,
-                                        lineHeight = (36 * fontSizeMultiplier).sp,
-                                        fontWeight = FontWeight.Normal,
-                                        fontFamily = SanctumTheme.typography.amiri,
-                                        textAlign = TextAlign.End,
-                                        modifier = Modifier.fillMaxWidth(),
-                                    )
-                                    Spacer(modifier = Modifier.height(8.dp))
+                                val shareController = remember { com.sanctum.core.feature.share.domain.ShareController() }
+                                if (shareController.isShareSupported()) {
+                                    // Share button
+                                    IconButton(
+                                        onClick = {
+                                            navigator.push(com.sanctum.core.feature.share.presentation.ShareVerseScreen(verse, bookName, chapter.number))
+                                        },
+                                        modifier = Modifier.size(28.dp),
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Share,
+                                            contentDescription = "Share",
+                                            tint = SanctumTheme.colors.textSecondary.copy(alpha = 0.35f),
+                                            modifier = Modifier.size(16.dp),
+                                        )
+                                    }
                                 }
-
-                                Text(
-                                    text = verse.translation,
-                                    fontSize = (18 * fontSizeMultiplier).sp,
-                                    color = SanctumTheme.colors.textPrimary,
-                                    lineHeight = (28 * fontSizeMultiplier).sp,
-                                    fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
-                                )
-
-                                if (showTransliteration && verse.transliteration != null) {
-                                    Spacer(modifier = Modifier.height(6.dp))
-                                    Text(
-                                        text = verse.transliteration,
-                                        fontSize = (14 * fontSizeMultiplier).sp,
-                                        color = SanctumTheme.colors.brand.copy(alpha = 0.7f),
-                                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
-                                        lineHeight = (20 * fontSizeMultiplier).sp,
+                                // Heart bookmark toggle button
+                                IconButton(
+                                    onClick = { onBookmarkToggle(verse.id) },
+                                    modifier = Modifier.size(28.dp),
+                                ) {
+                                    Icon(
+                                        imageVector = if (isBookmarked) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                                        contentDescription = "Bookmark",
+                                        tint = if (isBookmarked) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.35f),
+                                        modifier = Modifier.size(16.dp),
                                     )
                                 }
                             }
+                        }
+
+                        Spacer(modifier = Modifier.height(6.dp))
+
+                        if (verse.originalText.isNotEmpty() && verse.originalText != verse.translation) {
+                            Text(
+                                text = verse.originalText,
+                                fontSize = (24 * fontSizeMultiplier).sp,
+                                color = SanctumTheme.colors.textPrimary,
+                                lineHeight = (36 * fontSizeMultiplier).sp,
+                                fontWeight = FontWeight.Normal,
+                                fontFamily = SanctumTheme.typography.amiri,
+                                textAlign = TextAlign.End,
+                                modifier = Modifier.fillMaxWidth(),
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
+                        Text(
+                            text = verse.translation,
+                            fontSize = (18 * fontSizeMultiplier).sp,
+                            color = SanctumTheme.colors.textPrimary,
+                            lineHeight = (28 * fontSizeMultiplier).sp,
+                            fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                        )
+
+                        if (showTransliteration && verse.transliteration != null) {
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                text = verse.transliteration,
+                                fontSize = (14 * fontSizeMultiplier).sp,
+                                color = SanctumTheme.colors.brand.copy(alpha = 0.7f),
+                                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                                lineHeight = (20 * fontSizeMultiplier).sp,
+                            )
                         }
                     }
                 }

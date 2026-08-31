@@ -136,28 +136,25 @@ class ScriptureReaderScreenNode(private val chapterId: String) : Screen {
                 CircularProgressIndicator(color = SanctumTheme.colors.brand)
             }
         } else {
-            if (uiState.loadedChapters.isNotEmpty()) {
+            uiState.activeChapter?.let { chapter ->
+                val currentIdx = uiState.chapters.indexOfFirst { it.id == chapter.id }
+                val prevChapter = if (currentIdx > 0) uiState.chapters.getOrNull(currentIdx - 1) else null
+                val nextChapter = if (currentIdx != -1 && currentIdx < uiState.chapters.size - 1) uiState.chapters.getOrNull(currentIdx + 1) else null
+
                 ScriptureReaderScreen(
-                    loadedChapters = uiState.loadedChapters,
-                    allChapters = uiState.chapters,
-                    initialScrollIndex = uiState.scrollIndex,
-                    initialScrollOffset = uiState.scrollOffset,
+                    chapter = chapter,
                     bookmarkedVerseIds = uiState.bookmarkedVerseIds,
                     onBookmarkToggle = { scriptureViewModel.toggleBookmark(it) },
                     onReflectClick = { verseId, chapterId ->
                         navigator.push(JournalDetailScreenNode(null, verseId.toIntOrNull(), chapterId.toIntOrNull()))
                     },
+                    previousChapter = prevChapter,
+                    nextChapter = nextChapter,
                     onNavigateToChapter = { nextId ->
                         navigator.replace(ScriptureReaderScreenNode(nextId))
                     },
-                    onLoadNextChapter = { nextId ->
-                        scriptureViewModel.loadNextChapter(nextId)
-                    },
-                    onSaveScrollPosition = { id, index, offset ->
-                        scriptureViewModel.saveScrollPosition(id, index, offset)
-                    },
                 )
-            } else {
+            } ?: run {
                 Box(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
