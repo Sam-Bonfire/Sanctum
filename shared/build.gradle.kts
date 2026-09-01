@@ -41,10 +41,6 @@ kotlin {
     }
 
     sourceSets {
-        commonTest.dependencies {
-            implementation(kotlin("test"))
-        }
-
         commonMain.dependencies {
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
@@ -69,9 +65,6 @@ kotlin {
 
             // Ktor Networking
             implementation(libs.ktor.client.core)
-        }
-        commonTest.dependencies {
-            implementation(kotlin("test"))
         }
         val mobileMain by getting {
             dependencies {
