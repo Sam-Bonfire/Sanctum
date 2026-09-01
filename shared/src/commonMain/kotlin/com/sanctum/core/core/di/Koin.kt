@@ -20,7 +20,7 @@ val domainModule = module {
     factory { com.sanctum.core.feature.scripture.domain.PrayerScheduleUseCase(get()) }
     single { com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository(get()) }
     single { com.sanctum.core.feature.prayer.domain.getAudioPlayer() }
-    single { com.sanctum.core.feature.scripture.domain.DailyVerseManager(get()) }
+    single { com.sanctum.core.feature.scripture.domain.DailyVerseManager(get(), get()) }
 }
 
 val dataModule = module {
