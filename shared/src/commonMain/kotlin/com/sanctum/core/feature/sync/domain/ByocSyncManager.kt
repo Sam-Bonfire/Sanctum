@@ -22,4 +22,14 @@ interface ByocSyncManager {
      * Downloads the latest backup from the cloud and overwrites the local database.
      */
     suspend fun restoreDataFromCloud(): Result<Unit>
+
+    /**
+     * Sets the preferred cloud provider for backup (e.g., Google Drive, iCloud).
+     */
+    fun setCloudProvider(provider: String)
+
+    /**
+     * Enables or disables automatic background backup triggers.
+     */
+    fun setAutomaticBackup(enabled: Boolean)
 }

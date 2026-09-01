@@ -1,18 +1,26 @@
 package com.sanctum.core.feature.sync.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,8 +39,12 @@ import com.sanctum.core.core.designsystem.theme.SanctumTheme
 @Composable
 fun SettingsScreen(
     syncState: SyncState,
+    cloudProvider: String = "Google Drive",
+    isAutoBackupEnabled: Boolean = false,
     onBackupClick: () -> Unit,
     onRestoreClick: () -> Unit,
+    onProviderChange: (String) -> Unit = {},
+    onAutoBackupToggle: (Boolean) -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
 
@@ -138,7 +150,7 @@ fun SettingsScreen(
 
             // ─── Sync Section Header ──────────
             SanctumSectionHeader(
-                text = "DATA MANAGEMENT",
+                text = "BACKUP & SYNC",
                 modifier = Modifier.align(Alignment.Start),
             )
 
@@ -161,12 +173,107 @@ fun SettingsScreen(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Backup your data to your native cloud provider. No central servers required.",
+                        text = "Backup notes, highlights, bookmarks, and journal entries to your native cloud.",
                         style = SanctumTheme.typography.bodyMedium,
                         color = SanctumTheme.colors.textSecondary,
                         textAlign = TextAlign.Center,
                         lineHeight = 20.sp,
                     )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    // Provider Selection
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = "Cloud Provider",
+                            style = SanctumTheme.typography.bodyMedium,
+                            color = SanctumTheme.colors.textPrimary,
+                            fontWeight = FontWeight.SemiBold,
+                        )
+
+                        var expanded by remember { mutableStateOf(false) }
+
+                        Box {
+                            Row(
+                                modifier = Modifier
+                                    .clickable { expanded = true }
+                                    .padding(8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Text(
+                                    text = cloudProvider,
+                                    color = SanctumTheme.colors.brand,
+                                    style = SanctumTheme.typography.bodyMedium,
+                                )
+                                Icon(
+                                    imageVector = Icons.Default.ArrowDropDown,
+                                    contentDescription = "Select Provider",
+                                    tint = SanctumTheme.colors.brand,
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false },
+                            ) {
+                                DropdownMenuItem(onClick = {
+                                    onProviderChange("Google Drive")
+                                    expanded = false
+                                }) {
+                                    Text("Google Drive")
+                                }
+                                DropdownMenuItem(onClick = {
+                                    onProviderChange("iCloud")
+                                    expanded = false
+                                }) {
+                                    Text("iCloud")
+                                }
+                                DropdownMenuItem(onClick = {
+                                    onProviderChange("Dropbox")
+                                    expanded = false
+                                }) {
+                                    Text("Dropbox")
+                                }
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Auto Backup Toggle
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column {
+                            Text(
+                                text = "Auto Backup",
+                                style = SanctumTheme.typography.bodyMedium,
+                                color = SanctumTheme.colors.textPrimary,
+                                fontWeight = FontWeight.SemiBold,
+                            )
+                            Text(
+                                text = "Backup automatically in background.",
+                                style = SanctumTheme.typography.bodySmall,
+                                color = SanctumTheme.colors.textSecondary,
+                            )
+                        }
+
+                        Switch(
+                            checked = isAutoBackupEnabled,
+                            onCheckedChange = { onAutoBackupToggle(it) },
+                            colors = SwitchDefaults.colors(
+                                checkedThumbColor = SanctumTheme.colors.brand,
+                                checkedTrackColor = SanctumTheme.colors.brand.copy(alpha = 0.5f),
+                                uncheckedThumbColor = SanctumTheme.colors.textSecondary,
+                                uncheckedTrackColor = SanctumTheme.colors.textSecondary.copy(alpha = 0.5f),
+                            ),
+                        )
+                    }
 
                     Spacer(modifier = Modifier.height(24.dp))
 

@@ -20,6 +20,12 @@ class SyncViewModel(private val syncManager: ByocSyncManager) : ViewModel() {
     private val _syncState = MutableStateFlow<SyncState>(SyncState.Idle)
     val syncState: StateFlow<SyncState> = _syncState.asStateFlow()
 
+    private val _cloudProvider = MutableStateFlow("Google Drive")
+    val cloudProvider: StateFlow<String> = _cloudProvider.asStateFlow()
+
+    private val _isAutoBackupEnabled = MutableStateFlow(false)
+    val isAutoBackupEnabled: StateFlow<Boolean> = _isAutoBackupEnabled.asStateFlow()
+
     fun backupNow() {
         viewModelScope.launch {
             _syncState.value = SyncState.Syncing
@@ -42,5 +48,15 @@ class SyncViewModel(private val syncManager: ByocSyncManager) : ViewModel() {
                 _syncState.value = SyncState.Error("Failed to restore: ${result.exceptionOrNull()?.message}")
             }
         }
+    }
+
+    fun setProvider(provider: String) {
+        _cloudProvider.value = provider
+        syncManager.setCloudProvider(provider)
+    }
+
+    fun toggleAutoBackup(enabled: Boolean) {
+        _isAutoBackupEnabled.value = enabled
+        syncManager.setAutomaticBackup(enabled)
     }
 }

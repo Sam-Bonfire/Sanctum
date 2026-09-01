@@ -6,8 +6,15 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 
 @Database(
-    entities = [VerseEntity::class, BookmarkEntity::class, DuaEntity::class, JournalEntryEntity::class],
-    version = 2,
+    entities = [
+        VerseEntity::class,
+        BookmarkEntity::class,
+        DuaEntity::class,
+        JournalEntryEntity::class,
+        NoteEntity::class,
+        HighlightEntity::class,
+    ],
+    version = 3,
     exportSchema = false,
 )
 @ConstructedBy(PrayerDatabaseConstructor::class)

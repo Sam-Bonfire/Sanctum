@@ -1,5 +1,8 @@
 package com.sanctum.core.feature.journal.domain
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class JournalEntry(
     val id: Int,
     val verseId: Int?,
