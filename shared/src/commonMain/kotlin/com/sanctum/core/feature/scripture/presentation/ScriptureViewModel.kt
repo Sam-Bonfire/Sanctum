@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.sanctum.core.feature.scripture.data.ScriptureRepository
 import com.sanctum.core.feature.scripture.domain.ScriptureChapter
 import com.sanctum.core.feature.scripture.domain.ScrollPositionRepository
+import com.sanctum.core.feature.scripture.domain.crossreference.CrossReference
+import com.sanctum.core.feature.scripture.domain.crossreference.CrossReferenceRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,15 +21,20 @@ data class ScriptureUiState(
     val scrollIndex: Int = 0,
     val scrollOffset: Int = 0,
     val isLoadingNextChapter: Boolean = false,
+    val crossReferences: Map<String, List<CrossReference>> = emptyMap(),
 )
 
 class ScriptureViewModel(
     private val repository: ScriptureRepository,
     private val scrollPositionRepository: ScrollPositionRepository,
+    private val crossReferenceRepository: CrossReferenceRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ScriptureUiState())
     val uiState: StateFlow<ScriptureUiState> = _uiState.asStateFlow()
+
+    private var chapterJob: kotlinx.coroutines.Job? = null
+    private var crossReferencesJob: kotlinx.coroutines.Job? = null
 
     init {
         loadChapters()
@@ -54,7 +61,8 @@ class ScriptureViewModel(
     }
 
     fun loadChapter(chapterId: String) {
-        viewModelScope.launch {
+        chapterJob?.cancel()
+        chapterJob = viewModelScope.launch {
             // Restore scroll position
             val savedIndex = scrollPositionRepository.getScrollIndex(chapterId)
             val savedOffset = scrollPositionRepository.getScrollOffset(chapterId)
@@ -67,6 +75,17 @@ class ScriptureViewModel(
                     scrollIndex = savedIndex,
                     scrollOffset = savedOffset,
                 )
+                loadCrossReferencesForChapter(chapter)
+            }
+        }
+    }
+
+    private fun loadCrossReferencesForChapter(chapter: ScriptureChapter) {
+        crossReferencesJob?.cancel()
+        crossReferencesJob = viewModelScope.launch {
+            val verseIds = chapter.verses.map { it.id }.toSet()
+            crossReferenceRepository.getCrossReferencesForVerses(verseIds).collect { references ->
+                _uiState.value = _uiState.value.copy(crossReferences = references)
             }
         }
     }
