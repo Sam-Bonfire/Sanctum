@@ -39,12 +39,16 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.sanctum.core.core.design.LocalWhiteLabelConfig
 import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
+import com.sanctum.core.feature.scripture.data.dictionary.MockDictionaryRepository
 import com.sanctum.core.feature.scripture.domain.ScriptureChapter
 import com.sanctum.core.feature.scripture.domain.crossreference.CrossReference
+import com.sanctum.core.feature.scripture.domain.dictionary.DictionaryTerm
 import com.sanctum.core.feature.scripture.domain.history.HistoricalContext
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
+private val alphabetRegex = Regex("[^a-z]")
+
 @Composable
 fun ScriptureReaderScreen(
     loadedChapters: List<ScriptureChapter>,
@@ -69,6 +73,8 @@ fun ScriptureReaderScreen(
     var isPlayingAudio by remember { mutableStateOf(false) }
     var showTransliteration by remember { mutableStateOf(true) }
     var selectedHistoricalContext by remember { mutableStateOf<HistoricalContext?>(null) }
+    var selectedDictionaryTerm by remember { mutableStateOf<DictionaryTerm?>(null) }
+    val dictionaryRepository = remember { MockDictionaryRepository() }
     var selectedCrossReferences by remember { mutableStateOf<List<CrossReference>>(emptyList()) }
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
@@ -556,6 +562,91 @@ fun ScriptureReaderScreen(
                             }
                         } else {
                             Spacer(modifier = Modifier.weight(1f))
+                        }
+                    }
+                }
+            }
+        }
+
+        selectedDictionaryTerm?.let { term ->
+            Dialog(onDismissRequest = { selectedDictionaryTerm = null }) {
+                SanctumCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    contentPadding = PaddingValues(24.dp),
+                ) {
+                    Column {
+                        Text(
+                            text = "DICTIONARY",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SanctumTheme.colors.brand,
+                            letterSpacing = 2.sp,
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            text = term.word,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SanctumTheme.colors.textPrimary,
+                            fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                        )
+
+                        if (term.transliteration != null) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = term.transliteration,
+                                fontSize = 14.sp,
+                                color = SanctumTheme.colors.brand.copy(alpha = 0.8f),
+                                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            text = term.definition,
+                            fontSize = 16.sp,
+                            color = SanctumTheme.colors.textPrimary,
+                            lineHeight = 24.sp,
+                        )
+
+                        if (term.root != null || term.etymology != null) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                                if (term.root != null) {
+                                    Column {
+                                        Text(
+                                            text = "ROOT",
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = SanctumTheme.colors.textSecondary,
+                                        )
+                                        Text(
+                                            text = term.root,
+                                            fontSize = 14.sp,
+                                            color = SanctumTheme.colors.textPrimary,
+                                        )
+                                    }
+                                }
+                                if (term.etymology != null) {
+                                    Column {
+                                        Text(
+                                            text = "ORIGIN",
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = SanctumTheme.colors.textSecondary,
+                                        )
+                                        Text(
+                                            text = term.etymology,
+                                            fontSize = 14.sp,
+                                            color = SanctumTheme.colors.textPrimary,
+                                        )
+                                    }
+                                }
+                            }
                         }
                     }
                 }
