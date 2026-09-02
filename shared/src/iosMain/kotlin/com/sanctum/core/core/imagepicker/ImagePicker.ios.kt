@@ -15,7 +15,6 @@ import platform.UIKit.UIImagePickerController
 import platform.UIKit.UIImagePickerControllerDelegateProtocol
 import platform.UIKit.UIImagePickerControllerSourceType
 import platform.UIKit.UINavigationControllerDelegateProtocol
-import platform.UIKit.UIWindowScene
 import platform.darwin.NSObject
 import platform.posix.memcpy
 
