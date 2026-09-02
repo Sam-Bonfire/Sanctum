@@ -70,7 +70,7 @@ actual fun rememberImagePicker(onImagePicked: (ImageBitmap?) -> Unit): ImagePick
                 pickerController.delegate = delegateObj
 
                 // Get root view controller
-                val keyWindow = UIApplication.sharedApplication.connectedScenes.mapNotNull { it as? UIWindowScene }.flatMap { it.windows }.firstOrNull { it.isKeyWindow() }
+                val keyWindow = UIApplication.sharedApplication.keyWindow
                 keyWindow?.rootViewController?.presentViewController(pickerController, true, null)
             }
         }
