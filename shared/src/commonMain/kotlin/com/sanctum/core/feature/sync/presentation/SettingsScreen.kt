@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.DropdownMenu
@@ -45,6 +46,7 @@ fun SettingsScreen(
     onRestoreClick: () -> Unit,
     onProviderChange: (String) -> Unit = {},
     onAutoBackupToggle: (Boolean) -> Unit = {},
+    onBookmarksClick: () -> Unit = {},
 ) {
     val scrollState = rememberScrollState()
 
@@ -98,6 +100,35 @@ fun SettingsScreen(
             )
 
             Spacer(modifier = Modifier.height(48.dp))
+
+            SanctumSectionHeader(
+                text = "CONTENT",
+                modifier = Modifier.align(Alignment.Start),
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(SanctumTheme.colors.surface)
+                    .clickable { onBookmarksClick() }
+                    .padding(20.dp),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = "Manage Bookmarks",
+                        style = SanctumTheme.typography.titleMedium,
+                        color = SanctumTheme.colors.textPrimary,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             // ─── Preferences Section Header ──────────
             SanctumSectionHeader(

@@ -145,7 +145,11 @@ class ScriptureReaderScreenNode(private val chapterId: String) : Screen {
                     initialScrollOffset = uiState.scrollOffset,
                     bookmarkedVerseIds = uiState.bookmarkedVerseIds,
                     crossReferences = uiState.crossReferences,
+                    uiState = uiState,
                     onBookmarkToggle = { scriptureViewModel.toggleBookmark(it) },
+                    onAssignTag = { verseId, tagId -> scriptureViewModel.assignTag(verseId, tagId) },
+                    onUnassignTag = { verseId, tagId -> scriptureViewModel.unassignTag(verseId, tagId) },
+                    onCreateTag = { name, color -> scriptureViewModel.createTag(name, color) },
                     onReflectClick = { verseId, chapterId ->
                         navigator.push(JournalDetailScreenNode(null, verseId.toIntOrNull(), chapterId.toIntOrNull()))
                     },
@@ -179,6 +183,28 @@ class DuasCatalogScreenNode : Screen {
     }
 }
 
+class BookmarksScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = koinInject<com.sanctum.core.feature.scripture.presentation.BookmarkViewModel>()
+        val uiState by viewModel.uiState.collectAsState()
+        val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
+
+        com.sanctum.core.feature.scripture.presentation.BookmarksScreen(
+            bookmarks = uiState.bookmarks,
+            availableTags = uiState.availableTags,
+            selectedTagId = uiState.selectedTagId,
+            onTagSelected = { viewModel.selectTag(it) },
+            onDeleteTag = { viewModel.deleteTag(it) },
+            onCreateTag = { name, color -> viewModel.createTag(name, color) },
+            onRenameTag = { id, name -> viewModel.renameTag(id, name) },
+            onVerseClick = {
+                // Future enhancement: could navigate to the specific chapter/verse
+            },
+        )
+    }
+}
+
 class SettingsScreenNode : Screen {
     @Composable
     override fun Content() {
@@ -187,6 +213,7 @@ class SettingsScreenNode : Screen {
         val cloudProvider by syncViewModel.cloudProvider.collectAsState()
         val isAutoBackupEnabled by syncViewModel.isAutoBackupEnabled.collectAsState()
 
+        val navigator = cafe.adriel.voyager.navigator.LocalNavigator.currentOrThrow
         SettingsScreen(
             syncState = syncState,
             cloudProvider = cloudProvider,
@@ -195,6 +222,7 @@ class SettingsScreenNode : Screen {
             onRestoreClick = { syncViewModel.restoreNow() },
             onProviderChange = { syncViewModel.setProvider(it) },
             onAutoBackupToggle = { syncViewModel.toggleAutoBackup(it) },
+            onBookmarksClick = { navigator.push(BookmarksScreenNode()) },
         )
     }
 }
