@@ -18,9 +18,34 @@ actual fun rememberImagePicker(onImagePicked: (ImageBitmap?) -> Unit): ImagePick
     ) { uri: Uri? ->
         if (uri != null) {
             try {
-                val inputStream = context.contentResolver.openInputStream(uri)
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-                onImagePicked(bitmap?.asImageBitmap())
+                // Wrap in use to prevent resource leaks
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    val options = BitmapFactory.Options().apply {
+                        // Downsample to avoid OOM for very large images
+                        inJustDecodeBounds = true
+                        BitmapFactory.decodeStream(inputStream, null, this)
+
+                        // Target dimensions for background
+                        val targetW = 1080
+                        val targetH = 1920
+
+                        inSampleSize = 1
+                        if (outHeight > targetH || outWidth > targetW) {
+                            val halfHeight: Int = outHeight / 2
+                            val halfWidth: Int = outWidth / 2
+                            while (halfHeight / inSampleSize >= targetH && halfWidth / inSampleSize >= targetW) {
+                                inSampleSize *= 2
+                            }
+                        }
+                        inJustDecodeBounds = false
+                    }
+
+                    // Decode again with options (requires opening a new stream as the previous one was consumed by decode bounds)
+                    context.contentResolver.openInputStream(uri)?.use { finalInputStream ->
+                        val bitmap = BitmapFactory.decodeStream(finalInputStream, null, options)
+                        onImagePicked(bitmap?.asImageBitmap())
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 onImagePicked(null)
