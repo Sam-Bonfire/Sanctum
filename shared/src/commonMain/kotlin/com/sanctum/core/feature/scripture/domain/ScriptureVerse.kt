@@ -1,5 +1,8 @@
 package com.sanctum.core.feature.scripture.domain
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ScriptureVerse(
     val id: String,
     val number: Int,

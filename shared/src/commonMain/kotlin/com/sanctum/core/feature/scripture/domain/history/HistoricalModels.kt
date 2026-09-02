@@ -1,5 +1,8 @@
 package com.sanctum.core.feature.scripture.domain.history
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class HistoricalContext(
     val verseId: String,
     val timelineDate: String?,
@@ -7,6 +10,7 @@ data class HistoricalContext(
     val figures: List<HistoricalFigure>,
 )
 
+@Serializable
 data class HistoricalFigure(
     val id: String,
     val name: String,
@@ -14,6 +18,7 @@ data class HistoricalFigure(
     val imageUrl: String? = null,
 )
 
+@Serializable
 data class HistoricalLocation(
     val id: String,
     val name: String,

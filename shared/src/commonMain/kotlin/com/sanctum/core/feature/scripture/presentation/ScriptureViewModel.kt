@@ -22,12 +22,15 @@ data class ScriptureUiState(
     val scrollOffset: Int = 0,
     val isLoadingNextChapter: Boolean = false,
     val crossReferences: Map<String, List<CrossReference>> = emptyMap(),
+    val availableTags: List<com.sanctum.core.feature.scripture.domain.BookmarkTag> = emptyList(),
+    val verseTagsMap: Map<String, List<com.sanctum.core.feature.scripture.domain.BookmarkTag>> = emptyMap(),
 )
 
 class ScriptureViewModel(
     private val repository: ScriptureRepository,
     private val scrollPositionRepository: ScrollPositionRepository,
     private val crossReferenceRepository: CrossReferenceRepository,
+    private val bookmarkRepository: com.sanctum.core.feature.scripture.data.BookmarkRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ScriptureUiState())
@@ -39,6 +42,21 @@ class ScriptureViewModel(
     init {
         loadChapters()
         loadBookmarks()
+        loadTags()
+    }
+
+    private fun loadTags() {
+        viewModelScope.launch {
+            bookmarkRepository.getTags().collect { tags ->
+                _uiState.value = _uiState.value.copy(availableTags = tags)
+            }
+        }
+        viewModelScope.launch {
+            bookmarkRepository.getBookmarks().collect { bookmarks ->
+                val map = bookmarks.associate { it.verseId.toString() to it.tags }
+                _uiState.value = _uiState.value.copy(verseTagsMap = map)
+            }
+        }
     }
 
     private fun loadBookmarks() {
@@ -116,6 +134,28 @@ class ScriptureViewModel(
     fun toggleBookmark(verseId: String) {
         viewModelScope.launch {
             repository.toggleBookmark(verseId)
+        }
+    }
+
+    fun createTag(name: String, colorHex: String) {
+        viewModelScope.launch {
+            bookmarkRepository.createTag(name, colorHex)
+        }
+    }
+
+    fun assignTag(verseId: String, tagId: Int) {
+        viewModelScope.launch {
+            verseId.toIntOrNull()?.let {
+                bookmarkRepository.assignTag(it, tagId)
+            }
+        }
+    }
+
+    fun unassignTag(verseId: String, tagId: Int) {
+        viewModelScope.launch {
+            verseId.toIntOrNull()?.let {
+                bookmarkRepository.unassignTag(it, tagId)
+            }
         }
     }
 }

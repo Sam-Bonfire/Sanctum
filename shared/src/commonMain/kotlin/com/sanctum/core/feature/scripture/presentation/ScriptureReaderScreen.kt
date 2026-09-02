@@ -54,7 +54,11 @@ fun ScriptureReaderScreen(
     bookName: String = "",
     bookmarkedVerseIds: Set<String>,
     crossReferences: Map<String, List<CrossReference>> = emptyMap(),
+    uiState: ScriptureUiState? = null,
     onBookmarkToggle: (String) -> Unit,
+    onAssignTag: (String, Int) -> Unit = { _, _ -> },
+    onUnassignTag: (String, Int) -> Unit = { _, _ -> },
+    onCreateTag: (String, String) -> Unit = { _, _ -> },
     onReflectClick: (String, String) -> Unit = { _, _ -> },
     onNavigateToChapter: (String) -> Unit = {},
     onLoadNextChapter: (String) -> Unit = {},
@@ -68,6 +72,7 @@ fun ScriptureReaderScreen(
     var selectedCrossReferences by remember { mutableStateOf<List<CrossReference>>(emptyList()) }
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
+    var bookmarkActionVerseId by remember { mutableStateOf<String?>(null) }
 
     val config = LocalWhiteLabelConfig.current
 
