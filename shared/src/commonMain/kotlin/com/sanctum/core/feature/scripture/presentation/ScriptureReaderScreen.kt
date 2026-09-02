@@ -48,6 +48,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 private val alphabetRegex = Regex("[^a-z]")
+
 @Composable
 fun ScriptureReaderScreen(
     loadedChapters: List<ScriptureChapter>,
@@ -562,82 +563,83 @@ fun ScriptureReaderScreen(
             }
         }
 
-    selectedDictionaryTerm?.let { term ->
-        Dialog(onDismissRequest = { selectedDictionaryTerm = null }) {
-            SanctumCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                contentPadding = PaddingValues(24.dp),
-            ) {
-                Column {
-                    Text(
-                        text = "DICTIONARY",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = SanctumTheme.colors.brand,
-                        letterSpacing = 2.sp,
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Text(
-                        text = term.word,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = SanctumTheme.colors.textPrimary,
-                        fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
-                    )
-
-                    if (term.transliteration != null) {
-                        Spacer(modifier = Modifier.height(4.dp))
+        selectedDictionaryTerm?.let { term ->
+            Dialog(onDismissRequest = { selectedDictionaryTerm = null }) {
+                SanctumCard(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    contentPadding = PaddingValues(24.dp),
+                ) {
+                    Column {
                         Text(
-                            text = term.transliteration,
-                            fontSize = 14.sp,
-                            color = SanctumTheme.colors.brand.copy(alpha = 0.8f),
-                            fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                            text = "DICTIONARY",
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SanctumTheme.colors.brand,
+                            letterSpacing = 2.sp,
                         )
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Text(
-                        text = term.definition,
-                        fontSize = 16.sp,
-                        color = SanctumTheme.colors.textPrimary,
-                        lineHeight = 24.sp,
-                    )
-
-                    if (term.root != null || term.etymology != null) {
                         Spacer(modifier = Modifier.height(16.dp))
-                        Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                            if (term.root != null) {
-                                Column {
-                                    Text(
-                                        text = "ROOT",
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = SanctumTheme.colors.textSecondary,
-                                    )
-                                    Text(
-                                        text = term.root,
-                                        fontSize = 14.sp,
-                                        color = SanctumTheme.colors.textPrimary,
-                                    )
+
+                        Text(
+                            text = term.word,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = SanctumTheme.colors.textPrimary,
+                            fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                        )
+
+                        if (term.transliteration != null) {
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = term.transliteration,
+                                fontSize = 14.sp,
+                                color = SanctumTheme.colors.brand.copy(alpha = 0.8f),
+                                fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            text = term.definition,
+                            fontSize = 16.sp,
+                            color = SanctumTheme.colors.textPrimary,
+                            lineHeight = 24.sp,
+                        )
+
+                        if (term.root != null || term.etymology != null) {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                                if (term.root != null) {
+                                    Column {
+                                        Text(
+                                            text = "ROOT",
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = SanctumTheme.colors.textSecondary,
+                                        )
+                                        Text(
+                                            text = term.root,
+                                            fontSize = 14.sp,
+                                            color = SanctumTheme.colors.textPrimary,
+                                        )
+                                    }
                                 }
-                            }
-                            if (term.etymology != null) {
-                                Column {
-                                    Text(
-                                        text = "ORIGIN",
-                                        fontSize = 10.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = SanctumTheme.colors.textSecondary,
-                                    )
-                                    Text(
-                                        text = term.etymology,
-                                        fontSize = 14.sp,
-                                        color = SanctumTheme.colors.textPrimary,
-                                    )
+                                if (term.etymology != null) {
+                                    Column {
+                                        Text(
+                                            text = "ORIGIN",
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = SanctumTheme.colors.textSecondary,
+                                        )
+                                        Text(
+                                            text = term.etymology,
+                                            fontSize = 14.sp,
+                                            color = SanctumTheme.colors.textPrimary,
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -645,7 +647,6 @@ fun ScriptureReaderScreen(
                 }
             }
         }
-    }
 
         selectedHistoricalContext?.let { context ->
             Dialog(onDismissRequest = { selectedHistoricalContext = null }) {
