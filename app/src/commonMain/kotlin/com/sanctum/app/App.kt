@@ -97,6 +97,7 @@ fun App() {
                         secondaryColor = BuildConfig.COLOR_PRIMARY_VARIANT.toColor(),
                         compassTitle = BuildConfig.TERM_SCHEDULE_TITLE.uppercase(),
                         hasTransliteration = BuildConfig.HAS_TRANSLITERATION,
+                        hasTajweedRules = BuildConfig.HAS_TAJWEED_RULES,
                         navItems = mutableListOf(
                             NavItemConfig("dashboard", "Home", Icons.Default.Home),
                         ).apply {
