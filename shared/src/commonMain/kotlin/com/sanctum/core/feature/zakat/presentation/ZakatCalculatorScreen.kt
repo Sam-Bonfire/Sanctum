@@ -13,17 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.koin.koinScreenModel
 import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.components.SanctumSectionHeader
 import com.sanctum.core.core.designsystem.components.SanctumTextField
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.zakat.domain.NisabStandard
+import org.koin.compose.koinInject
 
 class ZakatCalculatorScreen : Screen {
     @Composable
     override fun Content() {
-        val viewModel = koinScreenModel<ZakatCalculatorViewModel>()
+        val viewModel = koinInject<ZakatCalculatorViewModel>()
         val state by viewModel.state.collectAsState(ZakatCalculatorState())
 
         LazyColumn(
