@@ -48,8 +48,7 @@ object TajweedParser {
                     withStyle(SpanStyle(color = colors.madd)) {
                         append(graphemeCluster)
                     }
-                }
-                else {
+                } else {
                     append(graphemeCluster)
                 }
 

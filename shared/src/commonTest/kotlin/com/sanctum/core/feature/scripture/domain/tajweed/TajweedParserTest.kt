@@ -1,6 +1,5 @@
 package com.sanctum.core.feature.scripture.domain.tajweed
 
-import androidx.compose.ui.text.SpanStyle
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

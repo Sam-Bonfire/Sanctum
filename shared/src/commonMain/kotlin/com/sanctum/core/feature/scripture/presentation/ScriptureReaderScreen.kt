@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import com.russhwolf.settings.Settings
 import com.sanctum.core.core.design.LocalWhiteLabelConfig
 import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
@@ -48,7 +49,6 @@ import com.sanctum.core.feature.scripture.domain.tajweed.TajweedParser
 import com.sanctum.core.feature.scripture.domain.tajweed.TajweedThemeColors
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
-import com.russhwolf.settings.Settings
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 private val alphabetRegex = Regex("[^a-z]")
@@ -300,10 +300,10 @@ fun ScriptureReaderScreen(
                             modifier = Modifier.size(32.dp),
                         ) {
                             Icon(
-                                imageVector = Icons.Default.List, // using standard icon as placeholder for Tajweed
+                                imageVector = Icons.AutoMirrored.Filled.List,
                                 contentDescription = "Tajweed",
                                 tint = if (tajweedEnabled) SanctumTheme.colors.brand else SanctumTheme.colors.textSecondary.copy(alpha = 0.6f),
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(20.dp),
                             )
                         }
 
@@ -316,7 +316,7 @@ fun ScriptureReaderScreen(
                                 imageVector = Icons.Default.Info,
                                 contentDescription = "Tajweed Legend",
                                 tint = SanctumTheme.colors.brand,
-                                modifier = Modifier.size(20.dp)
+                                modifier = Modifier.size(20.dp),
                             )
                         }
                     }
@@ -770,7 +770,7 @@ fun ScriptureReaderScreen(
             Dialog(onDismissRequest = { showTajweedLegend = false }) {
                 SanctumCard(
                     modifier = Modifier.fillMaxWidth().padding(16.dp),
-                    contentPadding = PaddingValues(24.dp)
+                    contentPadding = PaddingValues(24.dp),
                 ) {
                     Column {
                         Text(
@@ -789,22 +789,22 @@ fun ScriptureReaderScreen(
                             "Idgham" to colors.idgham,
                             "Qalqalah" to colors.qalqalah,
                             "Madd" to colors.madd,
-                            "Silent" to colors.silent
+                            "Silent" to colors.silent,
                         )
 
                         rules.forEach { (name, color) ->
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.padding(vertical = 4.dp).fillMaxWidth()
+                                modifier = Modifier.padding(vertical = 4.dp).fillMaxWidth(),
                             ) {
                                 Box(
-                                    modifier = Modifier.size(16.dp).background(color, RoundedCornerShape(4.dp))
+                                    modifier = Modifier.size(16.dp).background(color, RoundedCornerShape(4.dp)),
                                 )
                                 Spacer(modifier = Modifier.width(12.dp))
                                 Text(
                                     text = name,
                                     fontSize = 16.sp,
-                                    color = SanctumTheme.colors.textPrimary
+                                    color = SanctumTheme.colors.textPrimary,
                                 )
                             }
                         }
@@ -812,7 +812,7 @@ fun ScriptureReaderScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         Box(
                             modifier = Modifier.fillMaxWidth().clickable { showTajweedLegend = false }.padding(8.dp),
-                            contentAlignment = Alignment.Center
+                            contentAlignment = Alignment.Center,
                         ) {
                             Text("CLOSE", fontWeight = FontWeight.Bold, color = SanctumTheme.colors.brand)
                         }
