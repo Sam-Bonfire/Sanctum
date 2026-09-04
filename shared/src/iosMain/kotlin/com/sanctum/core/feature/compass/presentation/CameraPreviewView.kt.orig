@@ -14,7 +14,6 @@ import platform.AVFoundation.AVCaptureSession
 import platform.AVFoundation.AVCaptureVideoPreviewLayer
 import platform.AVFoundation.AVLayerVideoGravityResizeAspectFill
 import platform.AVFoundation.AVMediaTypeVideo
-import platform.QuartzCore.CALayer
 import platform.QuartzCore.CATransaction
 import platform.QuartzCore.kCATransactionDisableActions
 import platform.UIKit.UIView
@@ -55,7 +54,7 @@ actual fun CameraPreviewView(modifier: Modifier) {
             CATransaction.begin()
             CATransaction.setValue(true, kCATransactionDisableActions)
             view.layer.sublayers?.firstOrNull()?.let { layer ->
-                (layer as CALayer).frame = view.layer.bounds
+                layer.frame = view.layer.bounds
             }
             CATransaction.commit()
         },
