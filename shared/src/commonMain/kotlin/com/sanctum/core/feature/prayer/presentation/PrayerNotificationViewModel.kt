@@ -3,13 +3,13 @@ package com.sanctum.core.feature.prayer.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
+import com.russhwolf.settings.set
 import com.sanctum.core.feature.duas.domain.DailyDuaNotificationScheduler
 import com.sanctum.core.feature.prayer.domain.AudioPlayer
 import com.sanctum.core.feature.prayer.domain.MuezzinVoice
 import com.sanctum.core.feature.prayer.domain.NotificationAlertType
 import com.sanctum.core.feature.prayer.domain.PrayerNotificationSetting
 import com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository
-import com.russhwolf.settings.set
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
