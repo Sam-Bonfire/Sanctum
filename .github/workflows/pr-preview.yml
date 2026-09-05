@@ -92,6 +92,19 @@ jobs:
       - name: Setup Toolchain via Mise
         uses: jdx/mise-action@v4
 
+      - name: Setup Gradle (enhanced cache)
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/dev' }}
+
+      - name: Cache Kotlin/Native (konan)
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            konan-${{ runner.os }}-
+
       - name: Run Spotless Code Formatting Check
         id: spotless
         run: mise run lint
@@ -139,6 +152,19 @@ jobs:
       - name: Setup Toolchain via Mise
         uses: jdx/mise-action@v4
 
+      - name: Setup Gradle (enhanced cache)
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/dev' }}
+
+      - name: Cache Kotlin/Native (konan)
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            konan-${{ runner.os }}-
+
       - name: Build Android Debug APK (${{ matrix.flavor }})
         id: build_android
         run: mise run build:${{ matrix.flavor }}:android
@@ -181,6 +207,19 @@ jobs:
       - name: Setup Toolchain via Mise
         uses: jdx/mise-action@v4
 
+      - name: Setup Gradle (enhanced cache)
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/dev' }}
+
+      - name: Cache Kotlin/Native (konan)
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            konan-${{ runner.os }}-
+
       - name: Build iOS Release Framework (${{ matrix.flavor }})
         id: build_ios
         run: mise run build:${{ matrix.flavor }}:ios
@@ -221,6 +260,19 @@ jobs:
 
       - name: Setup Toolchain via Mise
         uses: jdx/mise-action@v4
+
+      - name: Setup Gradle (enhanced cache)
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/dev' }}
+
+      - name: Cache Kotlin/Native (konan)
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            konan-${{ runner.os }}-
 
       - name: Build WASM Web Distribution
         id: build_wasm
