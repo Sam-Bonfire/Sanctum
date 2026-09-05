@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
+import com.sanctum.core.feature.prayer.domain.AsrJuristicMethod
 import com.sanctum.core.feature.prayer.domain.MuezzinVoice
 import com.sanctum.core.feature.prayer.domain.NotificationAlertType
 
@@ -71,6 +72,14 @@ fun PrayerNotificationSettingsScreen(
                     color = SanctumTheme.colors.textSecondary,
                     modifier = Modifier.padding(bottom = 24.dp),
                 )
+
+                if (uiState.showAsrCalculationSetting) {
+                    AsrCalculationSettingCard(
+                        currentMethod = uiState.asrJuristicMethod,
+                        onMethodChanged = { viewModel.updateAsrJuristicMethod(it) },
+                    )
+                    Spacer(modifier = Modifier.height(24.dp))
+                }
             }
 
             items(uiState.prayerSettings) { setting ->
@@ -84,6 +93,100 @@ fun PrayerNotificationSettingsScreen(
                     onTogglePreview = { viewModel.toggleAudioPreview(it) },
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+            }
+        }
+    }
+}
+
+@Composable
+fun AsrCalculationSettingCard(
+    currentMethod: AsrJuristicMethod,
+    onMethodChanged: (AsrJuristicMethod) -> Unit,
+) {
+    SanctumCard(
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(16.dp),
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Text(
+                text = "Asr Calculation Method",
+                style = SanctumTheme.typography.titleMedium,
+                color = SanctumTheme.colors.textPrimary,
+                fontWeight = FontWeight.Bold,
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "Choose the Madhab for calculating the start time of Asr.",
+                style = SanctumTheme.typography.bodySmall,
+                color = SanctumTheme.colors.textSecondary,
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(SanctumTheme.colors.surface),
+            ) {
+                // Shafi'i Option
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onMethodChanged(AsrJuristicMethod.STANDARD_SHAFII) }
+                        .padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    RadioButton(
+                        selected = currentMethod == AsrJuristicMethod.STANDARD_SHAFII,
+                        onClick = { onMethodChanged(AsrJuristicMethod.STANDARD_SHAFII) },
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = SanctumTheme.colors.brand,
+                            unselectedColor = SanctumTheme.colors.textSecondary,
+                        ),
+                    )
+                    Column(modifier = Modifier.padding(start = 8.dp)) {
+                        Text(
+                            text = "Standard (Shafi'i, Maliki, Hanbali)",
+                            style = SanctumTheme.typography.bodyMedium,
+                            color = SanctumTheme.colors.textPrimary,
+                        )
+                        Text(
+                            text = "Shadow length equals object height.",
+                            style = SanctumTheme.typography.bodySmall,
+                            color = SanctumTheme.colors.textSecondary,
+                        )
+                    }
+                }
+
+                // Hanafi Option
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { onMethodChanged(AsrJuristicMethod.HANAFI) }
+                        .padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    RadioButton(
+                        selected = currentMethod == AsrJuristicMethod.HANAFI,
+                        onClick = { onMethodChanged(AsrJuristicMethod.HANAFI) },
+                        colors = RadioButtonDefaults.colors(
+                            selectedColor = SanctumTheme.colors.brand,
+                            unselectedColor = SanctumTheme.colors.textSecondary,
+                        ),
+                    )
+                    Column(modifier = Modifier.padding(start = 8.dp)) {
+                        Text(
+                            text = "Hanafi",
+                            style = SanctumTheme.typography.bodyMedium,
+                            color = SanctumTheme.colors.textPrimary,
+                        )
+                        Text(
+                            text = "Shadow length equals twice object height.",
+                            style = SanctumTheme.typography.bodySmall,
+                            color = SanctumTheme.colors.textSecondary,
+                        )
+                    }
+                }
             }
         }
     }
