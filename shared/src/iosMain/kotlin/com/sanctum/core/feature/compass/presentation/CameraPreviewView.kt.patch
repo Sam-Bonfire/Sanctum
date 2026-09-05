@@ -1,0 +1,19 @@
+--- shared/src/iosMain/kotlin/com/sanctum/core/feature/compass/presentation/CameraPreviewView.kt
++++ shared/src/iosMain/kotlin/com/sanctum/core/feature/compass/presentation/CameraPreviewView.kt
+@@ -10,6 +10,7 @@
+ import platform.AVFoundation.AVCaptureDeviceInput
+ import platform.AVFoundation.AVCaptureSession
+ import platform.AVFoundation.AVCaptureVideoPreviewLayer
++import platform.QuartzCore.CALayer
+ import platform.AVFoundation.AVLayerVideoGravityResizeAspectFill
+ import platform.AVFoundation.AVMediaTypeVideo
+ import platform.QuartzCore.CATransaction
+@@ -53,7 +54,7 @@
+             CATransaction.begin()
+             CATransaction.setValue(true, kCATransactionDisableActions)
+             view.layer.sublayers?.firstOrNull()?.let { layer ->
+-                layer.frame = view.layer.bounds
++                (layer as CALayer).frame = view.layer.bounds
+             }
+             CATransaction.commit()
+         },

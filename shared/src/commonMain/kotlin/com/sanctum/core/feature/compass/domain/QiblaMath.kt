@@ -1,5 +1,6 @@
 package com.sanctum.core.feature.compass.domain
 
+import kotlin.math.acos
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -9,6 +10,7 @@ object QiblaMath {
     // Exact coordinates of the Kaaba in Mecca
     private const val KAABA_LAT = 21.422487
     private const val KAABA_LNG = 39.826206
+    private const val EARTH_RADIUS_KM = 6371.0
 
     /**
      * Calculates the bearing to the Qibla (Kaaba) from a given GPS coordinate.
@@ -31,6 +33,24 @@ object QiblaMath {
         }
 
         return qibla
+    }
+
+    /**
+     * Calculates the great-circle distance to the Qibla in kilometers.
+     */
+    fun calculateDistanceKm(latitude: Double, longitude: Double): Double {
+        val lat1 = degreesToRadians(latitude)
+        val lng1 = degreesToRadians(longitude)
+        val lat2 = degreesToRadians(KAABA_LAT)
+        val lng2 = degreesToRadians(KAABA_LNG)
+
+        // Spherical Law of Cosines
+        val angle = acos(
+            sin(lat1) * sin(lat2) +
+                cos(lat1) * cos(lat2) * cos(lng2 - lng1),
+        )
+
+        return angle * EARTH_RADIUS_KM
     }
 
     private fun degreesToRadians(degrees: Double): Double {
