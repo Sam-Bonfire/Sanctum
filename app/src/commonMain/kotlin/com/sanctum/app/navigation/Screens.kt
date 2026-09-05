@@ -27,6 +27,22 @@ import com.sanctum.core.feature.sync.presentation.SettingsScreen
 import com.sanctum.core.feature.sync.presentation.SyncViewModel
 import org.koin.compose.koinInject
 
+class CharityTrackerScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = koinInject<com.sanctum.core.feature.charity.presentation.CharityTrackerViewModel>()
+        val uiState by viewModel.uiState.collectAsState()
+
+        com.sanctum.core.feature.charity.presentation.CharityTrackerScreen(
+            uiState = uiState,
+            onAddRecord = { amount, category, notes -> viewModel.addRecord(amount, category, notes) },
+            onEditRecord = { id, amount, category, notes, dateIso -> viewModel.updateRecord(id, amount, category, notes, dateIso) },
+            onSetGoal = { goal -> viewModel.setGoal(goal) },
+            onDeleteRecord = { id -> viewModel.deleteRecord(id) },
+        )
+    }
+}
+
 class DashboardScreenNode : Screen {
     @Composable
     override fun Content() {

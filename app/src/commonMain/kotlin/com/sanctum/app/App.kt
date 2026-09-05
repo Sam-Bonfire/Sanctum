@@ -97,6 +97,8 @@ fun App() {
                         secondaryColor = BuildConfig.COLOR_PRIMARY_VARIANT.toColor(),
                         compassTitle = BuildConfig.TERM_SCHEDULE_TITLE.uppercase(),
                         hasTransliteration = BuildConfig.HAS_TRANSLITERATION,
+                        charityTrackerTitle = "Sadaqah Tracker",
+                        hasCharityTracker = BuildConfig.APP_ID == "nur",
                         navItems = mutableListOf(
                             NavItemConfig("dashboard", "Home", Icons.Default.Home),
                         ).apply {
@@ -106,6 +108,9 @@ fun App() {
                             add(NavItemConfig("reader", BuildConfig.TERM_SCRIPTURE_TITLE, Icons.AutoMirrored.Filled.List))
                             add(NavItemConfig("journal", "Journal", Icons.Default.Edit))
                             add(NavItemConfig("duas", BuildConfig.TERM_DAILY_DEVOTION, Icons.Default.Favorite))
+                            if (BuildConfig.APP_ID == "nur") {
+                                add(NavItemConfig("charity", "Sadaqah", Icons.Default.Favorite))
+                            }
                             add(NavItemConfig("settings", "Profile", Icons.Default.Person))
                         },
                         headerIcon = {
@@ -145,6 +150,7 @@ fun App() {
                                         is ScriptureIndexScreenNode -> "reader"
                                         is JournalScreenNode -> "journal"
                                         is DuasCatalogScreenNode -> "duas"
+                                        is com.sanctum.app.navigation.CharityTrackerScreenNode -> "charity"
                                         is SettingsScreenNode -> "settings"
                                         else -> "dashboard"
                                     },
@@ -155,6 +161,7 @@ fun App() {
                                             "reader" -> ScriptureIndexScreenNode()
                                             "journal" -> JournalScreenNode()
                                             "duas" -> DuasCatalogScreenNode()
+                                            "charity" -> com.sanctum.app.navigation.CharityTrackerScreenNode()
                                             "settings" -> SettingsScreenNode()
                                             else -> DashboardScreenNode()
                                         }
