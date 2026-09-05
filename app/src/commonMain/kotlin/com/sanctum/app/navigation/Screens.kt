@@ -70,6 +70,13 @@ class JournalScreenNode : Screen {
     }
 }
 
+class FastingTrackerScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        com.sanctum.core.feature.fasting.presentation.FastingTrackerScreen()
+    }
+}
+
 class JournalDetailScreenNode(
     private val entryId: Int?,
     private val verseId: Int?,

@@ -97,6 +97,7 @@ fun App() {
                         secondaryColor = BuildConfig.COLOR_PRIMARY_VARIANT.toColor(),
                         compassTitle = BuildConfig.TERM_SCHEDULE_TITLE.uppercase(),
                         hasTransliteration = BuildConfig.HAS_TRANSLITERATION,
+                        hasFastingTracker = BuildConfig.HAS_FASTING_TRACKER,
                         navItems = mutableListOf(
                             NavItemConfig("dashboard", "Home", Icons.Default.Home),
                         ).apply {
@@ -104,6 +105,9 @@ fun App() {
                                 add(NavItemConfig("qibla", BuildConfig.TERM_SCHEDULE_TITLE, Icons.Default.LocationOn))
                             }
                             add(NavItemConfig("reader", BuildConfig.TERM_SCRIPTURE_TITLE, Icons.AutoMirrored.Filled.List))
+                            if (BuildConfig.HAS_FASTING_TRACKER) {
+                                add(NavItemConfig("fasting", "Fasting", Icons.AutoMirrored.Filled.List))
+                            }
                             add(NavItemConfig("journal", "Journal", Icons.Default.Edit))
                             add(NavItemConfig("duas", BuildConfig.TERM_DAILY_DEVOTION, Icons.Default.Favorite))
                             add(NavItemConfig("settings", "Profile", Icons.Default.Person))
@@ -143,6 +147,7 @@ fun App() {
                                         is DashboardScreenNode -> "dashboard"
                                         is QiblaCompassScreenNode -> "qibla"
                                         is ScriptureIndexScreenNode -> "reader"
+                                        is com.sanctum.app.navigation.FastingTrackerScreenNode -> "fasting"
                                         is JournalScreenNode -> "journal"
                                         is DuasCatalogScreenNode -> "duas"
                                         is SettingsScreenNode -> "settings"
@@ -153,6 +158,7 @@ fun App() {
                                             "dashboard" -> DashboardScreenNode()
                                             "qibla" -> QiblaCompassScreenNode()
                                             "reader" -> ScriptureIndexScreenNode()
+                                            "fasting" -> com.sanctum.app.navigation.FastingTrackerScreenNode()
                                             "journal" -> JournalScreenNode()
                                             "duas" -> DuasCatalogScreenNode()
                                             "settings" -> SettingsScreenNode()
