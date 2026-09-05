@@ -2,9 +2,11 @@ package com.sanctum.core.feature.prayer.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sanctum.core.feature.prayer.domain.AsrJuristicMethod
 import com.sanctum.core.feature.prayer.domain.AudioPlayer
 import com.sanctum.core.feature.prayer.domain.MuezzinVoice
 import com.sanctum.core.feature.prayer.domain.NotificationAlertType
+import com.sanctum.core.feature.prayer.domain.PrayerCalculationSettingsRepository
 import com.sanctum.core.feature.prayer.domain.PrayerNotificationSetting
 import com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,11 +18,14 @@ import kotlinx.coroutines.launch
 data class PrayerNotificationUiState(
     val prayerSettings: List<PrayerNotificationSetting> = emptyList(),
     val playingVoice: MuezzinVoice? = null,
+    val asrJuristicMethod: AsrJuristicMethod = AsrJuristicMethod.STANDARD_SHAFII,
+    val showAsrCalculationSetting: Boolean = false,
 )
 
 class PrayerNotificationViewModel(
     private val settingsRepository: PrayerNotificationSettingsRepository,
     private val audioPlayer: AudioPlayer,
+    private val calculationSettingsRepository: PrayerCalculationSettingsRepository,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(PrayerNotificationUiState())
@@ -33,7 +38,23 @@ class PrayerNotificationViewModel(
             val settings = prayers.map { prayerName ->
                 settingsRepository.getSetting(prayerName)
             }
-            _uiState.update { it.copy(prayerSettings = settings) }
+            val asrMethod = calculationSettingsRepository.getAsrJuristicMethod()
+            val hasAsr = prayers.any { it.equals("Asr", ignoreCase = true) }
+
+            _uiState.update {
+                it.copy(
+                    prayerSettings = settings,
+                    asrJuristicMethod = asrMethod,
+                    showAsrCalculationSetting = hasAsr,
+                )
+            }
+        }
+    }
+
+    fun updateAsrJuristicMethod(method: AsrJuristicMethod) {
+        viewModelScope.launch {
+            calculationSettingsRepository.saveAsrJuristicMethod(method)
+            _uiState.update { it.copy(asrJuristicMethod = method) }
         }
     }
 
