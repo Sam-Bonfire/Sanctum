@@ -27,6 +27,8 @@ data class WhiteLabelConfig(
     val headerIcon: @Composable () -> Unit,
     val compassTitle: String,
     val hasTransliteration: Boolean = true,
+    val charityTrackerTitle: String = "Charitable Giving",
+    val hasCharityTracker: Boolean = true,
 )
 
 /**
