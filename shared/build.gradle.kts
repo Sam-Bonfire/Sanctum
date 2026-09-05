@@ -52,6 +52,7 @@ kotlin {
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
             implementation(libs.koin.core)
+            implementation(libs.koin.compose)
             api(libs.lifecycle.viewmodel)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
