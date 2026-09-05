@@ -15,15 +15,15 @@ object VerseMasker {
 
     private fun isPunctuationOrSpace(char: Char): Boolean {
         return char.isWhitespace() || char.category == CharCategory.DASH_PUNCTUATION ||
-               char.category == CharCategory.START_PUNCTUATION || char.category == CharCategory.END_PUNCTUATION ||
-               char.category == CharCategory.CONNECTOR_PUNCTUATION || char.category == CharCategory.OTHER_PUNCTUATION ||
-               char.category == CharCategory.INITIAL_QUOTE_PUNCTUATION || char.category == CharCategory.FINAL_QUOTE_PUNCTUATION
+            char.category == CharCategory.START_PUNCTUATION || char.category == CharCategory.END_PUNCTUATION ||
+            char.category == CharCategory.CONNECTOR_PUNCTUATION || char.category == CharCategory.OTHER_PUNCTUATION ||
+            char.category == CharCategory.INITIAL_QUOTE_PUNCTUATION || char.category == CharCategory.FINAL_QUOTE_PUNCTUATION
     }
 
     private fun isWordCharacter(char: Char): Boolean {
         return char.isLetterOrDigit() || char.category == CharCategory.NON_SPACING_MARK ||
-               char.category == CharCategory.COMBINING_SPACING_MARK || char.category == CharCategory.ENCLOSING_MARK ||
-               char.category == CharCategory.MODIFIER_LETTER || char.category == CharCategory.MODIFIER_SYMBOL
+            char.category == CharCategory.COMBINING_SPACING_MARK || char.category == CharCategory.ENCLOSING_MARK ||
+            char.category == CharCategory.MODIFIER_LETTER || char.category == CharCategory.MODIFIER_SYMBOL
     }
 
     /**
@@ -116,10 +116,10 @@ object VerseMasker {
                 // If it is a base letter, mark it kept if we haven't already.
                 // If it is a modifier/mark, keep it if we are keeping the current letter.
                 val isMark = char.category == CharCategory.NON_SPACING_MARK ||
-                             char.category == CharCategory.COMBINING_SPACING_MARK ||
-                             char.category == CharCategory.ENCLOSING_MARK ||
-                             char.category == CharCategory.MODIFIER_LETTER ||
-                             char.category == CharCategory.MODIFIER_SYMBOL
+                    char.category == CharCategory.COMBINING_SPACING_MARK ||
+                    char.category == CharCategory.ENCLOSING_MARK ||
+                    char.category == CharCategory.MODIFIER_LETTER ||
+                    char.category == CharCategory.MODIFIER_SYMBOL
 
                 if (!hasKeptFirstBaseLetter) {
                     builder.append(char)
