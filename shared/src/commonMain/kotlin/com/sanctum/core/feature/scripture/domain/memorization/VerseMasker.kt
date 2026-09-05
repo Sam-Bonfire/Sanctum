@@ -10,8 +10,21 @@ object VerseMasker {
 
     // Regular expression to identify if a character is considered a word character or letter.
     // It matches anything that is not punctuation, whitespace or common symbols.
-    private val punctuationRegex = Regex("""[\p{Punct}\s]+""")
-    private val wordCharRegex = Regex("""[\p{L}\p{M}\p{N}]""")
+    // We use a simpler regex that works across platforms (especially JS/WASM which has varying support for unicode properties in regex).
+    // \w usually covers a-zA-Z0-9_, so we just check for basic letters/numbers for simple cases and rely on character categorization for complex ones.
+
+    private fun isPunctuationOrSpace(char: Char): Boolean {
+        return char.isWhitespace() || char.category == CharCategory.DASH_PUNCTUATION ||
+               char.category == CharCategory.START_PUNCTUATION || char.category == CharCategory.END_PUNCTUATION ||
+               char.category == CharCategory.CONNECTOR_PUNCTUATION || char.category == CharCategory.OTHER_PUNCTUATION ||
+               char.category == CharCategory.INITIAL_QUOTE_PUNCTUATION || char.category == CharCategory.FINAL_QUOTE_PUNCTUATION
+    }
+
+    private fun isWordCharacter(char: Char): Boolean {
+        return char.isLetterOrDigit() || char.category == CharCategory.NON_SPACING_MARK ||
+               char.category == CharCategory.COMBINING_SPACING_MARK || char.category == CharCategory.ENCLOSING_MARK ||
+               char.category == CharCategory.MODIFIER_LETTER || char.category == CharCategory.MODIFIER_SYMBOL
+    }
 
     /**
      * Splits a text into alternating words and punctuation/whitespace blocks.
@@ -23,7 +36,7 @@ object VerseMasker {
         var inPunctuation = false
 
         for (char in text) {
-            val isPunct = char.toString().matches(punctuationRegex)
+            val isPunct = isPunctuationOrSpace(char)
             if (currentToken.isEmpty()) {
                 inPunctuation = isPunct
                 currentToken.append(char)
@@ -59,7 +72,7 @@ object VerseMasker {
         var wordIndex = 0
 
         for (token in tokens) {
-            if (token.matches(punctuationRegex)) {
+            if (token.isNotEmpty() && isPunctuationOrSpace(token[0])) {
                 result.add(MaskedWord(token, token, isPunctuation = true))
                 continue
             }
@@ -95,29 +108,32 @@ object VerseMasker {
         var firstCharIndex = -1
         var lengthToKeep = 0
 
-        for (i in word.indices) {
-            if (word[i].toString().matches(wordCharRegex)) {
-                if (firstCharIndex == -1) {
-                    firstCharIndex = i
-                    lengthToKeep = 1
-                } else if (word[i].isLetterOrDigit().not() && word[i].category != CharCategory.MODIFIER_LETTER && word[i].category != CharCategory.NON_SPACING_MARK) {
-                    // Stop if we hit something that is not a mark/modifier of the first character
-                    // Note: Simplification for this exercise. Real grapheme cluster handling can be complex.
-                }
-            }
-        }
-
-        // Just simplistic approach: take the first char if it exists
         val builder = StringBuilder()
-        var hasKeptFirst = false
+        var hasKeptFirstBaseLetter = false
 
         for (char in word) {
-            if (char.toString().matches(wordCharRegex)) {
-                if (!hasKeptFirst) {
+            if (isWordCharacter(char)) {
+                // If it is a base letter, mark it kept if we haven't already.
+                // If it is a modifier/mark, keep it if we are keeping the current letter.
+                val isMark = char.category == CharCategory.NON_SPACING_MARK ||
+                             char.category == CharCategory.COMBINING_SPACING_MARK ||
+                             char.category == CharCategory.ENCLOSING_MARK ||
+                             char.category == CharCategory.MODIFIER_LETTER ||
+                             char.category == CharCategory.MODIFIER_SYMBOL
+
+                if (!hasKeptFirstBaseLetter) {
                     builder.append(char)
-                    hasKeptFirst = true
+                    if (!isMark) {
+                        hasKeptFirstBaseLetter = true
+                    }
                 } else {
-                    builder.append("_")
+                    if (isMark) {
+                        // It's a mark for the first base letter, keep it
+                        builder.append(char)
+                    } else {
+                        // This is a new base letter or number, mask it
+                        builder.append("_")
+                    }
                 }
             } else {
                 // Keep punctuation inside the word intact (like apostrophes)
@@ -134,7 +150,7 @@ object VerseMasker {
     private fun maskLevel3(word: String): String {
         val builder = StringBuilder()
         for (char in word) {
-            if (char.toString().matches(wordCharRegex)) {
+            if (isWordCharacter(char)) {
                 builder.append("_")
             } else {
                 builder.append(char)
