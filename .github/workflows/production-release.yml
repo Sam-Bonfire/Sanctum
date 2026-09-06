@@ -35,6 +35,19 @@ jobs:
       - name: Setup Toolchain via Mise
         uses: jdx/mise-action@v4
 
+      - name: Setup Gradle (enhanced cache)
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/dev' }}
+
+      - name: Cache Kotlin/Native (konan)
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            konan-${{ runner.os }}-
+
       - name: Build Android Release Bundle & Installable APK (${{ matrix.flavor }})
         run: |
           mise run bundle:${{ matrix.flavor }}:android
@@ -70,6 +83,19 @@ jobs:
       - name: Setup Toolchain via Mise
         uses: jdx/mise-action@v4
 
+      - name: Setup Gradle (enhanced cache)
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/dev' }}
+
+      - name: Cache Kotlin/Native (konan)
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            konan-${{ runner.os }}-
+
       - name: Build iOS Release Framework (${{ matrix.flavor }})
         run: mise run build:${{ matrix.flavor }}:ios
 
@@ -104,6 +130,19 @@ jobs:
 
       - name: Setup Toolchain via Mise
         uses: jdx/mise-action@v4
+
+      - name: Setup Gradle (enhanced cache)
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/dev' }}
+
+      - name: Cache Kotlin/Native (konan)
+        uses: actions/cache@v4
+        with:
+          path: ~/.konan
+          key: konan-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            konan-${{ runner.os }}-
 
       - name: Build WASM Production Web Distribution (${{ matrix.flavor }})
         run: mise run build:${{ matrix.flavor }}:wasm

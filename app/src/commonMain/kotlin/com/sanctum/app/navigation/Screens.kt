@@ -25,6 +25,7 @@ import com.sanctum.core.feature.scripture.presentation.ScriptureReaderScreen
 import com.sanctum.core.feature.scripture.presentation.ScriptureViewModel
 import com.sanctum.core.feature.sync.presentation.SettingsScreen
 import com.sanctum.core.feature.sync.presentation.SyncViewModel
+import com.sanctum.core.feature.zakat.presentation.ZakatCalculatorScreen
 import org.koin.compose.koinInject
 
 class CharityTrackerScreenNode : Screen {
@@ -40,6 +41,13 @@ class CharityTrackerScreenNode : Screen {
             onSetGoal = { goal -> viewModel.setGoal(goal) },
             onDeleteRecord = { id -> viewModel.deleteRecord(id) },
         )
+    }
+}
+
+class ZakatCalculatorScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        ZakatCalculatorScreen().Content()
     }
 }
 
@@ -83,6 +91,13 @@ class JournalScreenNode : Screen {
                 navigator.push(JournalDetailScreenNode(null, null, null))
             },
         )
+    }
+}
+
+class FastingTrackerScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        com.sanctum.core.feature.fasting.presentation.FastingTrackerScreen()
     }
 }
 
