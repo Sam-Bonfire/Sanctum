@@ -29,6 +29,7 @@ data class WhiteLabelConfig(
     val hasTransliteration: Boolean = true,
     val dailyDevotionalTitle: String = "Daily Supplication",
     val hasDailyDevotionalNotification: Boolean = true,
+    val hasZakatCalculator: Boolean = false,
 )
 
 /**
