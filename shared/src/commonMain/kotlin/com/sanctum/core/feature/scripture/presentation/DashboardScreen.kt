@@ -31,6 +31,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -394,6 +397,26 @@ fun DashboardScreen(
             }
 
             Spacer(modifier = Modifier.height(48.dp))
+
+            // ─── Fasting Countdown ───────────────────────────────
+            if (config.hasFastingTracker) {
+                val liveTime = remember { mutableStateOf(kotlinx.datetime.Clock.System.now().toEpochMilliseconds()) }
+
+                LaunchedEffect(Unit) {
+                    while (true) {
+                        // Calculate delay until the next full minute starts
+                        val now = kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
+                        val delayMillis = 60_000L - (now % 60_000L)
+                        kotlinx.coroutines.delay(delayMillis)
+                        liveTime.value = kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
+                    }
+                }
+
+                // Determine fasting state from current prayers using FastingCountdownEngine
+                val engine = remember { com.sanctum.core.feature.fasting.domain.FastingCountdownEngine() }
+                val fastingState = engine.calculateFastingState(liveTime.value, uiState.prayers)
+                com.sanctum.core.feature.fasting.presentation.SuhoorIftarTimerCard(fastingState = fastingState)
+            }
 
             // ─── Daily Schedule ──────────────────────────────────
             DailyScheduleRow(prayers = uiState.prayers, hazeState = hazeState)

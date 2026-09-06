@@ -29,6 +29,7 @@ val generateBuildConfig by tasks.registering {
         val hasCompass = features["hasCompass"] ?: false
         val hasTransliteration = features["hasTransliteration"] ?: true
         val hasTajweedRules = features["hasTajweedRules"] ?: false
+        val hasFastingTracker = features["hasFastingTracker"] ?: false
 
         val file = file("${outputDir.get().asFile}/com/sanctum/app/BuildConfig.kt")
         file.parentFile.mkdirs()
@@ -64,6 +65,7 @@ val generateBuildConfig by tasks.registering {
                 const val HAS_COMPASS = $hasCompass
                 const val HAS_TRANSLITERATION = $hasTransliteration
                 const val HAS_TAJWEED_RULES = $hasTajweedRules
+                const val HAS_FASTING_TRACKER = $hasFastingTracker
             }
             """.trimIndent(),
         )

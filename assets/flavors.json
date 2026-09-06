@@ -44,7 +44,8 @@
     },
     "features": {
       "hasTransliteration": true,
-      "hasCompass": true
+      "hasCompass": true,
+      "hasFastingTracker": true
     }
   },
   {
