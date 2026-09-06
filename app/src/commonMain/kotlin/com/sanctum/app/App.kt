@@ -102,6 +102,7 @@ fun App() {
                         hasTajweedRules = BuildConfig.HAS_TAJWEED_RULES,
                         hasZakatCalculator = BuildConfig.APP_ID == "nur",
                         hasFastingTracker = BuildConfig.HAS_FASTING_TRACKER,
+                        hasDivineNames = BuildConfig.HAS_DIVINE_NAMES,
                         navItems = mutableListOf(
                             NavItemConfig("dashboard", "Home", Icons.Default.Home),
                         ).apply {
@@ -109,11 +110,15 @@ fun App() {
                                 add(NavItemConfig("qibla", BuildConfig.TERM_SCHEDULE_TITLE, Icons.Default.LocationOn))
                             }
                             add(NavItemConfig("reader", BuildConfig.TERM_SCRIPTURE_TITLE, Icons.AutoMirrored.Filled.List))
+                            add(NavItemConfig("plans", "Reading Plans", Icons.AutoMirrored.Filled.List))
                             if (BuildConfig.HAS_FASTING_TRACKER) {
                                 add(NavItemConfig("fasting", "Fasting", Icons.AutoMirrored.Filled.List))
                             }
                             add(NavItemConfig("journal", "Journal", Icons.Default.Edit))
                             add(NavItemConfig("duas", BuildConfig.TERM_DAILY_DEVOTION, Icons.Default.Favorite))
+                            if (BuildConfig.HAS_DIVINE_NAMES) {
+                                add(NavItemConfig("names", "99 Names", Icons.Default.Favorite))
+                            }
                             if (BuildConfig.APP_ID == "nur") {
                                 add(NavItemConfig("charity", "Sadaqah", Icons.Default.Favorite))
                             }
@@ -162,6 +167,8 @@ fun App() {
                                         is com.sanctum.app.navigation.FastingTrackerScreenNode -> "fasting"
                                         is JournalScreenNode -> "journal"
                                         is DuasCatalogScreenNode -> "duas"
+                                        is com.sanctum.app.navigation.ReadingPlanScreenNode -> "plans"
+                                        is com.sanctum.app.navigation.NamesOfAllahScreenNode -> "names"
                                         is com.sanctum.app.navigation.CharityTrackerScreenNode -> "charity"
                                         is com.sanctum.app.navigation.ZakatCalculatorScreenNode -> "zakat"
                                         is SettingsScreenNode -> "settings"
@@ -175,6 +182,8 @@ fun App() {
                                             "fasting" -> com.sanctum.app.navigation.FastingTrackerScreenNode()
                                             "journal" -> JournalScreenNode()
                                             "duas" -> DuasCatalogScreenNode()
+                                            "plans" -> com.sanctum.app.navigation.ReadingPlanScreenNode()
+                                            "names" -> com.sanctum.app.navigation.NamesOfAllahScreenNode()
                                             "charity" -> com.sanctum.app.navigation.CharityTrackerScreenNode()
                                             "zakat" -> com.sanctum.app.navigation.ZakatCalculatorScreenNode()
                                             "settings" -> SettingsScreenNode()
