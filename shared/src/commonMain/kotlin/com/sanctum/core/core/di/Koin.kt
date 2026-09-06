@@ -12,7 +12,7 @@ val presentationModule = module {
     single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get(), get()) }
     single { com.sanctum.core.feature.duas.presentation.DuasCatalogViewModel(get(), get()) }
     single { com.sanctum.core.feature.journal.presentation.JournalViewModel(get()) }
-single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get(), get(), get(), get()) }
+    single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get(), get(), get(), get()) }
     single { com.sanctum.core.feature.scripture.presentation.BookmarkViewModel(get()) }
 }
 
