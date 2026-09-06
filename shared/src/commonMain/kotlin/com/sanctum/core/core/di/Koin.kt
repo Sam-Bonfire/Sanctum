@@ -16,6 +16,8 @@ val presentationModule = module {
     single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get(), get(), get()) }
     single { com.sanctum.core.feature.scripture.presentation.BookmarkViewModel(get()) }
     single { com.sanctum.core.feature.zakat.presentation.ZakatCalculatorViewModel(get(), get()) }
+    single { com.sanctum.core.feature.reading.presentation.ReadingPlanViewModel(get(), get(), get(), get(), get()) }
+    single { com.sanctum.core.feature.names.presentation.NamesOfAllahViewModel(get(), get()) }
 }
 
 val domainModule = module {
@@ -26,6 +28,10 @@ val domainModule = module {
     single { com.sanctum.core.feature.scripture.domain.DailyVerseManager(get()) }
     single { com.sanctum.core.feature.zakat.domain.ZakatCalculator() }
     single { com.sanctum.core.feature.duas.domain.DailyDuaNotificationScheduler(get(), get(), get()) }
+    factory { com.sanctum.core.feature.reading.domain.GetEnrolledPlansUseCase(get()) }
+    factory { com.sanctum.core.feature.reading.domain.GetAvailablePlansUseCase(get()) }
+    factory { com.sanctum.core.feature.reading.domain.GetDailyReadingTargetUseCase(get()) }
+    factory { com.sanctum.core.feature.reading.domain.ToggleCheckpointCompletedUseCase(get()) }
 }
 
 val dataModule = module {
@@ -35,6 +41,8 @@ val dataModule = module {
     single<com.sanctum.core.feature.scripture.domain.ScrollPositionRepository> { com.sanctum.core.feature.scripture.data.SettingsScrollPositionRepository(get()) }
     single { com.sanctum.core.feature.zakat.data.ZakatSettingsRepository(get()) }
     single<com.sanctum.core.feature.scripture.domain.crossreference.CrossReferenceRepository> { com.sanctum.core.feature.scripture.data.crossreference.InMemoryCrossReferenceRepository() }
+    single<com.sanctum.core.feature.reading.domain.ReadingPlanRepository> { com.sanctum.core.feature.reading.data.SettingsReadingPlanRepository(get()) }
+    single { com.sanctum.core.feature.names.data.NamesRepository(get()) }
     single<com.sanctum.core.feature.scripture.data.BookmarkRepository> {
         object : com.sanctum.core.feature.scripture.data.BookmarkRepository {
             override fun getBookmarks(): kotlinx.coroutines.flow.Flow<List<com.sanctum.core.feature.scripture.domain.Bookmark>> = kotlinx.coroutines.flow.flowOf(emptyList())
