@@ -12,7 +12,7 @@ val presentationModule = module {
     single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get(), get()) }
     single { com.sanctum.core.feature.duas.presentation.DuasCatalogViewModel(get(), get()) }
     single { com.sanctum.core.feature.journal.presentation.JournalViewModel(get()) }
-    single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get()) }
+    single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get(), get(), get()) }
     single { com.sanctum.core.feature.scripture.presentation.BookmarkViewModel(get()) }
     single { com.sanctum.core.feature.zakat.presentation.ZakatCalculatorViewModel(get(), get()) }
 }
@@ -23,7 +23,8 @@ val domainModule = module {
     single { com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository(get()) }
     single { com.sanctum.core.feature.prayer.domain.getAudioPlayer() }
     single { com.sanctum.core.feature.scripture.domain.DailyVerseManager(get()) }
-    single { com.sanctum.core.feature.zakat.domain.ZakatCalculator() }
+single { com.sanctum.core.feature.zakat.domain.ZakatCalculator() }
+    single { com.sanctum.core.feature.duas.domain.DailyDuaNotificationScheduler(get(), get(), get()) }
 }
 
 val dataModule = module {
