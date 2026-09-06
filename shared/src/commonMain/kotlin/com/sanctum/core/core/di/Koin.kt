@@ -12,17 +12,17 @@ val presentationModule = module {
     single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get(), get()) }
     single { com.sanctum.core.feature.duas.presentation.DuasCatalogViewModel(get(), get()) }
     single { com.sanctum.core.feature.journal.presentation.JournalViewModel(get()) }
-    single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get(), get()) }
+    single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get(), get(), get()) }
     single { com.sanctum.core.feature.scripture.presentation.BookmarkViewModel(get()) }
 }
 
 val domainModule = module {
     single<com.sanctum.core.feature.scripture.domain.PrayerEngine> { com.sanctum.core.feature.scripture.domain.BaselinePrayerEngine() }
-    factory { com.sanctum.core.feature.scripture.domain.PrayerScheduleUseCase(get(), get()) }
+    factory { com.sanctum.core.feature.scripture.domain.PrayerScheduleUseCase(get()) }
     single { com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository(get()) }
-    single { com.sanctum.core.feature.prayer.domain.PrayerCalculationSettingsRepository(get()) }
     single { com.sanctum.core.feature.prayer.domain.getAudioPlayer() }
     single { com.sanctum.core.feature.scripture.domain.DailyVerseManager(get()) }
+    single { com.sanctum.core.feature.duas.domain.DailyDuaNotificationScheduler(get(), get(), get()) }
 }
 
 val dataModule = module {

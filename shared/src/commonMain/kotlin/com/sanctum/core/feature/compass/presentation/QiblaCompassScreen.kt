@@ -43,7 +43,6 @@ fun QiblaCompassScreen(
     var deviceHeading by remember { mutableStateOf(0f) }
     var location by remember { mutableStateOf<GeoLocation?>(null) }
     var qiblaBearing by remember { mutableStateOf(0.0) }
-    var isArMode by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         // Fetch location
@@ -62,28 +61,6 @@ fun QiblaCompassScreen(
                 deviceHeading = heading
             }
         }
-    }
-
-    if (isArMode) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            ArQiblaView(
-                qiblaBearing = qiblaBearing,
-                deviceHeading = deviceHeading,
-                modifier = Modifier.fillMaxSize(),
-            )
-
-            // Close AR button
-            SanctumPrimaryButton(
-                onClick = { isArMode = false },
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(24.dp)
-                    .padding(top = 24.dp),
-            ) {
-                Text("Close AR")
-            }
-        }
-        return
     }
 
     // Calculate the pointer angle:
@@ -268,27 +245,17 @@ fun QiblaCompassScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                // AR Mode Button
-                SanctumPrimaryButton(
-                    onClick = { isArMode = true },
-                    modifier = Modifier.weight(1f),
-                ) {
-                    Text(text = "AR View")
-                }
-
-                // Manual Location Button
-                SanctumPrimaryButton(
-                    onClick = onManualLocationClick,
-                    modifier = Modifier.weight(1f),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.LocationOn,
-                        contentDescription = "Location",
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Set Location Manually")
-                }
+            // Manual Location Button
+            SanctumPrimaryButton(
+                onClick = onManualLocationClick,
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.LocationOn,
+                    contentDescription = "Location",
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(text = "Set Location Manually")
             }
 
             Spacer(modifier = Modifier.height(SanctumTheme.spacing.bottomNavPadding))

@@ -44,8 +44,6 @@ import com.sanctum.core.feature.scripture.domain.ScriptureChapter
 import com.sanctum.core.feature.scripture.domain.crossreference.CrossReference
 import com.sanctum.core.feature.scripture.domain.dictionary.DictionaryTerm
 import com.sanctum.core.feature.scripture.domain.history.HistoricalContext
-import com.sanctum.core.feature.scripture.domain.memorization.MemorizationDifficulty
-import com.sanctum.core.feature.scripture.domain.memorization.VerseMasker
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
@@ -81,7 +79,6 @@ fun ScriptureReaderScreen(
     val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val coroutineScope = rememberCoroutineScope()
     var bookmarkActionVerseId by remember { mutableStateOf<String?>(null) }
-    var selectedMemorizationDifficulty by remember { mutableStateOf(MemorizationDifficulty.LEVEL_0_READ) }
 
     val config = LocalWhiteLabelConfig.current
 
@@ -197,46 +194,6 @@ fun ScriptureReaderScreen(
                                     maxLines = 3,
                                 )
                             }
-                        }
-                    }
-                }
-            }
-            if (config.hasMemorizationMode) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(SanctumTheme.colors.surface)
-                        .padding(horizontal = 20.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    val difficulties = listOf(
-                        MemorizationDifficulty.LEVEL_0_READ to "Read",
-                        MemorizationDifficulty.LEVEL_1_FIRST_LETTER to "Hint",
-                        MemorizationDifficulty.LEVEL_2_HALF_BLANK to "Test",
-                        MemorizationDifficulty.LEVEL_3_FULL_BLANK to "Blind",
-                    )
-                    difficulties.forEach { (difficulty, label) ->
-                        val isSelected = selectedMemorizationDifficulty == difficulty
-                        Box(
-                            modifier = Modifier
-                                .clickable { selectedMemorizationDifficulty = difficulty }
-                                .background(
-                                    color = if (isSelected) SanctumTheme.colors.brand else SanctumTheme.colors.background,
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                                .border(
-                                    width = 1.dp,
-                                    color = if (isSelected) SanctumTheme.colors.brand else SanctumTheme.colors.outlineVariant,
-                                    shape = RoundedCornerShape(16.dp),
-                                )
-                                .padding(horizontal = 12.dp, vertical = 6.dp),
-                        ) {
-                            Text(
-                                text = label,
-                                fontSize = 12.sp,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
-                                color = if (isSelected) SanctumTheme.colors.surface else SanctumTheme.colors.textPrimary,
-                            )
                         }
                     }
                 }
@@ -508,44 +465,13 @@ fun ScriptureReaderScreen(
                                         Spacer(modifier = Modifier.height(8.dp))
                                     }
 
-                                    if (selectedMemorizationDifficulty == MemorizationDifficulty.LEVEL_0_READ) {
-                                        Text(
-                                            text = verse.translation,
-                                            fontSize = (18 * fontSizeMultiplier).sp,
-                                            color = SanctumTheme.colors.textPrimary,
-                                            lineHeight = (28 * fontSizeMultiplier).sp,
-                                            fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
-                                        )
-                                    } else {
-                                        val maskedWords = remember(verse.translation, selectedMemorizationDifficulty) {
-                                            VerseMasker.maskVerse(verse.translation, selectedMemorizationDifficulty)
-                                        }
-                                        val revealedWords = remember(verse.id, selectedMemorizationDifficulty) { mutableStateMapOf<Int, Boolean>() }
-
-                                        // Use FlowRow or wrap logic using layout. But standard Compose doesn't have FlowRow by default without Accompanist
-                                        // or modern Compose flow layout. We can use ExperimentalLayoutApi FlowRow.
-                                        @OptIn(ExperimentalLayoutApi::class)
-                                        FlowRow(
-                                            modifier = Modifier.fillMaxWidth(),
-                                        ) {
-                                            maskedWords.forEachIndexed { index, word ->
-                                                val isRevealed = revealedWords[index] ?: false
-                                                val textToDisplay = if (isRevealed || word.isPunctuation) word.originalWord else word.maskedWord
-                                                Text(
-                                                    text = textToDisplay,
-                                                    fontSize = (18 * fontSizeMultiplier).sp,
-                                                    color = if (!isRevealed && !word.isPunctuation) SanctumTheme.colors.brand else SanctumTheme.colors.textPrimary,
-                                                    lineHeight = (28 * fontSizeMultiplier).sp,
-                                                    fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
-                                                    modifier = Modifier.clickable {
-                                                        if (!word.isPunctuation) {
-                                                            revealedWords[index] = !isRevealed
-                                                        }
-                                                    },
-                                                )
-                                            }
-                                        }
-                                    }
+                                    Text(
+                                        text = verse.translation,
+                                        fontSize = (18 * fontSizeMultiplier).sp,
+                                        color = SanctumTheme.colors.textPrimary,
+                                        lineHeight = (28 * fontSizeMultiplier).sp,
+                                        fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                                    )
 
                                     if (showTransliteration && verse.transliteration != null) {
                                         Spacer(modifier = Modifier.height(6.dp))

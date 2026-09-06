@@ -1,6 +1,5 @@
 package com.sanctum.core.feature.scripture.domain
 
-import com.sanctum.core.feature.prayer.domain.PrayerCalculationSettingsRepository
 import com.sanctum.core.feature.scripture.presentation.PrayerTime
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
@@ -11,7 +10,6 @@ import kotlin.time.Duration
 
 class PrayerScheduleUseCase(
     private val prayerEngine: PrayerEngine,
-    private val calculationSettings: PrayerCalculationSettingsRepository? = null,
 ) {
     fun calculateSchedule(
         latitude: Double,
@@ -19,12 +17,7 @@ class PrayerScheduleUseCase(
         dateInMillis: Long = 0L,
         religionId: String = "islamic",
     ): List<PrayerTime> {
-        val asrMethod = if (religionId == "islam") {
-            calculationSettings?.getAsrJuristicMethod()
-        } else {
-            null
-        }
-        return prayerEngine.calculateDailySchedule(latitude, longitude, dateInMillis, religionId, asrMethod)
+        return prayerEngine.calculateDailySchedule(latitude, longitude, dateInMillis, religionId)
     }
 
     fun parsePrayerTimeToMillis(prayer: PrayerTime): Long? {
