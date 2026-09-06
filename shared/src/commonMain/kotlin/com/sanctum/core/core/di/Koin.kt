@@ -7,6 +7,7 @@ import org.koin.dsl.module
 expect val platformModule: Module
 
 val presentationModule = module {
+    single { com.sanctum.core.feature.charity.presentation.CharityTrackerViewModel(get()) }
     single { com.sanctum.core.feature.scripture.presentation.ScriptureViewModel(get(), get(), get(), get()) }
     single { com.sanctum.core.feature.sync.presentation.SyncViewModel(get()) }
     single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get(), get()) }
@@ -28,6 +29,7 @@ val domainModule = module {
 }
 
 val dataModule = module {
+    single<com.sanctum.core.feature.charity.domain.CharityRepository> { com.sanctum.core.feature.charity.data.SettingsCharityRepository(get()) }
     single { com.sanctum.core.core.notifications.getPlatformNotificationManager() }
     single { com.sanctum.core.feature.compass.data.GeocodingRepository() }
     single<com.sanctum.core.feature.scripture.domain.ScrollPositionRepository> { com.sanctum.core.feature.scripture.data.SettingsScrollPositionRepository(get()) }
