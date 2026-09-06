@@ -27,6 +27,10 @@ data class WhiteLabelConfig(
     val headerIcon: @Composable () -> Unit,
     val compassTitle: String,
     val hasTransliteration: Boolean = true,
+    val dailyDevotionalTitle: String = "Daily Supplication",
+    val hasDailyDevotionalNotification: Boolean = true,
+    val hasZakatCalculator: Boolean = false,
+    val hasTajweedRules: Boolean = false,
     val hasFastingTracker: Boolean = false,
 )
 

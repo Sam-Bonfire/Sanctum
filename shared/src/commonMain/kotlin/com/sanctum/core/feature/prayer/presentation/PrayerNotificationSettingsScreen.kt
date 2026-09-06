@@ -10,6 +10,8 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
+import androidx.compose.material.Switch
+import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -26,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.sanctum.core.core.design.LocalWhiteLabelConfig
 import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.prayer.domain.MuezzinVoice
@@ -37,6 +40,7 @@ fun PrayerNotificationSettingsScreen(
     prayers: List<String>? = null,
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val config = LocalWhiteLabelConfig.current
 
     LaunchedEffect(prayers) {
         if (prayers != null) {
@@ -44,6 +48,7 @@ fun PrayerNotificationSettingsScreen(
         } else {
             viewModel.loadSettings()
         }
+        viewModel.setConfigTitle(config.dailyDevotionalTitle)
     }
 
     Box(
@@ -73,6 +78,20 @@ fun PrayerNotificationSettingsScreen(
                 )
             }
 
+            if (config.hasDailyDevotionalNotification) {
+                item {
+                    DailyDevotionalCard(
+                        title = config.dailyDevotionalTitle,
+                        enabled = uiState.dailyDuaEnabled,
+                        hour = uiState.dailyDuaHour,
+                        minute = uiState.dailyDuaMinute,
+                        onEnabledChange = { viewModel.updateDailyDuaEnabled(it) },
+                        onTimeChange = { h, m -> viewModel.updateDailyDuaTime(h, m) },
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+            }
+
             items(uiState.prayerSettings) { setting ->
                 PrayerSettingCard(
                     prayerName = setting.prayerName,
@@ -84,6 +103,65 @@ fun PrayerNotificationSettingsScreen(
                     onTogglePreview = { viewModel.toggleAudioPreview(it) },
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+            }
+        }
+    }
+}
+
+@Composable
+fun DailyDevotionalCard(
+    title: String,
+    enabled: Boolean,
+    hour: Int,
+    minute: Int,
+    onEnabledChange: (Boolean) -> Unit,
+    onTimeChange: (Int, Int) -> Unit,
+) {
+    SanctumCard(
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(16.dp),
+    ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = title,
+                        style = SanctumTheme.typography.titleMedium,
+                        color = SanctumTheme.colors.textPrimary,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Text(
+                        text = "Daily reminder",
+                        style = SanctumTheme.typography.bodySmall,
+                        color = SanctumTheme.colors.textSecondary,
+                    )
+                }
+                Switch(
+                    checked = enabled,
+                    onCheckedChange = onEnabledChange,
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = SanctumTheme.colors.brand,
+                        checkedTrackColor = SanctumTheme.colors.brand.copy(alpha = 0.5f),
+                        uncheckedThumbColor = SanctumTheme.colors.textSecondary,
+                        uncheckedTrackColor = SanctumTheme.colors.textSecondary.copy(alpha = 0.5f),
+                    ),
+                )
+            }
+            if (enabled) {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Reminder Time: ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}",
+                    style = SanctumTheme.typography.bodyMedium,
+                    color = SanctumTheme.colors.brand,
+                    modifier = Modifier.clickable {
+                        // For simplicity, switch between 08:00 and 18:00
+                        if (hour == 8) onTimeChange(18, 0) else onTimeChange(8, 0)
+                    },
+                )
             }
         }
     }
