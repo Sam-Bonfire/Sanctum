@@ -98,6 +98,7 @@ fun App() {
                         compassTitle = BuildConfig.TERM_SCHEDULE_TITLE.uppercase(),
                         hasTransliteration = BuildConfig.HAS_TRANSLITERATION,
                         hasTajweedRules = BuildConfig.HAS_TAJWEED_RULES,
+                        hasZakatCalculator = BuildConfig.APP_ID == "nur",
                         navItems = mutableListOf(
                             NavItemConfig("dashboard", "Home", Icons.Default.Home),
                         ).apply {
@@ -107,6 +108,11 @@ fun App() {
                             add(NavItemConfig("reader", BuildConfig.TERM_SCRIPTURE_TITLE, Icons.AutoMirrored.Filled.List))
                             add(NavItemConfig("journal", "Journal", Icons.Default.Edit))
                             add(NavItemConfig("duas", BuildConfig.TERM_DAILY_DEVOTION, Icons.Default.Favorite))
+
+                            if (BuildConfig.APP_ID == "nur") {
+                                add(NavItemConfig("zakat", "Zakat", Icons.Default.Favorite))
+                            }
+
                             add(NavItemConfig("settings", "Profile", Icons.Default.Person))
                         },
                         headerIcon = {
@@ -146,6 +152,7 @@ fun App() {
                                         is ScriptureIndexScreenNode -> "reader"
                                         is JournalScreenNode -> "journal"
                                         is DuasCatalogScreenNode -> "duas"
+                                        is com.sanctum.app.navigation.ZakatCalculatorScreenNode -> "zakat"
                                         is SettingsScreenNode -> "settings"
                                         else -> "dashboard"
                                     },
@@ -156,6 +163,7 @@ fun App() {
                                             "reader" -> ScriptureIndexScreenNode()
                                             "journal" -> JournalScreenNode()
                                             "duas" -> DuasCatalogScreenNode()
+                                            "zakat" -> com.sanctum.app.navigation.ZakatCalculatorScreenNode()
                                             "settings" -> SettingsScreenNode()
                                             else -> DashboardScreenNode()
                                         }

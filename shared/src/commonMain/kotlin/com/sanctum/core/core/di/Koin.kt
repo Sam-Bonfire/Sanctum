@@ -12,8 +12,9 @@ val presentationModule = module {
     single { com.sanctum.core.feature.scripture.presentation.DashboardViewModel(get(), get(), get(), get(), get(), get()) }
     single { com.sanctum.core.feature.duas.presentation.DuasCatalogViewModel(get(), get()) }
     single { com.sanctum.core.feature.journal.presentation.JournalViewModel(get()) }
-    single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get()) }
+    single { com.sanctum.core.feature.prayer.presentation.PrayerNotificationViewModel(get(), get(), get(), get()) }
     single { com.sanctum.core.feature.scripture.presentation.BookmarkViewModel(get()) }
+    single { com.sanctum.core.feature.zakat.presentation.ZakatCalculatorViewModel(get(), get()) }
 }
 
 val domainModule = module {
@@ -22,12 +23,15 @@ val domainModule = module {
     single { com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository(get()) }
     single { com.sanctum.core.feature.prayer.domain.getAudioPlayer() }
     single { com.sanctum.core.feature.scripture.domain.DailyVerseManager(get()) }
+    single { com.sanctum.core.feature.zakat.domain.ZakatCalculator() }
+    single { com.sanctum.core.feature.duas.domain.DailyDuaNotificationScheduler(get(), get(), get()) }
 }
 
 val dataModule = module {
     single { com.sanctum.core.core.notifications.getPlatformNotificationManager() }
     single { com.sanctum.core.feature.compass.data.GeocodingRepository() }
     single<com.sanctum.core.feature.scripture.domain.ScrollPositionRepository> { com.sanctum.core.feature.scripture.data.SettingsScrollPositionRepository(get()) }
+    single { com.sanctum.core.feature.zakat.data.ZakatSettingsRepository(get()) }
     single<com.sanctum.core.feature.scripture.domain.crossreference.CrossReferenceRepository> { com.sanctum.core.feature.scripture.data.crossreference.InMemoryCrossReferenceRepository() }
     single<com.sanctum.core.feature.scripture.data.BookmarkRepository> {
         object : com.sanctum.core.feature.scripture.data.BookmarkRepository {

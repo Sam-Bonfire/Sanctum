@@ -25,7 +25,15 @@ import com.sanctum.core.feature.scripture.presentation.ScriptureReaderScreen
 import com.sanctum.core.feature.scripture.presentation.ScriptureViewModel
 import com.sanctum.core.feature.sync.presentation.SettingsScreen
 import com.sanctum.core.feature.sync.presentation.SyncViewModel
+import com.sanctum.core.feature.zakat.presentation.ZakatCalculatorScreen
 import org.koin.compose.koinInject
+
+class ZakatCalculatorScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        ZakatCalculatorScreen().Content()
+    }
+}
 
 class DashboardScreenNode : Screen {
     @Composable
