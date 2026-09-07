@@ -51,16 +51,6 @@ class GetAvailablePlansUseCase(private val repository: ReadingPlanRepository) {
 class ToggleCheckpointCompletedUseCase(private val repository: ReadingPlanRepository) {
     operator fun invoke(planId: String, checkpointKey: String, completed: Boolean) {
         repository.setCheckpointCompleted(planId, checkpointKey, completed)
-        val progress = repository.getProgress(planId)
-        val plan = repository.getAvailablePlans().find { it.id == planId }
-        if (plan != null) {
-            val todayIndex = ReadingPlanState(plan, progress, true, 0, 0f).currentDayIndex()
-            val todayKeys = (0 until plan.checkpointsPerDay).map { "${planId}_day${todayIndex}_cp$it" }
-            val allCompleted = todayKeys.all { repository.isCheckpointCompleted(planId, it) }
-            val days = progress.completedDays.toMutableSet()
-            if (allCompleted) days.add(todayIndex) else days.remove(todayIndex)
-            repository.setCheckpointCompleted(planId, checkpointKey, completed)
-        }
     }
 }
 

@@ -35,7 +35,10 @@ class NamesRepositoryTest {
         assertEquals(99, repository.searchNames("").size)
         val results = repository.searchNames("merc")
         assertTrue(results.isNotEmpty())
-        assertTrue(results.any { it.transliteration.lowercase().contains("merc") })
+        assertTrue(results.any { it.meaning.contains("merc", ignoreCase = true) })
+        // "rahman" matches the first Name's transliteration
+        val translitResults = repository.searchNames("rahman")
+        assertTrue(translitResults.any { it.transliteration.equals("Ar-Rahman", ignoreCase = true) })
     }
 
     @Test

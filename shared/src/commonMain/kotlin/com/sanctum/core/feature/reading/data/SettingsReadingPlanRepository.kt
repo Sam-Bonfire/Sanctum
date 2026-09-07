@@ -71,18 +71,10 @@ class SettingsReadingPlanRepository(
         current.remove(planId)
         settings.putString(KEY_ENROLLED, current.joinToString(","))
         settings.remove(keyEnrolledAt(planId))
-        settings.remove(keyCompletedDays(planId))
         settings.remove(keyCompletedCheckpoints(planId))
     }
 
     override fun getProgress(planId: String): ReadingProgress {
-        val completedDaysStr = settings.getString(keyCompletedDays(planId), "")
-        val completedDays = if (completedDaysStr.isEmpty()) {
-            emptySet()
-        } else {
-            completedDaysStr.split(",").mapNotNull { it.toIntOrNull() }.toSet()
-        }
-
         val completedCheckpointsStr = settings.getString(keyCompletedCheckpoints(planId), "")
         val completedCheckpoints = if (completedCheckpointsStr.isEmpty()) {
             emptySet()
@@ -90,9 +82,17 @@ class SettingsReadingPlanRepository(
             completedCheckpointsStr.split(",").toSet()
         }
 
-        val enrolledAt = settings.getLong(keyEnrolledAt(planId), 0L)
+        val plan = availablePlans.find { it.id == planId }
+        if (plan == null) {
+            return ReadingProgress(planId, emptySet(), completedCheckpoints, settings.getLong(keyEnrolledAt(planId), 0L))
+        }
+        val completedDays = (0 until plan.dayCount).filter { dayIndex ->
+            (0 until plan.checkpointsPerDay).all { cpIdx ->
+                "${planId}_day${dayIndex}_cp$cpIdx" in completedCheckpoints
+            }
+        }.toSet()
 
-        return ReadingProgress(planId, completedDays, completedCheckpoints, enrolledAt)
+        return ReadingProgress(planId, completedDays, completedCheckpoints, settings.getLong(keyEnrolledAt(planId), 0L))
     }
 
     override fun isCheckpointCompleted(planId: String, checkpointKey: String): Boolean {
@@ -110,7 +110,6 @@ class SettingsReadingPlanRepository(
     private fun currentTimeMillis(): Long = kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
 
     private fun keyEnrolledAt(planId: String): String = "reading_enrolled_at_$planId"
-    private fun keyCompletedDays(planId: String): String = "reading_completed_days_$planId"
     private fun keyCompletedCheckpoints(planId: String): String = "reading_completed_checkpoints_$planId"
 
     companion object {
