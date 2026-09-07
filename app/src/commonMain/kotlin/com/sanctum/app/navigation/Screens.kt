@@ -18,6 +18,10 @@ import com.sanctum.core.feature.duas.presentation.DuasCatalogScreen
 import com.sanctum.core.feature.journal.presentation.JournalDetailScreen
 import com.sanctum.core.feature.journal.presentation.JournalScreen
 import com.sanctum.core.feature.journal.presentation.JournalViewModel
+import com.sanctum.core.feature.names.presentation.NamesOfAllahScreen
+import com.sanctum.core.feature.names.presentation.NamesOfAllahViewModel
+import com.sanctum.core.feature.reading.presentation.ReadingPlanScreen
+import com.sanctum.core.feature.reading.presentation.ReadingPlanViewModel
 import com.sanctum.core.feature.scripture.presentation.DashboardScreen
 import com.sanctum.core.feature.scripture.presentation.DashboardViewModel
 import com.sanctum.core.feature.scripture.presentation.ScriptureIndexScreen
@@ -98,6 +102,22 @@ class FastingTrackerScreenNode : Screen {
     @Composable
     override fun Content() {
         com.sanctum.core.feature.fasting.presentation.FastingTrackerScreen()
+    }
+}
+
+class ReadingPlanScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = koinInject<ReadingPlanViewModel>()
+        ReadingPlanScreen(viewModel)
+    }
+}
+
+class NamesOfAllahScreenNode : Screen {
+    @Composable
+    override fun Content() {
+        val viewModel = koinInject<NamesOfAllahViewModel>()
+        NamesOfAllahScreen(viewModel)
     }
 }
 

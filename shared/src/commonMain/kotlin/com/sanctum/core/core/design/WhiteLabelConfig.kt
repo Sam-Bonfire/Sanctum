@@ -34,6 +34,7 @@ data class WhiteLabelConfig(
     val hasZakatCalculator: Boolean = false,
     val hasTajweedRules: Boolean = false,
     val hasFastingTracker: Boolean = false,
+    val hasDivineNames: Boolean = false,
 )
 
 /**
