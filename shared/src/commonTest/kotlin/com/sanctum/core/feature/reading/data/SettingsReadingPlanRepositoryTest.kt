@@ -16,9 +16,18 @@ class SettingsReadingPlanRepositoryTest {
     @Test
     fun testGetAvailablePlans() {
         val plans = repository.getAvailablePlans()
-        assertEquals(4, plans.size)
+        assertEquals(5, plans.size)
         assertEquals("nt_in_a_year", plans[0].id)
         assertEquals(365, plans[0].dayCount)
+    }
+
+    @Test
+    fun testKhatamPlanRefsMatchDayCount() {
+        val khatam = repository.getAvailablePlans().find { it.id == "quran_khatam_30" }
+        assertTrue(khatam != null)
+        assertEquals(khatam.dayCount, khatam.verseRefs.size)
+        assertEquals("Juz 1", khatam.verseRefs.first())
+        assertEquals("Juz 30", khatam.verseRefs.last())
     }
 
     @Test
