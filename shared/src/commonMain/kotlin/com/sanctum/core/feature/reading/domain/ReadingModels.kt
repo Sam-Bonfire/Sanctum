@@ -10,6 +10,7 @@ enum class PlanCategory(val displayName: String) {
     EPISTLES("Epistles"),
     CUSTOM("Custom"),
     WISDOM("Wisdom"),
+    QURAN("Quran"),
 }
 
 @Serializable
