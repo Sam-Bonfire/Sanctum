@@ -1,10 +1,12 @@
 package com.sanctum.core.feature.reading.data
 
 import com.russhwolf.settings.Settings
+import com.sanctum.core.feature.reading.domain.BIBLE_YEAR_DAY_COUNT
 import com.sanctum.core.feature.reading.domain.PlanCategory
 import com.sanctum.core.feature.reading.domain.ReadingPlan
 import com.sanctum.core.feature.reading.domain.ReadingPlanRepository
 import com.sanctum.core.feature.reading.domain.ReadingProgress
+import com.sanctum.core.feature.reading.domain.buildBibleYearRefs
 import com.sanctum.core.feature.reading.domain.buildKhatamRefs
 import kotlinx.serialization.json.Json
 
@@ -50,6 +52,15 @@ class SettingsReadingPlanRepository(
             dayCount = 31,
             checkpointsPerDay = 1,
             verseRefs = emptyList(),
+        ),
+        ReadingPlan(
+            id = "bible_in_a_year",
+            title = "Bible in a Year",
+            description = "Read through the entire Bible in 365 days.",
+            category = PlanCategory.BIBLE,
+            dayCount = BIBLE_YEAR_DAY_COUNT,
+            checkpointsPerDay = 1,
+            verseRefs = buildBibleYearRefs(),
         ),
         ReadingPlan(
             id = "quran_khatam_30",

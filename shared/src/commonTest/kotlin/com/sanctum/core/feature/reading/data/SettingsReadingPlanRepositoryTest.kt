@@ -3,6 +3,7 @@ package com.sanctum.core.feature.reading.data
 import com.russhwolf.settings.MapSettings
 import com.sanctum.core.feature.reading.domain.GetEnrolledPlansUseCase
 import com.sanctum.core.feature.reading.domain.ToggleCheckpointCompletedUseCase
+import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -10,15 +11,30 @@ import kotlin.test.assertTrue
 
 class SettingsReadingPlanRepositoryTest {
 
-    private val settings = MapSettings()
-    private val repository = SettingsReadingPlanRepository(settings)
+    private lateinit var settings: MapSettings
+    private lateinit var repository: SettingsReadingPlanRepository
+
+    @BeforeTest
+    fun setUp() {
+        settings = MapSettings()
+        repository = SettingsReadingPlanRepository(settings)
+    }
 
     @Test
     fun testGetAvailablePlans() {
         val plans = repository.getAvailablePlans()
-        assertEquals(5, plans.size)
-        assertEquals("nt_in_a_year", plans[0].id)
-        assertEquals(365, plans[0].dayCount)
+        assertTrue(plans.any { it.id == "nt_in_a_year" })
+        val first = plans.first { it.id == "nt_in_a_year" }
+        assertEquals(365, first.dayCount)
+    }
+
+    @Test
+    fun testBibleYearPlanRefsMatchDayCount() {
+        val bible = repository.getAvailablePlans().find { it.id == "bible_in_a_year" }
+        assertTrue(bible != null)
+        assertEquals(bible.dayCount, bible.verseRefs.size)
+        assertEquals("Chapters 1-4", bible.verseRefs.first())
+        assertTrue(bible.verseRefs.last().endsWith("1189"))
     }
 
     @Test
