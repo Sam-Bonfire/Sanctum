@@ -38,6 +38,15 @@ class SettingsReadingPlanRepositoryTest {
     }
 
     @Test
+    fun testKhatamPlanRefsMatchDayCount() {
+        val khatam = repository.getAvailablePlans().find { it.id == "quran_khatam_30" }
+        assertTrue(khatam != null)
+        assertEquals(khatam.dayCount, khatam.verseRefs.size)
+        assertEquals("Juz 1", khatam.verseRefs.first())
+        assertEquals("Juz 30", khatam.verseRefs.last())
+    }
+
+    @Test
     fun testEnrollAndUnenroll() {
         repository.enroll("psalms_30")
 

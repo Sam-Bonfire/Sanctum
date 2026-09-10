@@ -7,6 +7,7 @@ import com.sanctum.core.feature.reading.domain.ReadingPlan
 import com.sanctum.core.feature.reading.domain.ReadingPlanRepository
 import com.sanctum.core.feature.reading.domain.ReadingProgress
 import com.sanctum.core.feature.reading.domain.buildBibleYearRefs
+import com.sanctum.core.feature.reading.domain.buildKhatamRefs
 import kotlinx.serialization.json.Json
 
 class SettingsReadingPlanRepository(
@@ -60,6 +61,15 @@ class SettingsReadingPlanRepository(
             dayCount = BIBLE_YEAR_DAY_COUNT,
             checkpointsPerDay = 1,
             verseRefs = buildBibleYearRefs(),
+        ),
+        ReadingPlan(
+            id = "quran_khatam_30",
+            title = "Quran Khatam in 30 Days",
+            description = "Complete the full Quran in 30 days, one Juz per day.",
+            category = PlanCategory.QURAN,
+            dayCount = 30,
+            checkpointsPerDay = 1,
+            verseRefs = buildKhatamRefs(30),
         ),
     )
 
