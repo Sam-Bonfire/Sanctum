@@ -37,6 +37,9 @@ class CharityTrackerScreenNode : Screen {
     override fun Content() {
         val viewModel = koinInject<com.sanctum.core.feature.charity.presentation.CharityTrackerViewModel>()
         val uiState by viewModel.uiState.collectAsState()
+        val urlOpener = koinInject<com.sanctum.core.core.navigation.UrlOpener>()
+        val config = com.sanctum.core.core.design.LocalWhiteLabelConfig.current
+        val donateUrl = config.donationCheckoutUrl.trim()
 
         com.sanctum.core.feature.charity.presentation.CharityTrackerScreen(
             uiState = uiState,
@@ -44,6 +47,7 @@ class CharityTrackerScreenNode : Screen {
             onEditRecord = { id, amount, category, notes, dateIso -> viewModel.updateRecord(id, amount, category, notes, dateIso) },
             onSetGoal = { goal -> viewModel.setGoal(goal) },
             onDeleteRecord = { id -> viewModel.deleteRecord(id) },
+            onDonate = if (donateUrl.isNotBlank()) ({ urlOpener.openUrl(donateUrl) }) else null,
         )
     }
 }
