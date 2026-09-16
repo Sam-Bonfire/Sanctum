@@ -1,10 +1,10 @@
 package com.sanctum.core.core.navigation
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import android.content.Context
 
 actual class UrlOpener actual constructor() : KoinComponent {
     private val context: Context by inject()
