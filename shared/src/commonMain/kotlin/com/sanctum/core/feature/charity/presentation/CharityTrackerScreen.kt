@@ -33,6 +33,7 @@ fun CharityTrackerScreen(
     onEditRecord: (String, Double, CharityCategory, String?, String) -> Unit,
     onSetGoal: (Double) -> Unit,
     onDeleteRecord: (String) -> Unit,
+    onDonate: (() -> Unit)? = null,
 ) {
     val config = LocalWhiteLabelConfig.current
     var showAddDialog by remember { mutableStateOf(false) }
@@ -101,6 +102,13 @@ fun CharityTrackerScreen(
             }
 
             Spacer(modifier = Modifier.height(SanctumTheme.spacing.lg))
+
+            if (onDonate != null) {
+                SanctumPrimaryButton(onClick = onDonate, modifier = Modifier.fillMaxWidth()) {
+                    Text("Donate Online")
+                }
+                Spacer(modifier = Modifier.height(SanctumTheme.spacing.lg))
+            }
 
             Text("Recent Contributions", style = SanctumTheme.typography.titleLarge)
             Spacer(modifier = Modifier.height(SanctumTheme.spacing.sm))

@@ -21,6 +21,7 @@ data class WhiteLabelConfig(
     val appName: String,
     val brandName: String,
     val brandSubtitle: String,
+    val flavorId: String = "",
     val primaryColor: Color,
     val secondaryColor: Color,
     val navItems: List<NavItemConfig>,
@@ -35,6 +36,7 @@ data class WhiteLabelConfig(
     val hasTajweedRules: Boolean = false,
     val hasFastingTracker: Boolean = false,
     val hasDivineNames: Boolean = false,
+    val donationCheckoutUrl: String = "",
 )
 
 /**
