@@ -15,7 +15,7 @@ import androidx.room.RoomDatabaseConstructor
         HighlightEntity::class,
     ],
     version = 3,
-    exportSchema = false,
+    exportSchema = true,
 )
 @ConstructedBy(PrayerDatabaseConstructor::class)
 abstract class PrayerDatabase : RoomDatabase() {
