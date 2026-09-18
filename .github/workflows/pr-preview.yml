@@ -107,7 +107,12 @@ jobs:
 
       - name: Run Spotless Code Formatting Check
         id: spotless
-        run: mise run lint
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 10
+          max_attempts: 3
+          retry_wait_seconds: 60
+          command: mise run lint
 
       - name: Run SEO Validation Script
         id: seo
