@@ -1,7 +1,7 @@
 package com.sanctum.core.feature.prayer.domain
 
-import kotlin.math.max
 import kotlinx.serialization.Serializable
+import kotlin.math.max
 
 @Serializable
 data class SilentWindow(
