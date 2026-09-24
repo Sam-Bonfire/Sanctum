@@ -32,6 +32,7 @@ Current Phase: Development & CI/CD Pipeline Hardening
 ### Committing in Jujutsu
 * Commits should have a clear conventional description format: `feat: ...`, `fix: ...`, `style: ...`, `docs: ...`, `chore: ...`.
 * Before pushing `dev`, run formatting checks locally using `mise run format`.
+* No local git hooks are installed (only `.sample` files ship in `.git/hooks`); treat all verification as manual until CI reports.
 
 ---
 

@@ -2,6 +2,7 @@ package com.sanctum.core.feature.charity.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sanctum.core.core.money.MinorUnits
 import com.sanctum.core.feature.charity.domain.CharityCategory
 import com.sanctum.core.feature.charity.domain.CharityGoal
 import com.sanctum.core.feature.charity.domain.CharityRecord
@@ -18,7 +19,7 @@ import kotlinx.datetime.toLocalDateTime
 
 data class CharityUiState(
     val records: List<CharityRecord> = emptyList(),
-    val summary: CharitySummary = CharitySummary(0.0, 0.0, 0f),
+    val summary: CharitySummary = CharitySummary(0L, 0L, 0f),
     val isLoading: Boolean = true,
 )
 
@@ -43,7 +44,7 @@ class CharityTrackerViewModel(
             val totalGiven = records.sumOf { it.amount }
 
             val percentage = if (goal.monthlyGoalAmount > 0) {
-                (totalGiven / goal.monthlyGoalAmount).toFloat().coerceIn(0f, 1f)
+                (totalGiven.toDouble() / goal.monthlyGoalAmount).toFloat().coerceIn(0f, 1f)
             } else {
                 0f
             }
@@ -59,7 +60,7 @@ class CharityTrackerViewModel(
         }
     }
 
-    fun addRecord(amount: Double, category: CharityCategory, notes: String?) {
+    fun addRecord(amount: MinorUnits, category: CharityCategory, notes: String?) {
         viewModelScope.launch {
             val record = CharityRecord(
                 id = com.sanctum.core.feature.charity.domain.generateUUID(),
@@ -73,7 +74,7 @@ class CharityTrackerViewModel(
         }
     }
 
-    fun updateRecord(id: String, amount: Double, category: CharityCategory, notes: String?, dateIso: String) {
+    fun updateRecord(id: String, amount: MinorUnits, category: CharityCategory, notes: String?, dateIso: String) {
         viewModelScope.launch {
             val record = CharityRecord(
                 id = id,
@@ -87,7 +88,7 @@ class CharityTrackerViewModel(
         }
     }
 
-    fun setGoal(amount: Double) {
+    fun setGoal(amount: MinorUnits) {
         viewModelScope.launch {
             repository.setMonthlyGoal(CharityGoal(amount))
             loadData()

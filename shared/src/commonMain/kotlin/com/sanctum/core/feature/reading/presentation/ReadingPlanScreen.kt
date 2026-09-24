@@ -33,11 +33,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sanctum.core.core.design.LocalWhiteLabelConfig
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
+import com.sanctum.core.feature.reading.domain.isVisibleFor
+import com.sanctum.core.feature.reading.domain.visibleFor
 
 @Composable
 fun ReadingPlanScreen(viewModel: ReadingPlanViewModel) {
     val state by viewModel.uiState.collectAsState()
+    val flavorId = LocalWhiteLabelConfig.current.flavorId
+    val enrolledPlans = state.enrolledPlans.filter { it.plan.isVisibleFor(flavorId) }
+    val availablePlans = state.availablePlans.visibleFor(flavorId)
 
     Box(
         modifier = Modifier
@@ -79,7 +85,7 @@ fun ReadingPlanScreen(viewModel: ReadingPlanViewModel) {
                         )
                     }
 
-                    if (state.enrolledPlans.isEmpty()) {
+                    if (enrolledPlans.isEmpty()) {
                         item {
                             Text(
                                 text = "Enroll in a plan to start reading daily.",
@@ -88,7 +94,7 @@ fun ReadingPlanScreen(viewModel: ReadingPlanViewModel) {
                             )
                         }
                     } else {
-                        state.enrolledPlans.forEach { planState ->
+                        enrolledPlans.forEach { planState ->
                             item {
                                 EnrolledPlanCard(
                                     planState = planState,
@@ -101,7 +107,7 @@ fun ReadingPlanScreen(viewModel: ReadingPlanViewModel) {
                         }
                     }
 
-                    if (state.availablePlans.isNotEmpty()) {
+                    if (availablePlans.isNotEmpty()) {
                         item {
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
@@ -112,7 +118,7 @@ fun ReadingPlanScreen(viewModel: ReadingPlanViewModel) {
                                 letterSpacing = 3.sp,
                             )
                         }
-                        state.availablePlans.forEach { plan ->
+                        availablePlans.forEach { plan ->
                             item {
                                 AvailablePlanCard(
                                     planTitle = plan.title,

@@ -89,18 +89,26 @@ fun App() {
                 LocalIsDarkTheme provides isDarkTheme,
             ) {
                 val flavorConfig = remember {
+                    val charityTitle =
+                        when (BuildConfig.FLAVOR_ID) {
+                            "islam" -> "Sadaqah Tracker"
+                            "jewish" -> "Tzedakah Tracker"
+                            "christianity" -> "Tithes & Offering"
+                            else -> "Charitable Giving"
+                        }
                     WhiteLabelConfig(
                         appName = BuildConfig.APP_NAME,
                         brandName = BuildConfig.BRAND_NAME,
                         brandSubtitle = BuildConfig.BRAND_SUBTITLE,
+                        flavorId = BuildConfig.FLAVOR_ID,
                         primaryColor = BuildConfig.COLOR_PRIMARY.toColor(),
                         secondaryColor = BuildConfig.COLOR_PRIMARY_VARIANT.toColor(),
                         compassTitle = BuildConfig.TERM_SCHEDULE_TITLE.uppercase(),
                         hasTransliteration = BuildConfig.HAS_TRANSLITERATION,
-                        charityTrackerTitle = "Sadaqah Tracker",
-                        hasCharityTracker = BuildConfig.APP_ID == "nur",
+                        charityTrackerTitle = charityTitle,
+                        hasCharityTracker = true,
                         hasTajweedRules = BuildConfig.HAS_TAJWEED_RULES,
-                        hasZakatCalculator = BuildConfig.APP_ID == "nur",
+                        hasZakatCalculator = BuildConfig.FLAVOR_ID == "islam",
                         hasFastingTracker = BuildConfig.HAS_FASTING_TRACKER,
                         hasDivineNames = BuildConfig.HAS_DIVINE_NAMES,
                         navItems = mutableListOf(
@@ -119,11 +127,9 @@ fun App() {
                             if (BuildConfig.HAS_DIVINE_NAMES) {
                                 add(NavItemConfig("names", "99 Names", Icons.Default.Favorite))
                             }
-                            if (BuildConfig.APP_ID == "nur") {
-                                add(NavItemConfig("charity", "Sadaqah", Icons.Default.Favorite))
-                            }
+                            add(NavItemConfig("charity", charityTitle, Icons.Default.Favorite))
 
-                            if (BuildConfig.APP_ID == "nur") {
+                            if (BuildConfig.FLAVOR_ID == "islam") {
                                 add(NavItemConfig("zakat", "Zakat", Icons.Default.Favorite))
                             }
 
@@ -175,7 +181,9 @@ fun App() {
                                         else -> "dashboard"
                                     },
                                     onNavigate = { screenId ->
-                                        val targetScreen = when (screenId) {
+                                        val safeId =
+                                            if (flavorConfig.navItems.any { it.id == screenId }) screenId else "dashboard"
+                                        val targetScreen = when (safeId) {
                                             "dashboard" -> DashboardScreenNode()
                                             "qibla" -> QiblaCompassScreenNode()
                                             "reader" -> ScriptureIndexScreenNode()

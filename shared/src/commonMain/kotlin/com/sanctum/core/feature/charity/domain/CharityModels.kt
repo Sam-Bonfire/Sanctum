@@ -1,5 +1,6 @@
 package com.sanctum.core.feature.charity.domain
 
+import com.sanctum.core.core.money.MinorUnits
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,7 +17,7 @@ enum class CharityCategory(val displayName: String) {
 @Serializable
 data class CharityRecord(
     val id: String,
-    val amount: Double,
+    val amount: MinorUnits,
     val dateIso: String,
     val categoryId: CharityCategory,
     val privateNotes: String?,
@@ -24,11 +25,11 @@ data class CharityRecord(
 
 @Serializable
 data class CharityGoal(
-    val monthlyGoalAmount: Double,
+    val monthlyGoalAmount: MinorUnits,
 )
 
 data class CharitySummary(
-    val totalGiven: Double,
-    val goalAmount: Double,
+    val totalGiven: MinorUnits,
+    val goalAmount: MinorUnits,
     val percentageCompletion: Float,
 )

@@ -1,7 +1,7 @@
 package com.sanctum.core.feature.duas.data
 
 import com.sanctum.core.core.database.PrayerDatabase
-import com.sanctum.core.feature.duas.presentation.Dua
+import com.sanctum.core.feature.duas.domain.Dua
 
 class RoomDuasRepository(
     private val database: PrayerDatabase,
@@ -18,6 +18,7 @@ class RoomDuasRepository(
                 )
             }
         } catch (e: Exception) {
+            println("RoomDuasRepository: failed to load duas for '$religionId': ${e.message}")
             emptyList()
         }
     }

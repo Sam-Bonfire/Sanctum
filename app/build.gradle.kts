@@ -22,6 +22,22 @@ val generateBuildConfig by tasks.registering {
     outputs.dir(outputDir)
     outputs.dir(androidResDir)
     doLast {
+        // Escape flavor metadata before interpolating into generated Kotlin source.
+        def esc = { v ->
+            v.toString()
+                .replace('\\', '\\\\')
+                .replace('"', '\\"')
+                .replace('$', '\\$')
+                .replace('\r', '\\r')
+                .replace('\n', '\\n')
+        }
+        def xmlEsc = { v ->
+            v.toString()
+                .replace('&', '&amp;')
+                .replace('<', '&lt;')
+                .replace('>', '&gt;')
+                .replace('"', '&quot;')
+        }
         val colors = currentFlavor["colors"] as Map<String, String>
         val term = currentFlavor["terminology"] as Map<String, String>
         val copy = currentFlavor["copy"] as Map<String, String>
@@ -39,28 +55,28 @@ val generateBuildConfig by tasks.registering {
             package com.sanctum.app
             
             object BuildConfig {
-                const val FLAVOR_ID = "${currentFlavor["flavorId"]}"
-                const val APP_ID = "$flavorAppId"
-                const val APP_NAME = "$flavorAppName"
-                const val BRAND_NAME = "${currentFlavor["brandName"]}"
-                const val BRAND_SUBTITLE = "${currentFlavor["brandSubtitle"]}"
+                const val FLAVOR_ID = "${esc(currentFlavor["flavorId"])}"
+                const val APP_ID = "${esc(flavorAppId)}"
+                const val APP_NAME = "${esc(flavorAppName)}"
+                const val BRAND_NAME = "${esc(currentFlavor["brandName"])}"
+                const val BRAND_SUBTITLE = "${esc(currentFlavor["brandSubtitle"])}"
                 
                 // Colors
-                const val COLOR_PRIMARY = "${colors["primary"]}"
-                const val COLOR_PRIMARY_VARIANT = "${colors["primaryVariant"]}"
-                const val COLOR_BACKGROUND_LIGHT = "${colors["backgroundLight"]}"
-                const val COLOR_BACKGROUND_DARK = "${colors["backgroundDark"]}"
+                const val COLOR_PRIMARY = "${esc(colors["primary"])}"
+                const val COLOR_PRIMARY_VARIANT = "${esc(colors["primaryVariant"])}"
+                const val COLOR_BACKGROUND_LIGHT = "${esc(colors["backgroundLight"])}"
+                const val COLOR_BACKGROUND_DARK = "${esc(colors["backgroundDark"])}"
                 
                 // Terminology
-                const val TERM_SCRIPTURE_TITLE = "${term["scripture_title"]}"
-                const val TERM_CHAPTER_UNIT = "${term["chapter_unit"]}"
-                const val TERM_VERSE_UNIT = "${term["verse_unit"]}"
-                const val TERM_DAILY_DEVOTION = "${term["daily_devotion"]}"
-                const val TERM_SCHEDULE_TITLE = "${term["schedule_title"]}"
+                const val TERM_SCRIPTURE_TITLE = "${esc(term["scripture_title"])}"
+                const val TERM_CHAPTER_UNIT = "${esc(term["chapter_unit"])}"
+                const val TERM_VERSE_UNIT = "${esc(term["verse_unit"])}"
+                const val TERM_DAILY_DEVOTION = "${esc(term["daily_devotion"])}"
+                const val TERM_SCHEDULE_TITLE = "${esc(term["schedule_title"])}"
                 
                 // Copy
-                const val COPY_WELCOME_MESSAGE = "${copy["welcome_message"]}"
-                const val COPY_DAILY_MOTIVATION = "${copy["daily_motivation"]}"
+                const val COPY_WELCOME_MESSAGE = "${esc(copy["welcome_message"])}"
+                const val COPY_DAILY_MOTIVATION = "${esc(copy["daily_motivation"])}"
                 
                 // Features
                 const val HAS_COMPASS = $hasCompass
@@ -174,7 +190,7 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-        resValue("string", "app_name", flavorAppName)
+        resValue("string", "app_name", xmlEsc(flavorAppName))
     }
 
     compileOptions {

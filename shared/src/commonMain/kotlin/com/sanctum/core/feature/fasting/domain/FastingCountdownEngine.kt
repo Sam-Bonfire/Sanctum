@@ -1,6 +1,6 @@
 package com.sanctum.core.feature.fasting.domain
 
-import com.sanctum.core.feature.scripture.presentation.PrayerTime
+import com.sanctum.core.feature.scripture.domain.PrayerTime
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime

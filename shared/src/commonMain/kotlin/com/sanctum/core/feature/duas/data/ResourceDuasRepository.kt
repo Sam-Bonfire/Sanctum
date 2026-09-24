@@ -1,6 +1,6 @@
 package com.sanctum.core.feature.duas.data
 
-import com.sanctum.core.feature.duas.presentation.Dua
+import com.sanctum.core.feature.duas.domain.Dua
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -34,6 +34,7 @@ class ResourceDuasRepository : DuasRepository {
                 )
             }
         } catch (e: Exception) {
+            println("ResourceDuasRepository: failed to load duas for '$religionId': ${e.message}")
             emptyList()
         }
     }

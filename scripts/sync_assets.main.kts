@@ -1,11 +1,16 @@
 #!/usr/bin/env kotlin
 
 /**
- * Syncs scripture.json, duas.json, and prayer.db from centralized assets/ folder
- * to the shared source folders used by the app:
- *   - shared/src/mobileMain/assets/{religion}/   (Mobile Room DB source)
- *   - shared/src/commonMain/composeResources/files/{religion}/  (WasmJs source)
- *   - shared/src/wasmJsMain/resources/assets/{religion}/  (WasmJs alt)
+ * Single owner for syncing JSON content (scripture.json, duas.json) from the
+ * centralized assets/ folder to the shared source folders used by the app:
+ *   - shared/src/mobileMain/assets/{religion}/
+ *   - shared/src/commonMain/composeResources/files/{religion}/
+ *   - shared/src/wasmJsMain/resources/assets/{religion}/
+ *
+ * The per-flavor prayer.db is NOT owned here: the app build's generateBuildConfig
+ * task copies assets/{flavor}/prayer.db into composeResources at build time, and
+ * mobileMain/assets/{religion}/prayer.db is staged below for the iOS bundle.
+ * Do not add another writer for these outputs.
  *
  * Usage:
  *   kotlin scripts/sync_assets.main.kts
@@ -58,12 +63,6 @@ for (religion in targetReligions) {
     listOf("scripture.json", "duas.json").forEach { filename ->
         syncFile(File(relAssetsDir, filename), File(composeDir, filename))
     }
-
-    // Also sync prayer.db to composeResources/files root (WasmJs reads it from there)
-    val prayerDbSource = File(relAssetsDir, "prayer.db")
-    val prayerDbDest = File(projectRoot, "shared/src/commonMain/composeResources/files/prayer.db")
-    // Note: There's a single prayer.db at composeResources/files root - only copy the first one
-    // or skip if multiple religions exist (the app may use per-religion DBs)
 
     // Sync to wasmJsMain/resources/assets
     val wasmDir = File(projectRoot, "shared/src/wasmJsMain/resources/assets/$religion")

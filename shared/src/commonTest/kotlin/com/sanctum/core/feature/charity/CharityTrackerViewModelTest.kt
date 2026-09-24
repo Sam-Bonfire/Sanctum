@@ -19,7 +19,7 @@ import kotlin.test.assertFalse
 
 class FakeCharityRepository : CharityRepository {
     var records = mutableListOf<CharityRecord>()
-    var goal = CharityGoal(0.0)
+    var goal = CharityGoal(0L)
 
     override suspend fun recordDonation(record: CharityRecord) {
         records.add(record)
@@ -74,9 +74,9 @@ class CharityTrackerViewModelTest {
 
     @Test
     fun testInitialLoad() = runTest {
-        repository.setMonthlyGoal(CharityGoal(1000.0))
-        repository.recordDonation(CharityRecord("1", 200.0, "", com.sanctum.core.feature.charity.domain.CharityCategory.ZAKAT, null))
-        repository.recordDonation(CharityRecord("2", 300.0, "", com.sanctum.core.feature.charity.domain.CharityCategory.SADAQAH, null))
+        repository.setMonthlyGoal(CharityGoal(100000))
+        repository.recordDonation(CharityRecord("1", 20000, "", com.sanctum.core.feature.charity.domain.CharityCategory.ZAKAT, null))
+        repository.recordDonation(CharityRecord("2", 30000, "", com.sanctum.core.feature.charity.domain.CharityCategory.SADAQAH, null))
 
         viewModel.loadData()
         advanceUntilIdle()
@@ -84,7 +84,7 @@ class CharityTrackerViewModelTest {
         val state = viewModel.uiState.value
         assertFalse(state.isLoading)
         assertEquals(2, state.records.size)
-        assertEquals(500.0, state.summary.totalGiven)
-        assertEquals(1000.0, state.summary.goalAmount)
+        assertEquals(50000L, state.summary.totalGiven)
+        assertEquals(100000L, state.summary.goalAmount)
     }
 }

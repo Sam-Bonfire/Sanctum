@@ -41,3 +41,13 @@ data class ReadingProgress(
     val completedCheckpoints: Set<String> = emptySet(),
     val enrolledAt: Long = 0L,
 )
+
+// ponytail: category-based allowlist, per-plan flavor tags if denominations need finer splits
+fun ReadingPlan.isVisibleFor(flavorId: String): Boolean =
+    when (category) {
+        PlanCategory.QURAN -> flavorId == "islam"
+        PlanCategory.BIBLE, PlanCategory.GOSPEL -> flavorId == "christianity"
+        else -> true
+    }
+
+fun List<ReadingPlan>.visibleFor(flavorId: String): List<ReadingPlan> = filter { it.isVisibleFor(flavorId) }

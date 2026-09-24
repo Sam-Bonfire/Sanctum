@@ -46,7 +46,8 @@
       "hasTransliteration": true,
       "hasCompass": true,
       "hasFastingTracker": true,
-      "hasDivineNames": true
+      "hasDivineNames": true,
+      "hasTajweedRules": true
     }
   },
   {

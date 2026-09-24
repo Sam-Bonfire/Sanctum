@@ -25,8 +25,7 @@ import androidx.compose.ui.unit.sp
 import com.sanctum.core.core.designsystem.components.SanctumEditorialCard
 import com.sanctum.core.core.designsystem.components.SanctumSectionHeader
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
-
-data class PrayerTime(val name: String, val time: String, val amPm: String, val isCurrent: Boolean = false)
+import com.sanctum.core.feature.scripture.domain.PrayerTime
 
 @Composable
 fun TimeOfDayIcon(

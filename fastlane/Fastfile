@@ -1,19 +1,9 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Upload iOS metadata and binary"
-  lane :upload_ios do |options|
-    flavor = options[:flavor]
-    app_id = JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId']
-    upload_to_app_store(
-      username: ENV['APP_STORE_CONNECT_USERNAME'],
-      app_identifier: app_id,
-      ipa: "app/build/outputs/ipa/#{flavor}/Release/app.ipa",
-      metadata_path: "fastlane/metadata/ios/#{flavor}",
-      skip_screenshots: true,
-      skip_metadata: false
-    )
-  end
+  # NOTE: no iOS upload lane until real IPA packaging exists.
+  # The release workflow builds a ComposeApp.framework zip (not an App Store
+  # IPA), so the previous upload_to_app_store lane pointed at a phantom path.
 end
 
 platform :android do
@@ -21,10 +11,12 @@ platform :android do
   lane :upload_android do |options|
     flavor = options[:flavor]
     app_id = JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId']
+    aab = Dir['app/build/outputs/bundle/release/*.aab'].first || Dir['app/build/outputs/bundle/*/*.aab'].first
+    UI.user_error!("No release AAB found for #{flavor}; run the release build first.") if aab.nil?
     supply(
       json_key: ENV['PLAY_STORE_SERVICE_ACCOUNT_JSON'],
       package_name: app_id,
-      aab: "app/build/outputs/bundle/#{flavor}/Release/app.aab",
+      aab: aab,
       metadata_path: "fastlane/metadata/android/#{flavor}",
       track: 'internal'
     )

@@ -3,7 +3,6 @@ package com.sanctum.core.feature.duas.domain
 import com.russhwolf.settings.MapSettings
 import com.sanctum.core.core.notifications.PlatformNotificationManager
 import com.sanctum.core.feature.duas.data.DuasRepository
-import com.sanctum.core.feature.duas.presentation.Dua
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone

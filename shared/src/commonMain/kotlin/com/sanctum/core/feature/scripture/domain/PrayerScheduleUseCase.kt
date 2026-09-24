@@ -1,6 +1,5 @@
 package com.sanctum.core.feature.scripture.domain
 
-import com.sanctum.core.feature.scripture.presentation.PrayerTime
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone

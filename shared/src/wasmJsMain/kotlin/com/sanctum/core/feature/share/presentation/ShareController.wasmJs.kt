@@ -1,4 +1,4 @@
-package com.sanctum.core.feature.share.domain
+package com.sanctum.core.feature.share.presentation
 
 import androidx.compose.ui.graphics.ImageBitmap
 

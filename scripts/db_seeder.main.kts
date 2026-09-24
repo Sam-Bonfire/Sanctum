@@ -6,9 +6,23 @@
 import java.io.File
 import java.sql.DriverManager
 import org.json.JSONArray
+import org.json.JSONObject
 import kotlin.system.exitProcess
 
-fun seedDatabase(dbPath: String, religion: String) {
+// Identity marker comes from the committed Room schema export so the bundled
+// database opens against the declared model instead of being wiped on launch.
+fun readIdentityHash(projectRoot: File): String {
+    val export = File(projectRoot, "shared/schemas/com.sanctum.core.core.database.PrayerDatabase/3.json")
+    if (!export.exists()) {
+        println("Error: schema export ${export.path} not found. Build :shared once to regenerate it, then re-run seeding.")
+        exitProcess(1)
+    }
+    val db = JSONObject(export.readText()).getJSONObject("database")
+    println("Using schema export version ${db.getInt("version")}.")
+    return db.getString("identityHash")
+}
+
+fun seedDatabase(dbPath: String, religion: String, identityHash: String) {
     val dbFile = File(dbPath)
     if (dbFile.exists()) {
         dbFile.delete()
@@ -71,7 +85,6 @@ fun seedDatabase(dbPath: String, religion: String) {
                     transliteration TEXT
                 )
             """.trimIndent())
-
             val duasFile = File(assetsRoot, "$religion/duas.json")
             if (duasFile.exists()) {
                 val duasContent = duasFile.readText()
@@ -96,8 +109,40 @@ fun seedDatabase(dbPath: String, religion: String) {
                 println("Note: No duas.json found for $religion at ${duasFile.absolutePath}. Skipping duas seeding.")
             }
 
+            // --- User-data tables (must match PrayerDatabase entities) ---
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS journal_entries (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    verse_id INTEGER,
+                    chapter_id INTEGER,
+                    title TEXT NOT NULL,
+                    content TEXT NOT NULL,
+                    created_at INTEGER NOT NULL,
+                    updated_at INTEGER NOT NULL,
+                    mood_tags TEXT NOT NULL
+                )
+            """.trimIndent())
+
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS notes (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    verse_id INTEGER NOT NULL,
+                    content TEXT NOT NULL,
+                    timestamp_ms INTEGER NOT NULL
+                )
+            """.trimIndent())
+
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS highlights (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    verse_id INTEGER NOT NULL,
+                    color_hex TEXT,
+                    timestamp_ms INTEGER NOT NULL
+                )
+            """.trimIndent())
+
             stmt.execute("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)")
-            stmt.execute("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b7a2d82b4ff9714856f6c91a0300a0b2')")
+            stmt.execute("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '$identityHash')")
         }
     }
 
@@ -113,13 +158,14 @@ val projectRoot = System.getProperty("user.dir").let { dir ->
     } else File(dir)
 }
 val assetsRoot = File(projectRoot, "assets")
+val identityHash = readIdentityHash(projectRoot)
 
 if (args.isEmpty()) {
     // No arguments: seed all religions to assets/{religion}/prayer.db
     println("=== Seeding ALL religions from $assetsRoot ===")
     for (religion in religions) {
         val dbPath = File(assetsRoot, "$religion/prayer.db").absolutePath
-        seedDatabase(dbPath, religion)
+        seedDatabase(dbPath, religion, identityHash)
         println()
     }
     println("=== All databases seeded! ===")
@@ -130,10 +176,10 @@ if (args.isEmpty()) {
         println("Unknown religion: $religion. Valid: ${religions.joinToString(", ")}")
         exitProcess(1)
     }
-    seedDatabase(File(assetsRoot, "$religion/prayer.db").absolutePath, religion)
+    seedDatabase(File(assetsRoot, "$religion/prayer.db").absolutePath, religion, identityHash)
 } else if (args.size == 2) {
     // Legacy: explicit output path + religion
-    seedDatabase(args[0], args[1])
+    seedDatabase(args[0], args[1], identityHash)
 } else {
     println("Usage:")
     println("  kotlin db_seeder.main.kts                          # Seed all religions")

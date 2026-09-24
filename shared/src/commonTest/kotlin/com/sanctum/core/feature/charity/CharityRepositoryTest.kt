@@ -24,7 +24,7 @@ class CharityRepositoryTest {
     fun testRecordDonationAndRetrieve() = runTest {
         val record = CharityRecord(
             id = "1",
-            amount = 100.0,
+            amount = 10000,
             dateIso = "2023-10-01T12:00:00Z",
             categoryId = com.sanctum.core.feature.charity.domain.CharityCategory.ZAKAT,
             privateNotes = "Test note",
@@ -39,10 +39,10 @@ class CharityRepositoryTest {
 
     @Test
     fun testSetAndGetGoal() = runTest {
-        val goal = CharityGoal(500.0)
+        val goal = CharityGoal(50000)
         repository.setMonthlyGoal(goal)
 
         val retrievedGoal = repository.getMonthlyGoal()
-        assertEquals(500.0, retrievedGoal.monthlyGoalAmount)
+        assertEquals(50000L, retrievedGoal.monthlyGoalAmount)
     }
 }

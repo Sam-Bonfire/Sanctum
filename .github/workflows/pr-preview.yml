@@ -177,7 +177,7 @@ jobs:
       - name: Stage Direct Android APK
         run: |
           mkdir -p preview-apk-output
-          cp app/build/outputs/apk/debug/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || cp app/build/outputs/apk/*/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || true
+          cp app/build/outputs/apk/debug/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || cp app/build/outputs/apk/*/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || { echo "ERROR: no debug APK produced for ${{ matrix.flavor }}."; exit 1; }
 
       - name: Upload Android APK Preview
         if: always() && steps.build_android.outcome == 'success'

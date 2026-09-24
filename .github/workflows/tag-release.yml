@@ -80,13 +80,8 @@ jobs:
         run: |
           git tag ${{ steps.semver.outputs.tag }}
           git push origin ${{ steps.semver.outputs.tag }}
-
-      - name: Trigger Production Release Workflow
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "Dispatching production release workflow for tag: ${{ steps.semver.outputs.tag }}"
-          gh workflow run production-release.yml -f tag_name="${{ steps.semver.outputs.tag }}" || true
+          # Pushing the tag is the single trigger for production-release.yml;
+          # no explicit workflow dispatch here, so publish is gated on this push succeeding.
 
       - name: Generate Tag Summary
         if: always()
