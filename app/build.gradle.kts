@@ -23,20 +23,20 @@ val generateBuildConfig by tasks.registering {
     outputs.dir(androidResDir)
     doLast {
         // Escape flavor metadata before interpolating into generated Kotlin source.
-        def esc = { v ->
+        val esc: (Any?) -> String = { v ->
             v.toString()
-                .replace('\\', '\\\\')
-                .replace('"', '\\"')
-                .replace('$', '\\$')
-                .replace('\r', '\\r')
-                .replace('\n', '\\n')
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("$", "\\$")
+                .replace("\r", "\\r")
+                .replace("\n", "\\n")
         }
-        def xmlEsc = { v ->
+        val xmlEsc: (Any?) -> String = { v ->
             v.toString()
-                .replace('&', '&amp;')
-                .replace('<', '&lt;')
-                .replace('>', '&gt;')
-                .replace('"', '&quot;')
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
         }
         val colors = currentFlavor["colors"] as Map<String, String>
         val term = currentFlavor["terminology"] as Map<String, String>
