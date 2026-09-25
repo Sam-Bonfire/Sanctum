@@ -15,6 +15,23 @@ val currentFlavor = parsedFlavors.find { it["flavorId"] == flavorProp } ?: parse
 val flavorAppId = currentFlavor["appId"].toString()
 val flavorAppName = currentFlavor["appName"].toString()
 
+// Escape flavor metadata before interpolating into generated sources.
+val esc: (Any?) -> String = { v ->
+    v.toString()
+        .replace("\\", "\\\\")
+        .replace("\"", "\\\"")
+        .replace("$", "\\$")
+        .replace("\r", "\\r")
+        .replace("\n", "\\n")
+}
+val xmlEsc: (Any?) -> String = { v ->
+    v.toString()
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("\"", "&quot;")
+}
+
 val generateBuildConfig by tasks.registering {
     val outputDir = layout.buildDirectory.dir("generated/source/buildConfig/commonMain")
     val androidResDir = layout.buildDirectory.dir("generated/androidRes")
@@ -22,22 +39,6 @@ val generateBuildConfig by tasks.registering {
     outputs.dir(outputDir)
     outputs.dir(androidResDir)
     doLast {
-        // Escape flavor metadata before interpolating into generated Kotlin source.
-        val esc: (Any?) -> String = { v ->
-            v.toString()
-                .replace("\\", "\\\\")
-                .replace("\"", "\\\"")
-                .replace("$", "\\$")
-                .replace("\r", "\\r")
-                .replace("\n", "\\n")
-        }
-        val xmlEsc: (Any?) -> String = { v ->
-            v.toString()
-                .replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;")
-        }
         val colors = currentFlavor["colors"] as Map<String, String>
         val term = currentFlavor["terminology"] as Map<String, String>
         val copy = currentFlavor["copy"] as Map<String, String>
