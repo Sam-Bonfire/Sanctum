@@ -97,7 +97,11 @@ class SettingsCharityRepository(private val settings: Settings) : CharityReposit
         // Legacy Double value: convert once and re-persist as minor units.
         val amount = if (stored == MinorUnits.MIN_VALUE) {
             val legacy =
-                try { settings.getDouble(keyCharityGoal, 0.0) } catch (e: Exception) { 0.0 }
+                try {
+                    settings.getDouble(keyCharityGoal, 0.0)
+                } catch (e: Exception) {
+                    0.0
+                }
             legacy.toMinorUnits().also { settings.putLong(keyCharityGoal, it) }
         } else {
             stored
