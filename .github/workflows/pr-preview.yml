@@ -187,6 +187,14 @@ jobs:
           path: preview-apk-output/Sanctum-${{ matrix.flavor }}.apk
           retention-days: 3
 
+      - name: Upload Room Schema Export
+        if: matrix.flavor == 'islam' && steps.build_android.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: room-schema-export
+          path: shared/schemas/
+          retention-days: 14
+
       - name: Generate Android Summary
         if: always()
         run: |
