@@ -44,6 +44,8 @@ val dataModule = module {
     single<com.sanctum.core.feature.scripture.domain.crossreference.CrossReferenceRepository> { com.sanctum.core.feature.scripture.data.crossreference.InMemoryCrossReferenceRepository() }
     single<com.sanctum.core.feature.reading.domain.ReadingPlanRepository> { com.sanctum.core.feature.reading.data.SettingsReadingPlanRepository(get()) }
     single { com.sanctum.core.feature.names.data.NamesRepository(get()) }
+    // Web fallback: SQLite is unavailable on wasmJs, so tags stay an in-memory
+    // stub there. Mobile overrides this binding with RoomBookmarkRepository.
     single<com.sanctum.core.feature.scripture.data.BookmarkRepository> {
         object : com.sanctum.core.feature.scripture.data.BookmarkRepository {
             override fun getBookmarks(): kotlinx.coroutines.flow.Flow<List<com.sanctum.core.feature.scripture.domain.Bookmark>> = kotlinx.coroutines.flow.flowOf(emptyList())
