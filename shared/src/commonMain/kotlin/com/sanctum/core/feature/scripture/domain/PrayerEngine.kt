@@ -1,7 +1,5 @@
 package com.sanctum.core.feature.scripture.domain
 
-import com.sanctum.core.feature.scripture.presentation.PrayerTime
-
 /**
  * Agnostic engine for calculating daily devotional times (e.g. Zmanim, Islamic Salah, etc.)
  */

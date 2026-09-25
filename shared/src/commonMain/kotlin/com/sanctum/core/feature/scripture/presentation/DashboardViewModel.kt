@@ -8,6 +8,7 @@ import com.sanctum.core.feature.compass.domain.PlatformSensors
 import com.sanctum.core.feature.prayer.domain.PrayerNotificationSettingsRepository
 import com.sanctum.core.feature.scripture.data.ScriptureRepository
 import com.sanctum.core.feature.scripture.domain.PrayerScheduleUseCase
+import com.sanctum.core.feature.scripture.domain.PrayerTime
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -177,7 +177,7 @@ jobs:
       - name: Stage Direct Android APK
         run: |
           mkdir -p preview-apk-output
-          cp app/build/outputs/apk/debug/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || cp app/build/outputs/apk/*/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || true
+          cp app/build/outputs/apk/debug/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || cp app/build/outputs/apk/*/*.apk preview-apk-output/Sanctum-${{ matrix.flavor }}.apk 2>/dev/null || { echo "ERROR: no debug APK produced for ${{ matrix.flavor }}."; exit 1; }
 
       - name: Upload Android APK Preview
         if: always() && steps.build_android.outcome == 'success'
@@ -186,6 +186,14 @@ jobs:
           name: Sanctum-${{ matrix.flavor }}-apk
           path: preview-apk-output/Sanctum-${{ matrix.flavor }}.apk
           retention-days: 3
+
+      - name: Upload Room Schema Export
+        if: matrix.flavor == 'islam' && steps.build_android.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: room-schema-export
+          path: shared/schemas/
+          retention-days: 14
 
       - name: Generate Android Summary
         if: always()

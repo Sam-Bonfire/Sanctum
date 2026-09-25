@@ -8,8 +8,8 @@ This guide outlines how the Sanctum project automates the flow of SEO and store 
 
 To keep the development pipeline fast and release costs low, Sanctum separates verification from deployment using a two-tiered cadence:
 
-* **Development (Verification)**: Pushes and Pull Requests targeting the `dev` branch trigger verification checks (Spotless format linter, SEO syntax validation, and compilation of a single debug target flavor). *No release builds are built, and no App Store deployments occur.*
-* **Production (Release)**: Merges or pushes to the `main` branch require validation and dev verification to pass first. Once verified, the runner uses a matrix build to compile release builds (AAB and iOS framework) for all 9 flavors and upload them to the respective stores via Fastlane.
+* **Development (Verification)**: Pushes and Pull Requests targeting the `dev` branch trigger verification checks (Spotless format linter, SEO syntax validation, per-flavor staging builds). *No release builds are built, and no store deployments occur.*
+* **Production (Release)**: Releases are cut by pushing a `v*` tag (via `tag-release.yml` manual dispatch). The tag push is the single trigger for `production-release.yml`, which builds per-flavor Android release bundles, iOS frameworks, and WASM production distributions, then publishes one GitHub Release. There is no Fastlane store deployment in CI and no `main`-branch build matrix.
 
 ### Managing this Cadence in Jujutsu (`jj`) with Mise
 
@@ -27,7 +27,7 @@ Jujutsu uses bookmarks which map 1-to-1 with Git branches. You can manage your d
    ```bash
    mise run release
    ```
-   *(Executes `jj bookmark set main -r dev && jj git push --bookmark main` under the hood, aligning the bookmarks and triggering the App Store release matrix).*
+   *(Executes `jj bookmark set main -r dev && jj git push --bookmark main` under the hood. Note: pushing `main` alone does not cut a release — releases are published from `v*` tags, see section 4).*
 
 3. **Deploy an Emergency Hotfix**:
    If you need to push a fix directly to production without deploying incomplete features currently sitting in `dev`:
@@ -75,7 +75,8 @@ Mise manages environment consistency between local development machines and GitH
 ### Predefined Shortcuts
 The `mise.toml` file contains the following custom task shortcuts:
 * `mise run format`: Automatically formats your Kotlin codebase with Spotless (`gradle spotlessApply`).
-* `mise run format:check`: Validates formatting without applying changes.
+* `mise run lint`: Validates formatting without applying changes (`gradle spotlessCheck`). There is no `format:check` task.
+* `mise run test`: Runs unit, integration, and verification suites (`gradle check`).
 * `mise run seo:validate`: Validates that `flavors.json` meets all SEO requirements.
 * `mise run seo:generate-metadata`: Generates local metadata files for App Store/Play Store upload.
 * `mise run run:islam:web`: Starts the WasmJS web development server for the Islam flavor.
@@ -87,146 +88,24 @@ The `mise.toml` file contains the following custom task shortcuts:
 
 ---
 
-## 4. GitHub Actions Workflow (`.github/workflows/build.yml`)
+## 4. GitHub Actions Workflows (`.github/workflows/`)
 
-The pipeline runs on `ubuntu-latest` for verification steps (which is fast and cost-effective) and switches to `macos-latest` only for the release deployment job (required to compile iOS targets).
+There is no `build.yml`. The six real workflows are:
 
-```yaml
-name: Multi-Flavor CI/CD Pipeline
+* `ci-dev.yml` — Staging Pipeline. Triggers on push to `dev` (plus manual dispatch). Runs change detection, verification (`lint`, `test`, SEO), per-flavor Android/iOS/WASM staging builds. Promotion to production is manual (see `mise run release`); no automation pushes `dev` to `main`.
+* `ci-main.yml` — Production branch verification on push to `main`.
+* `pr-preview.yml` — Pull-request checks (lint/test summaries and annotations).
+* `labeler.yml` — PR label automation.
+* `tag-release.yml` — Manual dispatch only (`version_type` input). Calculates the next SemVer tag and pushes it. Pushing the tag is the single trigger for the release workflow below; there is no explicit workflow dispatch.
+* `production-release.yml` — Triggers only on pushed `v*` tags. Builds per-flavor Android release bundles (AAB only, no debug APK), iOS frameworks, and WASM production distributions (fails loudly if `productionExecutable` is absent), then publishes one GitHub Release with generated-or-fallback notes.
 
-on:
-  push:
-    branches: [main, dev]
-  pull_request:
-    branches: [main, dev]
-
-jobs:
-  validate:
-    name: Code Verification & SEO Validation
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Mise (Java, Gradle, Kotlin)
-        uses: jdx/mise-action@v4
-
-      - name: Run Spotless Linter Checks
-        run: gradle spotlessCheck
-
-      - name: Run Kotlin SEO Verification Script
-        run: kotlin scripts/validate_seo.main.kts
-
-  build_dev:
-    name: Dev Verification Builds
-    runs-on: ubuntu-latest
-    needs: validate
-    if: github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Mise (Java, Gradle, Kotlin)
-        uses: jdx/mise-action@v4
-
-      - name: Build Dev APK (Islam Flavor)
-        run: gradle :app:assembleDebug -Pflavor=islam
-
-      - name: Compile WASM Web Classes
-        run: gradle :app:wasmJsMainClasses
-
-  deploy_release:
-    name: Production Release Deployment
-    runs-on: macos-latest
-    needs: [validate, build_dev]
-    if: github.ref == 'refs/heads/main'
-    strategy:
-      matrix:
-        flavor: [islam, christianity, hinduism, buddhism, jewish, sikhism, jainism, shinto, taoism]
-      fail-fast: false
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Setup Mise (Java, Gradle, Kotlin)
-        uses: jdx/mise-action@v4
-
-      - name: Set up Ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '3.2.2'
-
-      - name: Install Bundler & Fastlane
-        run: |
-          gem install bundler
-          bundle install
-        working-directory: fastlane
-
-      - name: Generate App Store Metadata Files
-        run: kotlin scripts/generate_fastlane_metadata.main.kts
-
-      - name: Build Android Release AAB
-        run: gradle :app:bundleRelease -Pflavor=${{ matrix.flavor }}
-
-      - name: Build iOS Release Artifact
-        run: gradle :app:assembleRelease -Pflavor=${{ matrix.flavor }}
-
-      - name: Run Fastlane Google Play Deploy
-        env:
-          PLAY_STORE_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
-        run: bundle exec fastlane android upload_android flavor:${{ matrix.flavor }}
-        working-directory: fastlane
-        continue-on-error: true
-
-      - name: Run Fastlane Apple App Store Deploy
-        env:
-          APP_STORE_CONNECT_USERNAME: ${{ secrets.APP_STORE_CONNECT_USERNAME }}
-          APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
-        run: bundle exec fastlane ios upload_ios flavor:${{ matrix.flavor }}
-        working-directory: fastlane
-        continue-on-error: true
-```
+No workflow executes Fastlane store deployment; the Fastfile lanes are local-only helpers (see section 5). There are no docs-only runtime or deployment steps beyond what these files contain.
 
 ---
 
 ## 5. Fastlane Implementation (`fastlane/Fastfile`)
 
-Fastlane handles store integration without duplicating extraction code. It relies on the metadata files pre-generated by your Kotlin scripts:
-
-```ruby
-default_platform(:ios)
-
-platform :ios do
-  desc "Upload iOS metadata and binary"
-  lane :upload_ios do |options|
-    flavor = options[:flavor]
-    app_id = JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId']
-    upload_to_app_store(
-      username: ENV['APP_STORE_CONNECT_USERNAME'],
-      app_identifier: app_id,
-      ipa: "app/build/outputs/ipa/#{flavor}/Release/app.ipa",
-      metadata_path: "fastlane/metadata/ios/#{flavor}",
-      skip_screenshots: true,
-      skip_metadata: false
-    )
-  end
-end
-
-platform :android do
-  desc "Upload Android metadata and AAB"
-  lane :upload_android do |options|
-    flavor = options[:flavor]
-    app_id = JSON.parse(File.read('assets/flavors.json')).find { |f| f['flavorId'] == flavor }['appId']
-    supply(
-      json_key: ENV['PLAY_STORE_SERVICE_ACCOUNT_JSON'],
-      package_name: app_id,
-      aab: "app/build/outputs/bundle/#{flavor}/Release/app.aab",
-      metadata_path: "fastlane/metadata/android/#{flavor}",
-      track: 'internal'
-    )
-  end
-end
-```
+Fastlane lanes are local-only helpers; no workflow invokes them. The Android lane uploads the real release AAB (`app/build/outputs/bundle/release/*.aab`) and fails loudly when none exists. There is no iOS upload lane until real IPA packaging exists — the release workflow produces a `ComposeApp.framework` zip, which is not an App Store IPA, so the previous `upload_ios` lane pointed at a phantom path and was removed.
 
 ---
 

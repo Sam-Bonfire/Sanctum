@@ -4,19 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.russhwolf.settings.Settings
 import com.sanctum.core.feature.duas.data.DuasRepository
+import com.sanctum.core.feature.duas.domain.Dua
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-
-data class Dua(
-    val id: String,
-    val title: String,
-    val originalText: String,
-    val translation: String,
-    val transliteration: String? = null,
-)
 
 data class DuasCatalogUiState(
     val duas: List<Dua> = emptyList(),

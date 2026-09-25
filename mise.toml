@@ -12,7 +12,9 @@ jujutsu = "latest"
 "seo:validate" = "kotlin scripts/validate_seo.main.kts"
 "seo:generate-metadata" = "kotlin scripts/generate_fastlane_metadata.main.kts"
 "fonts:download" = "kotlin scripts/download_fonts.main.kts"
-"db:generate" = "kotlin scripts/db_seeder.main.kts assets/{{.flavor}}/prayer.db {{.flavor}}"
+"db:generate" = "kotlin scripts/db_seeder.main.kts {{arg(i:0, name:\"flavor\")}}"
+"assets:sync" = "kotlin scripts/sync_assets.main.kts {{arg(i:0, name:\"flavor\")}}"
+"assets:fetch" = "kotlin scripts/fetch_scriptures.main.kts"
 
 # Generic platform build tasks
 "build" = "gradle build"

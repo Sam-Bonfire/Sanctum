@@ -1,13 +1,29 @@
 package com.sanctum.core.feature.charity.data
 
 import com.russhwolf.settings.Settings
+import com.sanctum.core.core.money.MinorUnits
+import com.sanctum.core.core.money.toMinorUnits
+import com.sanctum.core.feature.charity.domain.CharityCategory
 import com.sanctum.core.feature.charity.domain.CharityGoal
 import com.sanctum.core.feature.charity.domain.CharityRecord
 import com.sanctum.core.feature.charity.domain.CharityRepository
 import kotlinx.datetime.Instant
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+
+// Legacy Double-amount payload from before the minor-units migration.
+@Serializable
+private data class LegacyCharityRecord(
+    val id: String,
+    val amount: Double,
+    val dateIso: String,
+    val categoryId: CharityCategory,
+    val privateNotes: String? = null,
+) {
+    fun toCurrent(): CharityRecord = CharityRecord(id, amount.toMinorUnits(), dateIso, categoryId, privateNotes)
+}
 
 class SettingsCharityRepository(private val settings: Settings) : CharityRepository {
 
@@ -28,6 +44,7 @@ class SettingsCharityRepository(private val settings: Settings) : CharityReposit
                 val dateTime = instant.toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
                 dateTime.year == year && dateTime.monthNumber == month
             } catch (e: Exception) {
+                println("SettingsCharityRepository: skipping record with unparseable date '${record.dateIso}': ${e.message}")
                 false
             }
         }
@@ -41,7 +58,13 @@ class SettingsCharityRepository(private val settings: Settings) : CharityReposit
             try {
                 Json.decodeFromString(recordsJson)
             } catch (e: Exception) {
-                emptyList()
+                // Legacy Double-amount payload: convert once instead of dropping donations.
+                try {
+                    Json.decodeFromString<List<LegacyCharityRecord>>(recordsJson).map { it.toCurrent() }
+                } catch (e2: Exception) {
+                    println("SettingsCharityRepository: stored charity records are corrupt, returning empty: ${e2.message}")
+                    emptyList()
+                }
             }
         }
     }
@@ -62,11 +85,27 @@ class SettingsCharityRepository(private val settings: Settings) : CharityReposit
     }
 
     override suspend fun setMonthlyGoal(goal: CharityGoal) {
-        settings.putDouble(keyCharityGoal, goal.monthlyGoalAmount)
+        settings.putLong(keyCharityGoal, goal.monthlyGoalAmount)
     }
 
     override suspend fun getMonthlyGoal(): CharityGoal {
-        val amount = settings.getDouble(keyCharityGoal, 0.0)
+        val stored = try {
+            settings.getLong(keyCharityGoal, MinorUnits.MIN_VALUE)
+        } catch (e: Exception) {
+            MinorUnits.MIN_VALUE
+        }
+        // Legacy Double value: convert once and re-persist as minor units.
+        val amount = if (stored == MinorUnits.MIN_VALUE) {
+            val legacy =
+                try {
+                    settings.getDouble(keyCharityGoal, 0.0)
+                } catch (e: Exception) {
+                    0.0
+                }
+            legacy.toMinorUnits().also { settings.putLong(keyCharityGoal, it) }
+        } else {
+            stored
+        }
         return CharityGoal(amount)
     }
 

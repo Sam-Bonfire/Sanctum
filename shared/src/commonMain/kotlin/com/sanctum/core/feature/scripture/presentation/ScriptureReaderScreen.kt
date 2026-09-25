@@ -457,7 +457,7 @@ fun ScriptureReaderScreen(
                                                 }
                                             }
 
-                                            val shareController = remember { com.sanctum.core.feature.share.domain.ShareController() }
+                                            val shareController = remember { com.sanctum.core.feature.share.presentation.ShareController() }
                                             if (shareController.isShareSupported()) {
                                                 // Share button
                                                 IconButton(

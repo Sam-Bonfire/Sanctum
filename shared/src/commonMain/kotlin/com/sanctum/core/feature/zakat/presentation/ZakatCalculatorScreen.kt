@@ -17,6 +17,7 @@ import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.components.SanctumSectionHeader
 import com.sanctum.core.core.designsystem.components.SanctumTextField
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
+import com.sanctum.core.core.money.formatMinor
 import com.sanctum.core.feature.zakat.domain.NisabStandard
 import org.koin.compose.koinInject
 
@@ -48,11 +49,11 @@ class ZakatCalculatorScreen : Screen {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             Text("Total Wealth:", style = SanctumTheme.typography.bodyLarge, color = SanctumTheme.colors.textPrimary)
-                            Text("${state.currency} ${formatDouble(state.result.totalWealth)}", style = SanctumTheme.typography.bodyLarge, fontWeight = FontWeight.Bold, color = SanctumTheme.colors.textPrimary)
+                            Text("${state.currency} ${state.result.totalWealth.formatMinor()}", style = SanctumTheme.typography.bodyLarge, fontWeight = FontWeight.Bold, color = SanctumTheme.colors.textPrimary)
                         }
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             Text("Nisab Threshold:", style = SanctumTheme.typography.bodyLarge, color = SanctumTheme.colors.textPrimary)
-                            Text("${state.currency} ${formatDouble(state.result.nisabValue)}", style = SanctumTheme.typography.bodyLarge, fontWeight = FontWeight.Bold, color = SanctumTheme.colors.textPrimary)
+                            Text("${state.currency} ${state.result.nisabValue.formatMinor()}", style = SanctumTheme.typography.bodyLarge, fontWeight = FontWeight.Bold, color = SanctumTheme.colors.textPrimary)
                         }
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             Text("Eligible for Zakat:", style = SanctumTheme.typography.bodyLarge, color = SanctumTheme.colors.textPrimary)
@@ -63,7 +64,7 @@ class ZakatCalculatorScreen : Screen {
                         Spacer(modifier = Modifier.height(8.dp))
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                             Text("Zakat Payable:", style = SanctumTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = SanctumTheme.colors.textPrimary)
-                            Text("${state.currency} ${formatDouble(state.result.zakatPayable)}", style = SanctumTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = SanctumTheme.colors.brand)
+                            Text("${state.currency} ${state.result.zakatPayable.formatMinor()}", style = SanctumTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = SanctumTheme.colors.brand)
                         }
                     }
                 }
@@ -193,16 +194,5 @@ class ZakatCalculatorScreen : Screen {
                 )
             }
         }
-    }
-
-    private fun formatDouble(value: Double): String {
-        // Use a simpler string formatting to prevent scientific notation truncation issues
-        // We'll convert double to string in a way that avoids standard scientific notation for common UI values
-        val formatted = value.toLong().toString()
-        val decimalPart = ((value - value.toLong()) * 100).toInt()
-        val paddedDecimal = if (decimalPart < 10) "0$decimalPart" else "$decimalPart"
-
-        // This is a naive implementation but works safely up to 2^63 and avoids scientific E issues
-        return "$formatted.$paddedDecimal"
     }
 }

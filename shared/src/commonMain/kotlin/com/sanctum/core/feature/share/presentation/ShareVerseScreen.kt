@@ -30,7 +30,6 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.scripture.domain.ScriptureVerse
-import com.sanctum.core.feature.share.domain.ShareController
 import kotlinx.coroutines.launch
 
 class ShareVerseScreen(

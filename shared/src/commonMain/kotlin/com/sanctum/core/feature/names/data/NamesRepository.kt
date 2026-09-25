@@ -118,7 +118,9 @@ class NamesRepository(
         cachedNames?.let { return it }
         val names = try {
             json.decodeFromString<List<DivineName>>(embeddedJson)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            // Embedded JSON is a compile-time constant: failure is a bug, not empty data.
+            println("NamesRepository: failed to decode embedded divine names: ${e.message}")
             emptyList()
         }
         cachedNames = names

@@ -1,6 +1,7 @@
 package com.sanctum.core.feature.zakat.presentation
 
 import cafe.adriel.voyager.core.model.ScreenModel
+import com.sanctum.core.core.money.parseMinorUnits
 import com.sanctum.core.feature.zakat.data.ZakatSettingsRepository
 import com.sanctum.core.feature.zakat.domain.NisabStandard
 import com.sanctum.core.feature.zakat.domain.ZakatCalculationResult
@@ -24,7 +25,7 @@ data class ZakatCalculatorState(
     val goldPrice: Double = 65.0,
     val silverPrice: Double = 0.75,
     val currency: String = "USD",
-    val result: ZakatCalculationResult = ZakatCalculationResult(0.0, 0.0, false, 0.0),
+    val result: ZakatCalculationResult = ZakatCalculationResult(0L, 0L, false, 0L),
 )
 
 class ZakatCalculatorViewModel(
@@ -96,7 +97,7 @@ class ZakatCalculatorViewModel(
 
     fun updateCash(rawVal: String) {
         _state.update { currentState ->
-            val value = rawVal.toDoubleOrNull() ?: 0.0
+            val value = rawVal.parseMinorUnits() ?: 0L
             val newPortfolio = currentState.portfolio.copy(cash = value)
             val result = calculator.calculate(newPortfolio, currentState.goldPrice, currentState.silverPrice)
             currentState.copy(rawCash = rawVal, portfolio = newPortfolio, result = result)
@@ -105,7 +106,7 @@ class ZakatCalculatorViewModel(
 
     fun updateGoldValue(rawVal: String) {
         _state.update { currentState ->
-            val value = rawVal.toDoubleOrNull() ?: 0.0
+            val value = rawVal.parseMinorUnits() ?: 0L
             val newPortfolio = currentState.portfolio.copy(goldValue = value)
             val result = calculator.calculate(newPortfolio, currentState.goldPrice, currentState.silverPrice)
             currentState.copy(rawGoldValue = rawVal, portfolio = newPortfolio, result = result)
@@ -114,7 +115,7 @@ class ZakatCalculatorViewModel(
 
     fun updateSilverValue(rawVal: String) {
         _state.update { currentState ->
-            val value = rawVal.toDoubleOrNull() ?: 0.0
+            val value = rawVal.parseMinorUnits() ?: 0L
             val newPortfolio = currentState.portfolio.copy(silverValue = value)
             val result = calculator.calculate(newPortfolio, currentState.goldPrice, currentState.silverPrice)
             currentState.copy(rawSilverValue = rawVal, portfolio = newPortfolio, result = result)
@@ -123,7 +124,7 @@ class ZakatCalculatorViewModel(
 
     fun updateInvestments(rawVal: String) {
         _state.update { currentState ->
-            val value = rawVal.toDoubleOrNull() ?: 0.0
+            val value = rawVal.parseMinorUnits() ?: 0L
             val newPortfolio = currentState.portfolio.copy(investments = value)
             val result = calculator.calculate(newPortfolio, currentState.goldPrice, currentState.silverPrice)
             currentState.copy(rawInvestments = rawVal, portfolio = newPortfolio, result = result)
@@ -132,7 +133,7 @@ class ZakatCalculatorViewModel(
 
     fun updateBusinessInventory(rawVal: String) {
         _state.update { currentState ->
-            val value = rawVal.toDoubleOrNull() ?: 0.0
+            val value = rawVal.parseMinorUnits() ?: 0L
             val newPortfolio = currentState.portfolio.copy(businessInventory = value)
             val result = calculator.calculate(newPortfolio, currentState.goldPrice, currentState.silverPrice)
             currentState.copy(rawBusinessInventory = rawVal, portfolio = newPortfolio, result = result)
@@ -141,7 +142,7 @@ class ZakatCalculatorViewModel(
 
     fun updateLiabilities(rawVal: String) {
         _state.update { currentState ->
-            val value = rawVal.toDoubleOrNull() ?: 0.0
+            val value = rawVal.parseMinorUnits() ?: 0L
             val newPortfolio = currentState.portfolio.copy(liabilities = value)
             val result = calculator.calculate(newPortfolio, currentState.goldPrice, currentState.silverPrice)
             currentState.copy(rawLiabilities = rawVal, portfolio = newPortfolio, result = result)

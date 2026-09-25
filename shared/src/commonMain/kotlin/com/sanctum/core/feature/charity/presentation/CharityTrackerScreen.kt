@@ -19,6 +19,9 @@ import com.sanctum.core.core.designsystem.components.SanctumDropdown
 import com.sanctum.core.core.designsystem.components.SanctumPrimaryButton
 import com.sanctum.core.core.designsystem.components.SanctumTextField
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
+import com.sanctum.core.core.money.MinorUnits
+import com.sanctum.core.core.money.formatMinor
+import com.sanctum.core.core.money.parseMinorUnits
 import com.sanctum.core.feature.charity.domain.CharityCategory
 import com.sanctum.core.feature.charity.domain.CharityRecord
 import kotlinx.datetime.Instant
@@ -29,9 +32,9 @@ import kotlinx.datetime.toLocalDateTime
 @Composable
 fun CharityTrackerScreen(
     uiState: CharityUiState,
-    onAddRecord: (Double, CharityCategory, String?) -> Unit,
-    onEditRecord: (String, Double, CharityCategory, String?, String) -> Unit,
-    onSetGoal: (Double) -> Unit,
+    onAddRecord: (MinorUnits, CharityCategory, String?) -> Unit,
+    onEditRecord: (String, MinorUnits, CharityCategory, String?, String) -> Unit,
+    onSetGoal: (MinorUnits) -> Unit,
     onDeleteRecord: (String) -> Unit,
     onDonate: (() -> Unit)? = null,
 ) {
@@ -90,7 +93,7 @@ fun CharityTrackerScreen(
 
                     Spacer(modifier = Modifier.height(SanctumTheme.spacing.sm))
                     Text(
-                        "Given: \$${uiState.summary.totalGiven} / Goal: \$${uiState.summary.goalAmount}",
+                        "Given: \$${uiState.summary.totalGiven.formatMinor()} / Goal: \$${uiState.summary.goalAmount.formatMinor()}",
                         style = SanctumTheme.typography.bodyMedium,
                     )
 
@@ -150,7 +153,7 @@ fun CharityTrackerScreen(
                                     verticalAlignment = Alignment.CenterVertically,
                                 ) {
                                     Column {
-                                        Text("\$${record.amount}", style = SanctumTheme.typography.titleMedium)
+                                        Text("\$${record.amount.formatMinor()}", style = SanctumTheme.typography.titleMedium)
                                         Text(record.categoryId.displayName, style = SanctumTheme.typography.bodySmall)
                                         if (!record.privateNotes.isNullOrEmpty()) {
                                             Text(record.privateNotes, style = SanctumTheme.typography.bodySmall, color = SanctumTheme.colors.textSecondary)
@@ -174,10 +177,10 @@ fun CharityTrackerScreen(
     }
 
     if (showAddDialog || recordToEdit != null) {
-        val isEditing = recordToEdit != null
-        var amount by remember { mutableStateOf(if (isEditing) recordToEdit!!.amount.toString() else "") }
-        var category by remember { mutableStateOf(if (isEditing) recordToEdit!!.categoryId else CharityCategory.GENERAL) }
-        var notes by remember { mutableStateOf(if (isEditing) recordToEdit!!.privateNotes ?: "" else "") }
+        val editing = recordToEdit
+        var amount by remember { mutableStateOf(editing?.amount?.formatMinor() ?: "") }
+        var category by remember { mutableStateOf(editing?.categoryId ?: CharityCategory.GENERAL) }
+        var notes by remember { mutableStateOf(editing?.privateNotes ?: "") }
         var showCategoryDropdown by remember { mutableStateOf(false) }
 
         AlertDialog(
@@ -185,7 +188,7 @@ fun CharityTrackerScreen(
                 showAddDialog = false
                 recordToEdit = null
             },
-            title = { Text(if (isEditing) "Edit Contribution" else "Log Contribution") },
+            title = { Text(if (editing != null) "Edit Contribution" else "Log Contribution") },
             text = {
                 Column {
                     SanctumTextField(
@@ -228,10 +231,11 @@ fun CharityTrackerScreen(
             },
             confirmButton = {
                 SanctumPrimaryButton(onClick = {
-                    val parsedAmount = amount.toDoubleOrNull()
+                    val parsedAmount = amount.parseMinorUnits()
                     if (parsedAmount != null) {
-                        if (isEditing) {
-                            onEditRecord(recordToEdit!!.id, parsedAmount, category, notes.ifBlank { null }, recordToEdit!!.dateIso)
+                        val current = editing
+                        if (current != null) {
+                            onEditRecord(current.id, parsedAmount, category, notes.ifBlank { null }, current.dateIso)
                         } else {
                             onAddRecord(parsedAmount, category, notes.ifBlank { null })
                         }
@@ -254,7 +258,7 @@ fun CharityTrackerScreen(
     }
 
     if (showGoalDialog) {
-        var goalAmount by remember { mutableStateOf(uiState.summary.goalAmount.toString()) }
+        var goalAmount by remember { mutableStateOf(uiState.summary.goalAmount.formatMinor()) }
 
         AlertDialog(
             onDismissRequest = { showGoalDialog = false },
@@ -268,7 +272,7 @@ fun CharityTrackerScreen(
             },
             confirmButton = {
                 SanctumPrimaryButton(onClick = {
-                    val parsed = goalAmount.toDoubleOrNull()
+                    val parsed = goalAmount.parseMinorUnits()
                     if (parsed != null) {
                         onSetGoal(parsed)
                         showGoalDialog = false
