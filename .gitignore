@@ -24,3 +24,6 @@ Thumbs.db
 # Build progress/cache files
 *.bible_progress.json
 .bible_progress.json
+
+# Regenerated per-build flavor DB (generateBuildConfig copies assets/{flavor}/prayer.db here every build)
+app/src/commonMain/composeResources/files/prayer.db
