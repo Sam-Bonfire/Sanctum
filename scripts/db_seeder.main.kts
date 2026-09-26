@@ -12,13 +12,15 @@ import kotlin.system.exitProcess
 // Identity marker comes from the committed Room schema export so the bundled
 // database opens against the declared model instead of being wiped on launch.
 fun readIdentityHash(projectRoot: File): String {
-    val export = File(projectRoot, "shared/schemas/com.sanctum.core.core.database.PrayerDatabase/3.json")
-    if (!export.exists()) {
-        println("Error: schema export ${export.path} not found. Build :shared once to regenerate it, then re-run seeding.")
+    val schemasDir = File(projectRoot, "shared/schemas/com.sanctum.core.core.database.PrayerDatabase")
+    val export = schemasDir.listFiles { f -> f.name.endsWith(".json") }
+        ?.maxByOrNull { JSONObject(it.readText()).getJSONObject("database").getInt("version") }
+    if (export == null) {
+        println("Error: no schema export found in ${schemasDir.path}. Build :shared once to regenerate it, then re-run seeding.")
         exitProcess(1)
     }
     val db = JSONObject(export.readText()).getJSONObject("database")
-    println("Using schema export version ${db.getInt("version")}.")
+    println("Using schema export ${export.name} (version ${db.getInt("version")}).")
     return db.getString("identityHash")
 }
 
@@ -140,6 +142,24 @@ fun seedDatabase(dbPath: String, religion: String, identityHash: String) {
                     timestamp_ms INTEGER NOT NULL
                 )
             """.trimIndent())
+
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS bookmark_tags (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                    name TEXT NOT NULL,
+                    color_hex TEXT NOT NULL
+                )
+            """.trimIndent())
+
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS bookmark_tag_cross_ref (
+                    verse_id INTEGER NOT NULL,
+                    tag_id INTEGER NOT NULL,
+                    PRIMARY KEY(verse_id, tag_id),
+                    FOREIGN KEY(tag_id) REFERENCES bookmark_tags(id) ON DELETE CASCADE
+                )
+            """.trimIndent())
+            stmt.execute("CREATE INDEX IF NOT EXISTS index_bookmark_tag_cross_ref_tag_id ON bookmark_tag_cross_ref(tag_id)")
 
             stmt.execute("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)")
             stmt.execute("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '$identityHash')")

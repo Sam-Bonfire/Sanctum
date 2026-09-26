@@ -13,8 +13,10 @@ import androidx.room.RoomDatabaseConstructor
         JournalEntryEntity::class,
         NoteEntity::class,
         HighlightEntity::class,
+        BookmarkTagEntity::class,
+        BookmarkTagCrossRef::class,
     ],
-    version = 3,
+    version = 4,
     exportSchema = true,
 )
 @ConstructedBy(PrayerDatabaseConstructor::class)
