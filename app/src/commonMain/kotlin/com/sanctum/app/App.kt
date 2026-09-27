@@ -83,6 +83,7 @@ fun App() {
             isDarkTheme = isDarkTheme,
             brandColor = BuildConfig.COLOR_PRIMARY.toColor(),
             brandVariantColor = BuildConfig.COLOR_PRIMARY_VARIANT.toColor(),
+            backgroundColor = (if (isDarkTheme) BuildConfig.COLOR_BACKGROUND_DARK else BuildConfig.COLOR_BACKGROUND_LIGHT).toColor(),
         ) {
             CompositionLocalProvider(
                 LocalThemeToggle provides { isDarkTheme = !isDarkTheme },

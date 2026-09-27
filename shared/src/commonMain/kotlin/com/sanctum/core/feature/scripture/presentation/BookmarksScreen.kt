@@ -97,9 +97,9 @@ fun BookmarksScreen(
                         )
                         IconButton(
                             onClick = { tagMenuExpanded = tag.id },
-                            modifier = Modifier.align(Alignment.CenterEnd).size(24.dp),
+                            modifier = Modifier.align(Alignment.CenterEnd).size(48.dp),
                         ) {
-                            Icon(Icons.Default.MoreVert, "Options", modifier = Modifier.size(16.dp))
+                            Icon(Icons.Default.MoreVert, "Tag options", modifier = Modifier.size(20.dp))
                         }
                         DropdownMenu(
                             expanded = tagMenuExpanded == tag.id,

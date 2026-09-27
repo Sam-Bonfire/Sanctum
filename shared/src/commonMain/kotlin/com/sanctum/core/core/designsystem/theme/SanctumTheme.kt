@@ -86,13 +86,15 @@ fun SanctumTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     brandColor: Color? = null,
     brandVariantColor: Color? = null,
+    backgroundColor: Color? = null,
     content: @Composable () -> Unit,
 ) {
     val baseColors = if (isDarkTheme) darkSanctumColors() else lightSanctumColors()
-    val colors = if (brandColor != null || brandVariantColor != null) {
+    val colors = if (brandColor != null || brandVariantColor != null || backgroundColor != null) {
         baseColors.copy(
             brand = brandColor ?: baseColors.brand,
             brandVariant = brandVariantColor ?: baseColors.brandVariant,
+            background = backgroundColor ?: baseColors.background,
         )
     } else {
         baseColors

@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
@@ -29,6 +30,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -187,7 +191,10 @@ fun EnrolledPlanCard(
                 .fillMaxWidth()
                 .height(6.dp)
                 .clip(RoundedCornerShape(3.dp))
-                .background(SanctumTheme.colors.outlineVariant.copy(alpha = 0.3f)),
+                .background(SanctumTheme.colors.outlineVariant.copy(alpha = 0.3f))
+                .semantics {
+                    contentDescription = "Reading progress ${(planState.completionPercent * 100).toInt()} percent"
+                },
         ) {
             Box(
                 modifier = Modifier
@@ -210,21 +217,24 @@ fun EnrolledPlanCard(
         val todayKeys = planState.todayCheckpointKeys
         todayKeys.forEachIndexed { index, key ->
             Spacer(modifier = Modifier.height(8.dp))
+            val isDone = planState.progress.completedCheckpoints.contains(key)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
-                    .clickable {
-                        val isDone = planState.progress.completedCheckpoints.contains(key)
-                        onToggleCheckpoint(key, !isDone)
-                    }
+                    .toggleable(
+                        value = isDone,
+                        role = Role.Checkbox,
+                        onClickLabel = if (isDone) "Mark reading ${index + 1} not done" else "Mark reading ${index + 1} done",
+                        onValueChange = { onToggleCheckpoint(key, it) },
+                    )
                     .padding(vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
-                    contentDescription = "Complete checkpoint ${index + 1}",
-                    tint = if (planState.progress.completedCheckpoints.contains(key)) {
+                    contentDescription = null,
+                    tint = if (isDone) {
                         SanctumTheme.colors.brand
                     } else {
                         SanctumTheme.colors.textSecondary.copy(alpha = 0.35f)
@@ -279,7 +289,7 @@ fun AvailablePlanCard(
         Text(
             text = "Start plan ($dayCount days)",
             style = SanctumTheme.typography.labelMedium,
-            color = Color.White,
+            color = SanctumTheme.colors.onBrand,
             modifier = Modifier
                 .clip(shape)
                 .background(SanctumTheme.colors.brand)

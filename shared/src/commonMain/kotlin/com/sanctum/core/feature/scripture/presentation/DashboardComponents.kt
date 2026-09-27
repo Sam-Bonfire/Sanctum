@@ -188,8 +188,8 @@ fun DailyScheduleRow(prayers: List<PrayerTime>, hazeState: dev.chrisbanes.haze.H
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(170.dp)
-                    .padding(horizontal = SanctumTheme.spacing.xl),
+                    .heightIn(min = 170.dp)
+                    .padding(horizontal = SanctumTheme.spacing.xl, vertical = SanctumTheme.spacing.lg),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
@@ -332,8 +332,7 @@ fun VerseOfTheDayCard(
                 color = SanctumTheme.colors.brand.copy(alpha = 0.35f),
                 fontWeight = FontWeight.Bold,
                 fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
-                lineHeight = 24.sp,
-                modifier = Modifier.height(32.dp),
+                lineHeight = 54.sp,
             )
 
             if (originalText.isNotEmpty() && originalText != translation) {

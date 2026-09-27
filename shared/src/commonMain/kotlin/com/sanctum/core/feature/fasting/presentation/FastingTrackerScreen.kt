@@ -2,15 +2,14 @@ package com.sanctum.core.feature.fasting.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Edit
@@ -23,10 +22,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.russhwolf.settings.Settings
+import com.sanctum.core.core.designsystem.components.SanctumCard
+import com.sanctum.core.core.designsystem.components.SanctumTextField
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.fasting.data.FastingRepository
 import com.sanctum.core.feature.fasting.domain.FastingDayRecord
@@ -85,7 +87,7 @@ fun FastingTrackerScreen() {
         Spacer(modifier = Modifier.height(24.dp))
 
         LazyColumn(
-            contentPadding = PaddingValues(bottom = 120.dp),
+            contentPadding = PaddingValues(bottom = SanctumTheme.spacing.bottomNavPadding),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             items(records.value) { record ->
@@ -127,29 +129,29 @@ fun calculateStreak(records: List<FastingDayRecord>): Int {
 
 @Composable
 fun MetricCard(label: String, value: String, modifier: Modifier = Modifier) {
-    val shape = RoundedCornerShape(16.dp)
-    Column(
-        modifier = modifier
-            .clip(shape)
-            .background(SanctumTheme.colors.surface)
-            .border(0.5.dp, SanctumTheme.colors.outlineVariant.copy(alpha = 0.4f), shape)
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    SanctumCard(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
     ) {
-        Text(
-            text = label,
-            style = SanctumTheme.typography.labelSmall,
-            color = SanctumTheme.colors.textSecondary,
-            fontWeight = FontWeight.Bold,
-            letterSpacing = 1.sp,
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = value,
-            style = SanctumTheme.typography.titleLarge,
-            color = SanctumTheme.colors.textPrimary,
-            fontWeight = FontWeight.Bold,
-        )
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                text = label,
+                style = SanctumTheme.typography.labelSmall,
+                color = SanctumTheme.colors.textSecondary,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = value,
+                style = SanctumTheme.typography.titleLarge,
+                color = SanctumTheme.colors.textPrimary,
+                fontWeight = FontWeight.Bold,
+            )
+        }
     }
 }
 
@@ -175,6 +177,7 @@ fun FastingDayCard(
         SanctumTheme.colors.outlineVariant.copy(alpha = 0.4f)
     }
 
+    // ponytail: custom shell (not SanctumCard) because the border/background encode completion state
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -185,10 +188,12 @@ fun FastingDayCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
-                    val nextStatus = if (isCompleted) null else FastingStatus.COMPLETED
-                    onStatusChange(nextStatus)
-                }
+                .toggleable(
+                    value = isCompleted,
+                    role = Role.Checkbox,
+                    onClickLabel = if (isCompleted) "Mark day ${record.dayOfRamadan} not fasted" else "Mark day ${record.dayOfRamadan} fasted",
+                    onValueChange = { checked -> onStatusChange(if (checked) FastingStatus.COMPLETED else null) },
+                )
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -208,21 +213,24 @@ fun FastingDayCard(
                 }
             }
 
-            Icon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = "Edit Notes",
-                tint = SanctumTheme.colors.textSecondary.copy(alpha = 0.6f),
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable { expanded = !expanded },
-            )
+            IconButton(
+                onClick = { expanded = !expanded },
+                modifier = Modifier.size(48.dp),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Edit notes",
+                    tint = SanctumTheme.colors.textSecondary.copy(alpha = 0.6f),
+                    modifier = Modifier.size(24.dp),
+                )
+            }
 
             Spacer(modifier = Modifier.width(16.dp))
 
             if (isCompleted) {
                 Icon(
                     imageVector = Icons.Default.CheckCircle,
-                    contentDescription = "Status",
+                    contentDescription = null,
                     tint = SanctumTheme.colors.brand,
                     modifier = Modifier.size(28.dp),
                 )
@@ -237,26 +245,14 @@ fun FastingDayCard(
         }
 
         if (expanded || record.notes.isNotEmpty()) {
-            OutlinedTextField(
+            SanctumTextField(
                 value = record.notes,
                 onValueChange = onNotesChange,
-                placeholder = {
-                    Text(
-                        "Add a reflection...",
-                        color = SanctumTheme.colors.textSecondary.copy(alpha = 0.5f),
-                    )
-                },
+                label = "Reflection",
+                singleLine = false,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-                textStyle = SanctumTheme.typography.bodyMedium.copy(color = SanctumTheme.colors.textPrimary),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    backgroundColor = SanctumTheme.colors.surface,
-                    unfocusedBorderColor = SanctumTheme.colors.outlineVariant.copy(alpha = 0.4f),
-                    focusedBorderColor = SanctumTheme.colors.brand,
-                ),
-                shape = RoundedCornerShape(12.dp),
-                minLines = 2,
             )
         }
     }
