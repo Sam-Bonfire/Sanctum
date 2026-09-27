@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.layer.drawLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.rememberGraphicsLayer
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -183,10 +185,12 @@ class ShareVerseScreen(
                                             color = if (selectedBackground == preset) SanctumTheme.colors.brand else Color.Transparent,
                                             shape = CircleShape,
                                         )
+                                        .semantics {
+                                            contentDescription = "Background option ${index + 1}"
+                                        }
                                         .selectable(
                                             selected = selectedBackground == preset,
                                             role = Role.RadioButton,
-                                            onClickLabel = "Background option ${index + 1}",
                                             onClick = { selectedBackground = preset },
                                         ),
                                 )

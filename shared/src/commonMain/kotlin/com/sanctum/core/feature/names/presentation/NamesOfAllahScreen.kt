@@ -44,6 +44,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
+import com.sanctum.core.core.designsystem.theme.onBrand
 import com.sanctum.core.feature.names.domain.DivineName
 
 @Composable

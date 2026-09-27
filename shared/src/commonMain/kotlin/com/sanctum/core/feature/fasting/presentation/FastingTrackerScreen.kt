@@ -23,6 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -188,10 +190,16 @@ fun FastingDayCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .semantics {
+                    contentDescription = if (isCompleted) {
+                        "Day ${record.dayOfRamadan} fasted. Activate to unmark."
+                    } else {
+                        "Day ${record.dayOfRamadan} not fasted. Activate to mark fasted."
+                    }
+                }
                 .toggleable(
                     value = isCompleted,
                     role = Role.Checkbox,
-                    onClickLabel = if (isCompleted) "Mark day ${record.dayOfRamadan} not fasted" else "Mark day ${record.dayOfRamadan} fasted",
                     onValueChange = { checked -> onStatusChange(if (checked) FastingStatus.COMPLETED else null) },
                 )
                 .padding(16.dp),

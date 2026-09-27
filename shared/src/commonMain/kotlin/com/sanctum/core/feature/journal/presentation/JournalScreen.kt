@@ -87,7 +87,7 @@ fun JournalEntryItem(entry: JournalEntry, onClick: () -> Unit) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Reflecting on verse ${entry.verseId}",
-                    fontSize = 12.sp,
+                    style = SanctumTheme.typography.bodySmall,
                     color = SanctumTheme.colors.brand,
                 )
             }

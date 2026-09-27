@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sanctum.core.core.design.LocalWhiteLabelConfig
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
+import com.sanctum.core.core.designsystem.theme.onBrand
 import com.sanctum.core.feature.reading.domain.isVisibleFor
 import com.sanctum.core.feature.reading.domain.visibleFor
 
@@ -221,10 +222,16 @@ fun EnrolledPlanCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
+                    .semantics {
+                        contentDescription = if (isDone) {
+                            "Reading ${index + 1} done. Activate to unmark."
+                        } else {
+                            "Reading ${index + 1} not done. Activate to mark done."
+                        }
+                    }
                     .toggleable(
                         value = isDone,
                         role = Role.Checkbox,
-                        onClickLabel = if (isDone) "Mark reading ${index + 1} not done" else "Mark reading ${index + 1} done",
                         onValueChange = { onToggleCheckpoint(key, it) },
                     )
                     .padding(vertical = 8.dp),
