@@ -108,7 +108,7 @@ fun DuasCatalogScreen(viewModel: DuasCatalogViewModel) {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
                                     text = "DEVOTIONAL PRAYERS",
-                                    fontSize = 11.sp,
+                                    style = SanctumTheme.typography.labelSmall,
                                     color = SanctumTheme.colors.brand,
                                     fontWeight = FontWeight.Bold,
                                     letterSpacing = 3.sp,
@@ -116,10 +116,9 @@ fun DuasCatalogScreen(viewModel: DuasCatalogViewModel) {
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text(
                                     text = pageTitle,
-                                    fontSize = 28.sp,
+                                    style = SanctumTheme.typography.headlineMedium,
                                     color = SanctumTheme.colors.textPrimary,
                                     fontWeight = FontWeight.Medium,
-                                    fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
                                     letterSpacing = 2.sp,
                                     textAlign = TextAlign.Center,
                                 )

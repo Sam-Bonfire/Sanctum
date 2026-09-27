@@ -239,7 +239,7 @@ fun ScriptureReaderScreen(
                     // Font Decrease
                     IconButton(
                         onClick = { fontSizeMultiplier = (fontSizeMultiplier - 0.1f).coerceIn(0.8f, 1.6f) },
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.size(48.dp),
                     ) {
                         Text("-A", fontWeight = FontWeight.Bold, color = SanctumTheme.colors.textSecondary, fontSize = 12.sp)
                     }
@@ -258,7 +258,7 @@ fun ScriptureReaderScreen(
                     // Font Increase
                     IconButton(
                         onClick = { fontSizeMultiplier = (fontSizeMultiplier + 0.1f).coerceIn(0.8f, 1.6f) },
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.size(48.dp),
                     ) {
                         Text("+A", fontWeight = FontWeight.Bold, color = SanctumTheme.colors.textSecondary, fontSize = 14.sp)
                     }
@@ -268,7 +268,7 @@ fun ScriptureReaderScreen(
                     // Audio Player Toggle
                     IconButton(
                         onClick = { isPlayingAudio = !isPlayingAudio },
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.size(48.dp),
                     ) {
                         Icon(
                             imageVector = if (isPlayingAudio) Icons.Default.PlayArrow else Icons.Default.Notifications,
@@ -282,7 +282,7 @@ fun ScriptureReaderScreen(
                         Spacer(modifier = Modifier.width(16.dp))
                         IconButton(
                             onClick = { showTransliteration = !showTransliteration },
-                            modifier = Modifier.size(32.dp),
+                            modifier = Modifier.size(48.dp),
                         ) {
                             Text(
                                 text = "T",
@@ -297,7 +297,7 @@ fun ScriptureReaderScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         IconButton(
                             onClick = { tajweedEnabled = !tajweedEnabled },
-                            modifier = Modifier.size(32.dp),
+                            modifier = Modifier.size(48.dp),
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.List,
@@ -310,7 +310,7 @@ fun ScriptureReaderScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         IconButton(
                             onClick = { showTajweedLegend = true },
-                            modifier = Modifier.size(32.dp),
+                            modifier = Modifier.size(48.dp),
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Info,

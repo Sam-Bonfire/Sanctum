@@ -5,6 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
+
+/** Content color for elements drawn on [SanctumColors.brand], chosen by luminance. */
+val SanctumColors.onBrand: Color
+    get() = if (brand.luminance() > 0.5f) Color(0xFF121212) else Color.White
 
 class SanctumColors(
     brand: Color,

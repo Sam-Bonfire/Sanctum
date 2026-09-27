@@ -2,8 +2,8 @@ package com.sanctum.core.feature.share.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -20,6 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.layer.drawLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.rememberGraphicsLayer
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -44,6 +47,7 @@ class ShareVerseScreen(
         val shareController = remember { ShareController() }
         val graphicsLayer = rememberGraphicsLayer()
 
+        // ponytail: artwork presets stay hardcoded; they are share-image art, not theme surfaces
         val backgroundPresets = listOf(
             listOf(Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)),
             listOf(Color(0xFF1CB5E0), Color(0xFF000851)),
@@ -170,10 +174,10 @@ class ShareVerseScreen(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             modifier = Modifier.fillMaxWidth(),
                         ) {
-                            backgroundPresets.forEach { preset ->
+                            backgroundPresets.forEachIndexed { index, preset ->
                                 Box(
                                     modifier = Modifier
-                                        .size(40.dp)
+                                        .size(48.dp)
                                         .clip(CircleShape)
                                         .background(Brush.linearGradient(preset))
                                         .border(
@@ -181,7 +185,14 @@ class ShareVerseScreen(
                                             color = if (selectedBackground == preset) SanctumTheme.colors.brand else Color.Transparent,
                                             shape = CircleShape,
                                         )
-                                        .clickable { selectedBackground = preset },
+                                        .semantics {
+                                            contentDescription = "Background option ${index + 1}"
+                                        }
+                                        .selectable(
+                                            selected = selectedBackground == preset,
+                                            role = Role.RadioButton,
+                                            onClick = { selectedBackground = preset },
+                                        ),
                                 )
                             }
                         }

@@ -319,14 +319,14 @@ fun SettingsScreen(
                                 onClick = onBackupClick,
                                 modifier = Modifier.weight(1f).padding(end = 8.dp),
                             ) {
-                                Text(text = "Backup Now", fontSize = 12.sp)
+                                Text(text = "Backup Now", style = SanctumTheme.typography.labelLarge)
                             }
 
                             SanctumOutlinedButton(
                                 onClick = onRestoreClick,
                                 modifier = Modifier.weight(1f).padding(start = 8.dp),
                             ) {
-                                Text(text = "Restore Data", fontSize = 12.sp)
+                                Text(text = "Restore Data", style = SanctumTheme.typography.labelLarge)
                             }
                         }
                     }

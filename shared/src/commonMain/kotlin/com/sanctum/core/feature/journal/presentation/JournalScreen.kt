@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.sanctum.core.core.designsystem.components.SanctumCard
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.journal.domain.JournalEntry
 
@@ -45,8 +45,8 @@ fun JournalScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+                .padding(horizontal = SanctumTheme.spacing.md),
+            verticalArrangement = Arrangement.spacedBy(SanctumTheme.spacing.sm),
         ) {
             items(uiState.entries) { entry ->
                 JournalEntryItem(
@@ -60,28 +60,25 @@ fun JournalScreen(
 
 @Composable
 fun JournalEntryItem(entry: JournalEntry, onClick: () -> Unit) {
-    androidx.compose.material.Card(
+    SanctumCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick),
-        backgroundColor = SanctumTheme.colors.surface,
-        elevation = 2.dp,
+        contentPadding = PaddingValues(16.dp),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Text(
                 text = entry.title.ifEmpty { "Untitled" },
-                fontSize = 18.sp,
+                style = SanctumTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 color = SanctumTheme.colors.textPrimary,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = entry.content,
-                fontSize = 14.sp,
+                style = SanctumTheme.typography.bodyMedium,
                 color = SanctumTheme.colors.textSecondary,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
@@ -90,7 +87,7 @@ fun JournalEntryItem(entry: JournalEntry, onClick: () -> Unit) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "Reflecting on verse ${entry.verseId}",
-                    fontSize = 12.sp,
+                    style = SanctumTheme.typography.bodySmall,
                     color = SanctumTheme.colors.brand,
                 )
             }

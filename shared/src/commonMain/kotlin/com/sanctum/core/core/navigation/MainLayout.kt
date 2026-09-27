@@ -24,6 +24,11 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.sanctum.core.core.design.LocalWhiteLabelConfig
@@ -105,6 +110,7 @@ fun MainLayout(
                     config.navItems.forEach { navItem ->
                         NavItem(
                             icon = navItem.icon,
+                            label = navItem.label,
                             isSelected = currentScreenId == navItem.id,
                             activeColor = config.primaryColor,
                             onClick = { onNavigate(navItem.id) },
@@ -119,6 +125,7 @@ fun MainLayout(
 @Composable
 fun NavItem(
     icon: ImageVector,
+    label: String,
     isSelected: Boolean,
     activeColor: Color,
     onClick: () -> Unit,
@@ -134,9 +141,16 @@ fun NavItem(
         modifier = Modifier
             .width(52.dp)
             .height(52.dp)
+            .semantics {
+                contentDescription = label
+                selected = isSelected
+                role = Role.Tab
+            }
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
+                role = Role.Tab,
+                onClickLabel = label,
                 onClick = onClick,
             ),
         horizontalAlignment = Alignment.CenterHorizontally,

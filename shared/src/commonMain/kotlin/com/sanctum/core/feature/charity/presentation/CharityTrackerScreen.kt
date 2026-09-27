@@ -179,6 +179,7 @@ fun CharityTrackerScreen(
     if (showAddDialog || recordToEdit != null) {
         val editing = recordToEdit
         var amount by remember { mutableStateOf(editing?.amount?.formatMinor() ?: "") }
+        var amountError by remember { mutableStateOf(false) }
         var category by remember { mutableStateOf(editing?.categoryId ?: CharityCategory.GENERAL) }
         var notes by remember { mutableStateOf(editing?.privateNotes ?: "") }
         var showCategoryDropdown by remember { mutableStateOf(false) }
@@ -193,8 +194,13 @@ fun CharityTrackerScreen(
                 Column {
                     SanctumTextField(
                         value = amount,
-                        onValueChange = { amount = it },
-                        placeholder = "Amount",
+                        onValueChange = {
+                            amount = it
+                            amountError = false
+                        },
+                        label = "Amount",
+                        isError = amountError,
+                        supportingText = if (amountError) "Enter a valid amount greater than zero." else "",
                     )
                     Spacer(modifier = Modifier.height(8.dp))
 
@@ -231,7 +237,7 @@ fun CharityTrackerScreen(
             },
             confirmButton = {
                 SanctumPrimaryButton(onClick = {
-                    val parsedAmount = amount.parseMinorUnits()
+                    val parsedAmount = amount.parseMinorUnits()?.takeIf { it > 0 }
                     if (parsedAmount != null) {
                         val current = editing
                         if (current != null) {
@@ -241,6 +247,8 @@ fun CharityTrackerScreen(
                         }
                         showAddDialog = false
                         recordToEdit = null
+                    } else {
+                        amountError = true
                     }
                 }) {
                     Text("Save")
@@ -259,6 +267,7 @@ fun CharityTrackerScreen(
 
     if (showGoalDialog) {
         var goalAmount by remember { mutableStateOf(uiState.summary.goalAmount.formatMinor()) }
+        var goalError by remember { mutableStateOf(false) }
 
         AlertDialog(
             onDismissRequest = { showGoalDialog = false },
@@ -266,16 +275,23 @@ fun CharityTrackerScreen(
             text = {
                 SanctumTextField(
                     value = goalAmount,
-                    onValueChange = { goalAmount = it },
-                    placeholder = "Goal Amount",
+                    onValueChange = {
+                        goalAmount = it
+                        goalError = false
+                    },
+                    label = "Goal Amount",
+                    isError = goalError,
+                    supportingText = if (goalError) "Enter a valid amount greater than zero." else "",
                 )
             },
             confirmButton = {
                 SanctumPrimaryButton(onClick = {
-                    val parsed = goalAmount.parseMinorUnits()
+                    val parsed = goalAmount.parseMinorUnits()?.takeIf { it > 0 }
                     if (parsed != null) {
                         onSetGoal(parsed)
                         showGoalDialog = false
+                    } else {
+                        goalError = true
                     }
                 }) {
                     Text("Save")

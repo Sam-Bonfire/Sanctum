@@ -3,10 +3,8 @@ package com.sanctum.core.feature.journal.presentation
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -19,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.sanctum.core.core.designsystem.components.SanctumTextField
 import com.sanctum.core.core.designsystem.theme.SanctumTheme
 import com.sanctum.core.feature.journal.domain.JournalEntry
 
@@ -80,30 +79,20 @@ fun JournalDetailScreen(
                     modifier = Modifier.padding(bottom = 8.dp),
                 )
             }
-            OutlinedTextField(
+            SanctumTextField(
                 value = title,
                 onValueChange = { title = it },
-                label = { Text("Title") },
-                modifier = Modifier.fillMaxWidth(),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    textColor = SanctumTheme.colors.textPrimary,
-                    focusedBorderColor = SanctumTheme.colors.brand,
-                    cursorColor = SanctumTheme.colors.brand,
-                ),
+                label = "Title",
             )
             Spacer(modifier = Modifier.height(16.dp))
-            OutlinedTextField(
+            SanctumTextField(
                 value = content,
                 onValueChange = { content = it },
-                label = { Text("Your reflection...") },
+                label = "Your reflection...",
+                singleLine = false,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    textColor = SanctumTheme.colors.textPrimary,
-                    focusedBorderColor = SanctumTheme.colors.brand,
-                    cursorColor = SanctumTheme.colors.brand,
-                ),
             )
         }
     }

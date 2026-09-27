@@ -1,10 +1,14 @@
 package com.sanctum.core.core.designsystem.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.ExperimentalMaterialApi
@@ -35,49 +39,76 @@ fun SanctumTextField(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     trailingIcon: @Composable (() -> Unit)? = null,
+    label: String = "",
+    isError: Boolean = false,
+    supportingText: String = "",
 ) {
     val backgroundColor = SanctumTheme.colors.background // Beige/off-white fallback
+    val shape = RoundedCornerShape(12.dp)
 
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(backgroundColor),
-        textStyle = SanctumTheme.typography.bodyLarge.copy(color = SanctumTheme.colors.textPrimary),
-        cursorBrush = SolidColor(SanctumTheme.colors.brand),
-        singleLine = singleLine,
-        enabled = enabled,
-        visualTransformation = visualTransformation,
-        interactionSource = interactionSource,
-        decorationBox = { innerTextField ->
-            TextFieldDefaults.TextFieldDecorationBox(
-                value = value,
-                visualTransformation = visualTransformation,
-                innerTextField = innerTextField,
-                placeholder = {
-                    Text(
-                        text = placeholder,
-                        style = SanctumTheme.typography.bodyLarge,
-                        color = SanctumTheme.colors.textSecondary,
-                    )
-                },
-                trailingIcon = trailingIcon,
-                singleLine = singleLine,
-                enabled = enabled,
-                interactionSource = interactionSource,
-                contentPadding = PaddingValues(16.dp),
-                colors = TextFieldDefaults.textFieldColors(
-                    backgroundColor = backgroundColor,
-                    focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
-                    unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
-                    disabledIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
-                    cursorColor = SanctumTheme.colors.brand,
-                ),
+    Column(modifier = modifier) {
+        if (label.isNotEmpty()) {
+            Text(
+                text = label,
+                style = SanctumTheme.typography.labelMedium,
+                color = SanctumTheme.colors.textSecondary,
             )
-        },
-    )
+            Spacer(modifier = Modifier.height(4.dp))
+        }
+        BasicTextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(shape)
+                .background(backgroundColor)
+                .border(
+                    width = if (isError) 1.dp else 0.dp,
+                    color = if (isError) SanctumTheme.colors.error else androidx.compose.ui.graphics.Color.Transparent,
+                    shape = shape,
+                ),
+            textStyle = SanctumTheme.typography.bodyLarge.copy(color = SanctumTheme.colors.textPrimary),
+            cursorBrush = SolidColor(SanctumTheme.colors.brand),
+            singleLine = singleLine,
+            enabled = enabled,
+            visualTransformation = visualTransformation,
+            interactionSource = interactionSource,
+            decorationBox = { innerTextField ->
+                TextFieldDefaults.TextFieldDecorationBox(
+                    value = value,
+                    visualTransformation = visualTransformation,
+                    innerTextField = innerTextField,
+                    placeholder = {
+                        Text(
+                            text = placeholder,
+                            style = SanctumTheme.typography.bodyLarge,
+                            color = SanctumTheme.colors.textSecondary,
+                        )
+                    },
+                    trailingIcon = trailingIcon,
+                    singleLine = singleLine,
+                    enabled = enabled,
+                    interactionSource = interactionSource,
+                    contentPadding = PaddingValues(16.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        backgroundColor = backgroundColor,
+                        focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                        unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                        disabledIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                        cursorColor = SanctumTheme.colors.brand,
+                    ),
+                )
+            },
+        )
+        if (supportingText.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = supportingText,
+                style = SanctumTheme.typography.bodySmall,
+                color = if (isError) SanctumTheme.colors.error else SanctumTheme.colors.textSecondary,
+            )
+        }
+    }
 }
 
 @Composable
